@@ -17,14 +17,14 @@
    <td>${emp.name}</td>  
    <td>${emp.salary}</td>  
    <td>${emp.designation}</td>  
-   <td><a href="/study-server-spring-mvc/deleteemp/${emp.id}">Delete</a></td>  
-   <td><a href="/study-server-spring-mvc/editemp/${emp.id}">Update</a></td>  
+   <td><a href="/learner-springmvc-mybatis/deleteemp/${emp.id}">Delete</a></td>  
+   <td><a href="/learner-springmvc-mybatis/editemp/${emp.id}">Update</a></td>  
    </tr>  
    </c:forEach>  
 </table>
 <br/>
-<a href="/study-server-spring-mvc/viewemp/1">1</a>   
-<a href="/study-server-spring-mvc/viewemp/2">2</a>   
- <a href="/study-server-spring-mvc/viewemp/3">3</a> 
+<a href="/learner-springmvc-mybatis/viewemp/1">1</a>   
+<a href="/learner-springmvc-mybatis/viewemp/2">2</a>   
+ <a href="/learner-springmvc-mybatis/viewemp/3">3</a> 
 </body>
 </html>

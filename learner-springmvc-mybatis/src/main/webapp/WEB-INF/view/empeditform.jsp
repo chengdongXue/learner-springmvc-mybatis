@@ -11,7 +11,7 @@
 <body>
 
  <h1>Edit Employee</h1>
- <form:form method="POST" action="/study-server-spring-mvc/editsave">
+ <form:form method="POST" action="/learner-springmvc-mybatis/editsave">
   <table>
    <tr>
     <td></td>
