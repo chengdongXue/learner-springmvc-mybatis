@@ -1,24 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<body style="width:100%;height:auto;">
-<h2>Hello World!</h2>
-<%= java.util.Calendar.getInstance().getTime() %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <meta name="apple-mobile-web-app-title" content="english bady" />
+  <meta name="application-name" content="english bady" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <script type="text/javascript" src="resources/js/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+      // getComboListById();
+  });
+  
+  function getComboListById() {
+      $.ajax({
+        type:"GET",
+        url: "/learner-springmvc-mybatis/init",
+        //dataType: "json",
+        //data:JSON.stringify(params),
+        //contentType: "application/json; charset=UTF-8",
+        success: function(json_data) {
+          /* if(json_data){
+              setupComboList(selector, json_data , defaultLabel );
+               if($.isFunction(jQuery.fn.selectLoad)){
+                   $('#'+selector).selectLoad();
+               }
+          } */
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            alert("通信ERROR。");
+        }
+      });
+  }
+  
+  </script>
+</head>
+<body>
+dfdfdf
 <a href="showEmpList?id=1">click welcome</a>
-
-<form action="login" method="post">
- <div style="position:relative;overflow:hidden;">
-   <input type="text" id="userName" name="userName">
-   <input type="password" id="password" name="password">
-   <input  type="submit" value="login"></input >
- </div>
-</form>
-
-<a href="employeeform">Add Employee</a> 
- 
-<a href="viewemp/1">View Employees</a>
-
-<a href="uploadform">Upload Image</a>  
-
 </body>
 </html>

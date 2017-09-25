@@ -17,25 +17,26 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="Pragma" content="no-cache">
   
-  <link rel="icon" href="/view/lib/favicon.ico">
-  <link rel="apple-touch-icon" href="/view/lib/yarukey_favorite.png"/>
+  <link rel="icon" href="resources/favicon.ico">
+  <link rel="apple-touch-icon" href="resources/yarukey_favorite.png"/>
 
-  <spring:url value="/view/lib/js" var="publicResourceJsRoot"/>
-  <spring:url value="/view/lib/img" var="publicResourceImgRoot"/>
+  <spring:url value="resources/js" var="publicResourceJsRoot"/>
+  <spring:url value="resources/img" var="publicResourceImgRoot"/>
 
    <!-- Bootstrap css -->
    <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-   <link rel="stylesheet" type="text/css" href="/view/lib/css/common.css?20170925_01" media="all" />
+   <link rel="stylesheet" type="text/css" href="resources/css/common.css?20170925_01" media="all" />
   
   <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
   <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="${publicResourceJsRoot}/lms.common.js?20170925_01"></script>
+  <%-- <script type="text/javascript" src="${publicResourceJsRoot}/lms.common.js?20170925_01"></script> --%>
   
 <title>Login Page</title>
 </head>
 <body>
   <div id="wrapperAll">
+        sdfsdfsdff
   </div>
 </body>
 </html>

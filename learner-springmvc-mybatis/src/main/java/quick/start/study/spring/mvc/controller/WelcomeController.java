@@ -1,11 +1,16 @@
 package quick.start.study.spring.mvc.controller;
+
 import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import quick.start.study.spring.business.entity.Employee;
 import quick.start.study.spring.business.service.IEmpService;
 
@@ -16,6 +21,12 @@ public class WelcomeController {
     @Resource
     private IEmpService empService;
 
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    public String home(Model model) {
+        model.addAttribute("str", "Victor.Xue");
+        return "main/login";
+    }
+
     @RequestMapping("/showEmpList")
     public String showEmpList(HttpServletRequest request, Model model) {
         int userId = Integer.parseInt(request.getParameter("id"));
@@ -23,5 +34,5 @@ public class WelcomeController {
         model.addAttribute("list", user);
         return "viewemp";
     }
-    
+
 }
