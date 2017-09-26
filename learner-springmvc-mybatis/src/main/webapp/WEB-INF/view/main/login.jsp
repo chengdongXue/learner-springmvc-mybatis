@@ -16,28 +16,51 @@
   <meta http-equiv="Content-Script-Type" content="text/javascript">
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="Pragma" content="no-cache">
-  
   <link rel="icon" href="resources/favicon.ico">
   <link rel="apple-touch-icon" href="resources/yarukey_favorite.png"/>
-
   <spring:url value="resources/js" var="publicResourceJsRoot"/>
   <spring:url value="resources/img" var="publicResourceImgRoot"/>
-
    <!-- Bootstrap css -->
    <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-   <link rel="stylesheet"  href="resources/css/common.css?20170925_01" media="all" />
-   <link rel="stylesheet"  href="resources/css/login.css?20170925_01" media="all" />
-  
+ <link rel="stylesheet"  href="resources/css/login.css?20170925_01" media="all" />
   <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
   <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
-  <%-- <script type="text/javascript" src="${publicResourceJsRoot}/lms.common.js?20170925_01"></script> --%>
-  
 <title>Login Page</title>
 </head>
 <body>
-  <div id="wrapperAll">
-      ${userName }
+  <div class="container">
+      <img class="login img-responsive " src="resources/img/login/bg1.gif">
+      <img  src="resources/yarukey_favorite.png" class="liltle_bg">
+      <form class="form-horizontal">
+         <div class="form-group">
+           <label for="inputEmail3" class="col-sm-2 control-label">UserName</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="inputEmail3" placeholder="Please input UserName">
+           </div>
+         </div>
+         <div class="form-group">
+           <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+           <div class="col-sm-10">
+             <input type="password" class="form-control" id="inputPassword3" placeholder="Please input PassWord">
+           </div>
+         </div>
+         <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <div class="checkbox">
+               <label>
+                 <input type="checkbox"> Remember me
+                 
+               </label>
+             </div>
+           </div>
+         </div>
+         <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <button type="submit" class="btn btn-default">Sign in</button>
+           </div>
+         </div>
+      </form>
   </div>
 </body>
 </html>
