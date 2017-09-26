@@ -1,0 +1,1219 @@
+@charset "utf-8";
+/*     
+edit history
+20150522 by AO ver 0.07
+20150521 by AO ver 0.06
+20150520 by AO ver 0.05 
+20150515 by AO ver 0.04 
+*/
+
+/* directory ////
+
+no.01 reset
+no.02 全体 
+no.03 for adjustment
+no.04 parts
+no.05 form
+no.06 selectBox
+no.07 table
+no.08 added recent
+
+*/
+
+/* no.01 reset  ----------------------------------------------------------- */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, *, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	font-style: none;
+	font-weight:normal;
+	text-align:left;
+	list-style: none;
+}
+input[type="text"], input[type="search"], input[type="number"], input[type="password"], textarea, button, textarea, select, option {
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	border-radius: 0;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+input[type="submit"],input[type="button"] {
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+/* no.02 全体  ----------------------------------------------------------- */
+body {
+	font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+	color: #393939;
+	font-size:16px;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main {
+	display: block;
+}
+nav ul {
+	list-style: none;
+}
+a {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	background: transparent;
+	font-style:normal;
+	font-weight:normal;
+	color: #393939;
+} 
+a:active {
+	color: #9c9c9c;
+} 
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}  
+/* no.03 for adjustment ----------------------------------------------------------- */
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.mt10{margin-top: 10px !important;}
+.mt12{ margin-top: 12px !important; }
+.mt20{margin-top: 20px !important;}
+.mb10{margin-bottom: 10px !important;}
+.mb12{margin-bottom: 12px !important;}
+.mb20{margin-bottom: 20px !important;}
+.mb40{margin-bottom: 40px !important;}
+.ml10{margin-left: 10px !important;}
+.ml12{margin-left: 12px !important;}
+.ml20{margin-left: 20px !important;}
+.ml40{margin-left: 40px !important;}
+.mr10{margin-right: 10px !important;}
+.mr12{margin-right: 12px !important;}
+.mr20{margin-right: 20px !important;}
+.pt7{padding-top: 7px !important;}
+.pt10{padding-top: 10px !important;}
+.pt12{padding-top: 12px !important;}
+.pt20{padding-top: 20px !important;}
+.pb10{padding-bottom: 10px !important;}
+.pb12{padding-bottom: 12px !important;}
+.pb20{padding-bottom: 20px !important;}
+.pl10{padding-left: 10px !important;}
+.pl12{padding-left: 12px !important;}
+.pl20{padding-left: 20px !important;}
+.pl40{padding-left: 40px !important;}
+.pr10{padding-right: 10px !important;}
+.pr12{padding-right: 12px !important;}
+.pr20{padding-right: 20px !important;}
+.mt8{margin-top: 8px !important;}
+.mb8{margin-bottom: 8px !important;}
+.ml8{margin-left: 8px !important;}
+.mr8{margin-right: 8px !important;}　
+
+.displayNone{
+	display: none;
+}
+.TACenter {
+	text-align:center;
+}
+.TARight {
+	text-align:right;
+}
+.TALeft {
+  text-align:left;
+}
+/* no.04 parts ----------------------------------------------------------- */
+h3{
+	height: 28px;
+	border-left:8px solid #0f3e6a;
+	color:#0f3e6a;
+	font-size: 20px;
+	font-weight: bold;
+	padding-left:10px;
+	line-height: 28px;
+}
+.h3Wrapper {
+  list-style: none
+}
+.h3Wrapper li{
+  float:left;
+  display: table-cell;
+  vertical-align:middle;
+}
+.errorText{
+	color:#dd3939;
+	font-size: 14px;
+	line-height: 1.2em;
+	padding-left:1em;
+	text-indent:-1em;
+	display: inline-block;
+	*display: inline;
+}
+.errorText:before {
+	content:"※";
+}
+.errorTextAll{
+	background:url(../images/icon.png) no-repeat left -104px;
+	background-size:58px 233px;
+	-webkit-background-size:58px 233px;
+	-moz-background-size:58px 233px;
+	height: 24px;
+	padding-left: 28px;
+	color:#dd3939;
+	font-size: 14px;
+	line-height:22px;
+	margin-top: 3px;
+}
+.required {
+	color:#dd3939;
+	font-size: 14px;
+	line-height: 1em;
+	padding-left:5px;
+}
+input.errorInput {
+	background:#fef3f3;
+}
+/* no.05 form ----------------------------------------------------------- */
+/* 全体 */
+input, select {
+	vertical-align: middle;
+	font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+}
+/* placeholder */
+::-webkit-input-placeholder    {color: #a4a4a4}
+::-moz-placeholder    {color: #a4a4a4}
+:-moz-placeholder    {color: #a4a4a4}
+:-ms-input-placeholder    {color: #a4a4a4}
+
+/* focus */
+input[type="text"]:focus, input[type="search"]:focus, input[type="number"]:focus, input[type="password"]:focus, textarea:focus {
+	outline: none;
+	border:solid 2px #0093FF;
+}
+/* text box */
+input[type="text"],input[type="password"], input[type="search"],input[type="number"] {
+	border:solid 2px #e3e3e3;
+	border-radius: none;
+	width:300px;
+	height: 28px;
+	padding: 0 5px;
+	font-size:16px;
+	line-height: 32px; /*テキスト中央寄せ */
+}
+/* button */
+input[type="submit"], input[type="button"] {
+	background: #0f3e6a; 
+	color:#fff;
+	cursor:pointer;
+	height: 32px;
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px;
+}
+input[type="submit"]:disabled, input[type="button"]:disabled {
+    cursor: default;
+    -webkit-opacity: 1;
+}
+input[type="submit"]:enabled:active, input[type="button"]:enabled:active {
+	filter:alpha(opacity=85);
+	-moz-opacity: 0.85;
+    opacity: 0.85;
+}
+input.upload {
+	background:url(../images/btnIcon.png) no-repeat 15px top #0f3e6a;
+	background-size:19px 96px;
+	-webkit-background-size:19px 96px;
+	-moz-background-size:19px 96px;
+	width:155px;
+	padding-left: 45px;
+}
+input.download {
+	background:url(../images/btnIcon.png) no-repeat 15px -32px #0f3e6a;
+	background-size:19px 96px;
+	-webkit-background-size:19px 96px;
+	-moz-background-size:19px 96px;
+	width:155px;
+	padding-left: 45px;
+}
+input.delete {
+	background:url(../images/btnIcon.png) no-repeat 15px -64px #0f3e6a;
+	background-size:19px 96px;
+	-webkit-background-size:19px 96px;
+	-moz-background-size:19px 96px;
+	width:150px;
+	padding-left: 60px;
+}
+input.btn150 {
+	background: #0f3e6a; 
+	color:#fff;
+	cursor:pointer;
+	height: 32px;
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px;
+	width:150px;
+	text-align:center;
+}
+input.btn155 {
+	background: #0f3e6a; 
+	color:#fff;
+	cursor:pointer;
+	height: 32px;
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px;
+	width:155px;
+	text-align:center;
+}
+input.btn180 {
+	background: #0f3e6a; 
+	color:#fff;
+	cursor:pointer;
+	height: 32px;
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px;
+	width:180px;
+	text-align:center;
+}
+input.deleteButton{
+    border: 0px;
+    width: 29px;
+    height: 29px;
+    background:url(../images/icon.png) left top no-repeat;
+	background-size:58px 233px;
+	-webkit-background-size:58px 233px;
+	-moz-background-size:58px 233px;
+}
+input.addButton{
+    border: 0px;
+    width: 29px;
+    height: 29px;
+    background:url(../images/icon.png) -29px top no-repeat;
+	background-size:58px 233px;
+	-webkit-background-size:58px 233px;
+	-moz-background-size:58px 233px;
+}
+/* no.06 selectBox ----------------------------------------------------------- */
+
+/* Core CSS. Do not edit unless your sure */
+.easy-select-box{
+	display:inline-block;
+	position:relative;
+}
+.easy-select-box .esb-dropdown{
+	position:absolute;
+	top:100%;
+	left:0;
+	z-index:99;
+	display:none;
+}
+/* Default Presentation CSS. You can edit appearance here or create a custom class below */
+/* all */
+
+.selectBoxW102, .selectBoxW124, .selectBoxW172, .selectBoxW200, .selectBoxW224 {
+    height: 32px;
+}
+.selectBoxW102 select, .selectBoxW124 select, .selectBoxW172 select, .selectBoxW200 select, .selectBoxW224 select {
+    display: none;
+}
+.easy-select-box .esb-dropdown{
+  background: #fff;
+  border: 2px solid #e3e3e3;
+  border-top: 0;
+  display: none;
+  max-height: 210px;
+  overflow: auto;
+}
+
+.easy-select-box .esb-item{
+  padding: 3px 13px;
+  background:#fff;
+	color:#393939;
+  cursor:default;
+}
+.easy-select-box .esb-item:hover{
+  background:#e3e3e3;
+	color:#393939;
+  text-decoration:none;
+}
+
+/* select box w102 */
+.selectBoxW102 {
+  width:102px;
+  background:url(../images/pulldown.gif) no-repeat 0 0;
+  background-size:224px 640px;
+  -webkit-background-size:224px 640px;
+  -moz-background-size:224px 640px;
+}
+.selectBoxW102 .easy-select-box{
+	width:102px;
+	text-align:left;
+	font-size:16px;
+	color:#0c2245;
+}
+.selectBoxW102 .easy-select-box .esb-displayer{
+	background:url(../images/pulldown.gif) no-repeat 0 0;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW102 .easy-select-box .esb-displayer-error{
+	background:#fef3f3 url(../images/pulldown.gif) no-repeat 0 0;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW102 .easy-select-box.disabled .esb-displayer,
+.selectBoxW102 .easy-select-box:hover.disabled .esb-displayer{
+	background-position: 0 -64px;
+}
+
+/* select box w124 */
+.selectBoxW124 {
+  width:124px;
+  background:url(../images/pulldown.gif) no-repeat 0 -128px;
+  background-size:224px 640px;
+  -webkit-background-size:224px 640px;
+  -moz-background-size:224px 640px;   
+}
+.selectBoxW124 .easy-select-box{
+	width:124px;
+	text-align:left;
+	font-size:16px;
+	color:#0c2245;
+}
+.selectBoxW124 .easy-select-box .esb-displayer{
+	background:url(../images/pulldown.gif) no-repeat 0 -128px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW124 .easy-select-box .esb-displayer-error{
+	background:#fef3f3 url(../images/pulldown.gif) no-repeat 0 -128px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW124 .easy-select-box.disabled .esb-displayer,
+.selectBoxW124 .easy-select-box:hover.disabled .esb-displayer{
+  background-position: 0 -192px;
+}
+
+/* select box w172 */
+.selectBoxW172 {
+  width:172px;
+  background:url(../images/pulldown.gif) no-repeat 0 -256px;
+  background-size:224px 640px;
+  -webkit-background-size:224px 640px;
+  -moz-background-size:224px 640px;   
+}
+.selectBoxW172 .easy-select-box{
+	width:172px;
+	text-align:left;
+	font-size:16px;
+	color:#0c2245;
+}
+.selectBoxW172 .easy-select-box .esb-displayer{
+	background:url(../images/pulldown.gif) no-repeat 0 -256px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW172 .easy-select-box .esb-displayer-error{
+	background:#fef3f3 url(../images/pulldown.gif) no-repeat 0 -256px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW172 .easy-select-box.disabled .esb-displayer,
+.selectBoxW172 .easy-select-box:hover.disabled .esb-displayer{
+  background-position: 0 -320px;
+}
+
+/* select box w200 */
+.selectBoxW200 {
+  width:200px;
+  background:url(../images/pulldown.gif) no-repeat 0 -384px;
+  background-size:224px 640px;
+  -webkit-background-size:224px 640px;
+  -moz-background-size:224px 640px;   
+}
+.selectBoxW200 .easy-select-box{
+	width:200px;
+	text-align:left;
+	font-size:16px;
+	color:#0c2245;
+}
+.selectBoxW200 .easy-select-box .esb-displayer{
+	background:url(../images/pulldown.gif) no-repeat 0 -384px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW200 .easy-select-box .esb-displayer-error{
+	background:#fef3f3 url(../images/pulldown.gif) no-repeat 0 -384px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW200 .easy-select-box.disabled .esb-displayer,
+.selectBoxW200 .easy-select-box:hover.disabled .esb-displayer{
+  background-position: 0 -448px;
+}
+
+/* select box w224 */
+.selectBoxW224 {
+  width:224px;
+  background:url(../images/pulldown.gif) no-repeat 0 -512px;
+  background-size:224px 640px;
+  -webkit-background-size:224px 640px;
+  -moz-background-size:224px 640px;   
+}
+.selectBoxW224 .easy-select-box{
+	width:224px;
+	text-align:left;
+	font-size:16px;
+	color:#0c2245;
+}
+.selectBoxW224 .easy-select-box .esb-displayer{
+	background:url(../images/pulldown.gif) no-repeat 0 -512px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW224 .easy-select-box .esb-displayer-error{
+	background:#fef3f3 url(../images/pulldown.gif) no-repeat 0 -512px;
+	background-size:224px 640px;
+	-webkit-background-size:224px 640px;
+	-moz-background-size:224px 640px;		
+	color:#393939;
+	padding-left:15px;
+	height:32px;
+	line-height:32px;
+	cursor: default;
+}
+.selectBoxW224 .easy-select-box.disabled .esb-displayer,
+.selectBoxW224 .easy-select-box:hover.disabled .esb-displayer{
+  background-position: 0 -576px;
+}
+
+/* select box Valiable */
+.selectBoxValiable {
+  height: 32px;
+}
+.selectBoxValiable .easy-select-box{
+  text-align:left;
+  font-size:16px;
+  color:#0c2245;
+  width: 100% !important;
+  background:url(../images/pulldown-arrow.gif) no-repeat 100% 0px;
+  background-size:36px 96px;
+  -webkit-background-size:36px 96px;
+  -moz-background-size:36px 96px;
+}
+.selectBoxValiable .easy-select-box .esb-dropdown {
+  width: calc(100% - 4px) !important;
+}
+.selectBoxValiable .easy-select-box .esb-displayer,
+.selectBoxValiable .easy-select-box .esb-displayer-error{
+  color:#393939;
+  padding-left:13px;
+  height:28px;
+  line-height:28px;
+  cursor: default;
+  border: 2px solid #e3e3e3;
+  border-right: 0;
+  padding-right: 0px !important;
+  margin-right: 36px;
+}
+.selectBoxValiable .easy-select-box .esb-displayer-error{
+  background-color: #fef3f3;
+}
+.selectBoxValiable .easy-select-box.disabled,
+.selectBoxValiable .easy-select-box:hover.disabled {
+  background-position: 100% -64px;
+}
+
+/* 「...」で省略 */
+.easy-select-box .esb-item, .easy-select-box .esb-displayer, .easy-select-box .esb-displayer-error {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+.easy-select-box .esb-displayer, .easy-select-box .esb-displayer-error {
+    padding-right: 35px;
+}
+
+/* no.07 table ----------------------------------------------------------- */
+th, td{
+	vertical-align: middle;
+}
+
+/* tableStyle1 */
+.tableStyle1 th	{
+	background:#e3e3e3;
+	font-size: 14px;
+}
+.tableStyle1 td	{
+	border-bottom: 2px solid #e3e3e3;
+}
+.tableStyle1 th, .tableStyle1 td{
+	height: 40px;
+}
+/* tableStyle2 */
+.tableStyle2 {
+  width: 1030px;
+  border-collapse: collapse;
+  border: solid 2px #e3e3e3;
+  line-height: 16px;
+
+}
+.tableStyle2 th{
+  border: solid 2px #e3e3e3;
+  padding-left: 10px;
+  vertical-align:middle;
+}
+.tableStyle2 td {
+  border: solid 2px #e3e3e3;
+  padding-left: 15px;
+  vertical-align:middle;
+}
+.tableStyle2 th {
+  background: #f9f9f9;
+  width: 140px;
+  height: 50px;
+  text-align: left;
+  white-space: nowrap;
+  color: #0f3e6a;
+  font-weight:bold;
+  line-height: 1.2em;
+}
+
+/* added on 05222015 --------------*/
+h4{
+    width: 90px;
+    height: 32px;
+    color:#0f3e6a;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 32px;
+    float: left;
+}
+/* tableStyle3 例：apt200 */
+.tableStyle3 th {
+  height: 40px;
+  font-size: 14px;
+  background:#e3e3e3;
+  border: 2px solid #fff;
+}
+.tableStyle3 td {
+  height: 25px;
+  background: #f9f9f9;
+  border: 2px solid #fff;
+}
+/* tableStyle4 例：apt630 */
+.tableStyle4 th {
+    height: 35px;
+    font-size: 14px;
+    text-align: center;
+    background:#e3e3e3;
+}
+.tableStyle4 th, .tableStyle4 td {
+    border: 1px solid #e3e3e3;
+}
+th.deleteBorderLeft, td.deleteBorderLeft{
+  border-left:0;
+}
+th.deleteBorderRight, td.deleteBorderRight {
+  border-right:0;
+}
+th.deleteBorderTop, td.deleteBorderTop{
+  border-top:0;
+}
+th.deleteBorderBottom, td.deleteBorderBottom {
+  border-bottom:0;
+}
+.fixedTable {
+    table-layout: fixed;
+}
+.wordLimit {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+.wordLimit2 {
+    display: inline-block;
+    *display: inline;
+}
+
+/* アイコン */
+input.exclamationSignButton {
+    border: 0px;
+    width: 23px;
+    height: 23px;
+    background:url(../images/icon.png) no-repeat left -104px;
+    background-size: 58px 233px;
+    -webkit-background-size: 58px 233px;
+    -moz-background-size: 58px 233px;
+}
+input.loginButton {
+    width: 235px;
+    height: 50px;
+    padding-left: 100px;
+    font-size: 20px;
+    background:url(../images/login.png) no-repeat 60px top #0f3e6a;
+    background-size: 19px 50px;
+    -webkit-background-size: 19px 50px;
+    -moz-background-size: 19px 50px;
+}
+input.previewButton {
+    border: 0px;
+    width: 30px;
+    height: 30px;
+    background: url(../images/icon.png) no-repeat left -153px;
+    background-size: 58px 233px;
+    -webkit-background-size: 58px 233px;
+    -moz-background-size: 58px 233px;
+    -webkit-border-radius: 0px; 
+    -moz-border-radius: 0px; 
+    border-radius: 0px;
+}
+input.updateButton {
+    width: 29px;
+    height: 29px;
+    color: #0f3e6a;
+    border: solid 2px #0f3e6a;
+    background: url(../images/icon.png) #FFF no-repeat 3px -188px;
+    background-size: 58px 233px;
+    -webkit-background-size: 58px 233px;
+    -moz-background-size: 58px 233px;
+}
+input.updateButton2 {
+    width: 100px;
+    height: 29px;
+    color: #0f3e6a;
+    padding-left: 30px;
+    border: solid 2px #0f3e6a;
+    background: url(../images/icon.png) no-repeat 3px -188px;
+    background-size: 58px 233px;
+    -webkit-background-size: 58px 233px;
+    -moz-background-size: 58px 233px;
+}
+input.leftArrowButton {
+    border: 0px;
+    width: 49px;
+    height: 49px;
+    background:url(../images/arrow.png) no-repeat left;
+    background-size: 97px 49px;
+    -webkit-background-size: 97px 49px;
+    -moz-background-size: 97px 49px;
+}
+input.rightArrowButton {
+    border: 0px;
+    width: 49px;
+    height: 49px;
+    background:url(../images/arrow.png) no-repeat right;
+    background-size: 97px 49px;
+    -webkit-background-size: 97px 49px;
+    -moz-background-size: 97px 49px;
+}
+/* 教科ボタンArea */
+ul.curriculumArea {
+    width: 668px;
+}
+ul.curriculumArea li {
+    float: left;
+}
+ul.curriculumArea input {
+    width: 120px;
+    height: 40px;
+    background: #fff;
+    border: solid 2px;
+    text-align: center;
+    font-size: 18px;
+}
+/* 算数ボタン */
+input.mathematics {
+    color: #2196F3;
+    border-color: #2196F3;
+}
+/* 国語ボタン */
+input.national {
+    color: #E91E63;
+    border-color: #E91E63;
+}
+/* 英語ボタン */
+input.english {
+    color: #9C27B0;
+    border-color: #9C27B0;
+}
+/* 美術ボタン */
+input.fineArts {
+    color: #673AB7;
+    border-color: #673AB7;
+}
+/* 音楽ボタン */
+input.music {
+    color: #009688;
+    border-color: #009688;
+}
+/* 理科ボタン */
+input.science {
+    color: #8BC34A;
+    border-color: #8BC34A;
+}
+/* 社会ボタン */
+input.society {
+    color: #FF9800;
+    border-color: #FF9800;
+}
+/* 技術ボタン */
+input.skill {
+    color: #FF5722;
+    border-color: #FF5722;
+}
+/* 家庭科ボタン */
+input.homemaking {
+    color: #795548;
+    border-color: #795548;
+}
+/* 学活ボタン */
+input.classActivity {
+    color: #607D8B;
+    border-color: #607D8B;
+}
+/* ボタンを選択する時 */
+.curriculumArea input.selected {
+    color: #fff;
+    background: #0293D6;
+    border-color: #0293D6;
+}
+
+/* 単元Area */
+ul.unitArea {
+    width: 1050px;
+}
+ul.unitArea li {
+    width: 198px;
+    height: 50px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #EBEBEB;
+    float: left;
+}
+ul.unitArea li a, ul.unitArea li a:hover {
+    width: 178px;
+    height: 38px;
+    display: inline-block;
+    *display: inline;
+    padding: 6px 10px;
+    color: #0f3e6a;
+    font-size: 16px;
+    line-height: 19px;
+    vertical-align: top;
+    text-decoration: none;
+}
+ul.unitArea li.selected a {
+    color: #fff;
+}
+
+/* タブ */
+.tabArea {
+    height: 48px;
+    border-bottom:8px solid #0f3e6a;
+    margin-left: -20px;
+    padding: 0px 20px 0px 30px;
+}
+.tabArea ul {
+    float: right;
+}
+.tabArea ul li {
+    float: left;
+    margin-right: 10px;
+}
+.tabArea ul li:last-child {
+    float: left;
+    margin-right: 0px;
+}
+.tabArea ul li input {
+    height: 48px;
+    color: #323c3c;
+    background: #e3e3e3;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius:5px 5px 0px 0px;
+}
+.tabArea ul li input.active {
+    color: #fff;
+    background: #0f3e6a;
+}
+.num2 {
+  width: 50px;
+  text-align: center;
+}
+.studentName2 {
+  width: 145px;
+  padding-left: 20px;
+}
+.resultSign {
+  width: 15px;
+}
+
+/* 凡例 */
+.legendArea {
+    width: 100%;
+    height: 19px;
+}
+.legendArea ul {
+    width: 100%;
+}
+.legendArea ul li {
+    height: 19px;
+    float: right;
+}
+/* 凡例カラー */
+/* クラス平均(AP-T-311) */
+.legendColor1, td.legendColor1 {
+    background: #C0EBF9;
+    color: #C0EBF9;
+}
+/* 青(AP-T-140, AP-T-311) */
+.legendColor2, td.legendColor2 {
+    background: #5596E6;
+    color: #5596E6;
+}
+/* 緑(AP-T-140, AP-T-311, AP-T-460) */
+.legendColor3, td.legendColor3 {
+    background: #BADE3D;
+    color: #BADE3D;
+}
+/* 赤(AP-T-140, AP-T-311, AP-T-460) */
+.legendColor4, td.legendColor4 {
+    background: #FF5050;
+    color: #FF5050;
+}
+/* 濃いピンク(AP-T-300) */
+.legendColor5, td.legendColor5 {
+    background: #FF80AB;
+    color: #FF80AB;
+}
+/* 薄ピンク(AP-T-140, AP-T-200, AP-T-300) */
+.legendColor6, td.legendColor6 {
+    background: #F8BBD0;
+    color: #F8BBD0;
+}
+/* 黄色(AP-T-140, AP-T-200) */
+.legendColor7, td.legendColor7 {
+    background: #F5F1B4;
+    color: #F5F1B4;
+}
+/* 濃い水色(AP-T-140, AP-T-200) */
+.legendColor8, td.legendColor8 {
+    background: #B6D9F4;
+    color: #B6D9F4;
+}
+/* 薄い水色(AP-T-140, AP-T-200, AP-T-300) */
+.legendColor9, td.legendColor9 {
+    background: #E3F2FD;
+    color: #E3F2FD;
+}
+/* 星印(AP-T-310) */
+.legendColor10, td.legendColor10 {
+    background: #FFEE00;
+    color: #FFEE00;
+}
+/* 日曜日(AP-T-310) */
+.legendColor11, td.legendColor11 {
+    background: #C2185B;
+    color: #C2185B;
+}
+/* 土曜日(AP-T-310) */
+.legendColor12, td.legendColor12 {
+    background: #1976D2;
+    color: #1976D2;
+}
+/* (AP-T-140, AP-T-311) */
+.legendColor13, td.legendColor13 {
+    background: #A4A4A4;
+    color: #A4A4A4;
+}
+/* ピンク(AP-T-140) */
+.legendColor14, td.legendColor14 {
+    background: #F5C4E5;
+    color: #F5C4E5;
+}
+/* (AP-T-300, AP-T-460) */
+.legendColor15, td.legendColor15 {
+    background: #E3E3E3;
+    color: #E3E3E3;
+}
+/* (AP-T-300) */
+.legendColor16, td.legendColor16 {
+    background: #CACACA;
+    color: #CACACA;
+}
+/* (AP-T-300) */
+.legendColor17, td.legendColor17 {
+    background: #F9F9F9;
+    color: #F9F9F9;
+}
+.legend {
+    width: 19px;
+    height: 19px;
+    line-height: 19px;
+   -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    display: inline-block;
+    *display: inline;
+}
+.legend2 {
+    width: 19px;
+    height: 19px;
+    font-size: 22px;
+    line-height: 19px;
+    font-weight: bold;
+    vertical-align: top;
+    background: none;
+}
+.legendWord {
+    font-size: 12px;
+    margin-left: 8px;
+    vertical-align: top;
+}
+
+/* グラフの日付 */
+/* 土曜日(AP-T-210, AP-T-310) */
+.graphSaturday {
+	color: #1976D2;
+}
+/* 日曜日/祝日(AP-T-210, AP-T-310) */
+.graphSunday {
+	color: #f80000;
+}
+
+/* グラフの日付に表示する星(AP-T-310) */
+.graphStar{
+	padding: 10px;
+	background-image: url('../images/star.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 25px 25px;
+}
+
+/* form ----------------------------------------------------------- */
+/* 全体 */
+input[type="radio"], input[type="checkbox"] {
+    visibility: inherit;
+    width: 0px;
+    height: 0px;
+}
+input[type="radio"]+label, input[type="checkbox"]+label {
+    margin: 0px;
+    line-height: 100%;
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+}
+input[type="checkbox"].checkbox + label {
+    min-width: 29px;
+    height: 26px;
+    line-height: 29px;
+    padding-left: 35px;
+    vertical-align: middle;
+    display: inline-block;
+    *display: inline;
+    background: url(../images/checkbox.png) no-repeat left -26px;
+    background-size: 29px 52px;
+    -webkit-background-size: 29px 52px;
+    -moz-background-size: 29px 52px;
+}
+input[type="checkbox"].checkbox:checked + label {
+    background-position: left top;
+}
+input[type="radio"]+label {
+    min-width: 19px;
+    height: 19px;
+    line-height: 19px;
+    padding-left: 30px;
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    background: url(../images/radiobutton.png) no-repeat left -19px;
+    background-size: 19px 38px;
+    -webkit-background-size: 19px 38px;
+    -moz-background-size: 19px 38px;
+}
+input[type="radio"]:checked+label {
+    background-position: left top;
+}
+input[type="radio"]:focus+label, input[type="checkbox"]:focus+label {
+    outline: none;
+    margin: -2px;
+    border:solid 2px #0093FF;
+}
+
+/* Checkbox flag */
+input[type=checkbox].flag + label {
+    width: 28px;
+    height: 28px;
+    background:url(../images/icon.png) no-repeat -28px -30px;
+    background-size: 58px 233px;
+    -webkit-background-size: 58px 233px;
+    -moz-background-size: 58px 233px;
+    cursor: pointer;
+}
+input[type=checkbox].flag[disabled] + label {
+    cursor: default;
+}
+input[type=checkbox].flag:checked + label {
+    background-position: left -30px;
+}
+/* Checkbox On Off */
+input[type=checkbox].onOff + label {
+    width: 77px;
+    height: 32px;
+    font-size: 12px;
+    background: #e3e3e3;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+input[type=checkbox].onOff:checked + label {
+    background: #0f3e6a;
+}
+input[type=checkbox].onOff + label:before {
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    color: #fff;
+}
+input[type=checkbox].onOff + label:after {
+    position: absolute;
+    top: 11px;
+    right: 10px;
+    color: #323c3c;
+}
+input[type=checkbox].onOff:not(:checked) + label:before {
+    content: "";
+}
+input[type=checkbox].onOff:not(:checked).ja + label:after {
+    content: "オフ";
+}
+input[type=checkbox].onOff:not(:checked).en + label:after {
+    content: "Off";
+}
+input[type=checkbox].onOff:checked + label:after {
+    content: "";
+}
+input[type=checkbox].onOff:checked.ja + label:before {
+    content: "オン";
+}
+input[type=checkbox].onOff:checked.en + label:before {
+    content: "On";
+}
+input[type=checkbox].onOff + label > i {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 1;
+  top: 6px;
+  background: #fff;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-border-radius: 5px; 
+  -moz-border-radius: 5px; 
+  border-radius: 5px;
+  cursor: pointer;
+}
+input[type=checkbox].onOff[disabled] + label > i {
+  cursor: default;
+}
+input[type=checkbox].onOff:checked + label > i {
+  left: calc(100% - 31px);
+}
+input[type=checkbox].onOff:not(:checked) + label > i {
+  left: 11px;
+}
+/********** ソートマーク **********************************/
+.sorter:after {
+  margin-left: 5px;
+  display: inline-block;
+  text-decoration: none !important;
+  height: 15px;
+  -ms-overflow-y: hidden;
+  vertical-align: top;
+}
+.sorter.asc:after {
+  content: '▲';
+}
+.sorter.desc:after {
+  content: '▼';
+}

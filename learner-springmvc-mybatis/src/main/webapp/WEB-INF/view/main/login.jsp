@@ -26,8 +26,8 @@
    <!-- Bootstrap css -->
    <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-   <link rel="stylesheet" type="text/css" href="resources/css/common.css?20170925_01" media="all" />
-   <link rel="stylesheet" type="text/css" href="resources/css/login.css" media="all" />
+   <link rel="stylesheet"  href="resources/css/common.css?20170925_01" media="all" />
+   <link rel="stylesheet"  href="resources/css/login.css?20170925_01" media="all" />
   
   <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
   <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
