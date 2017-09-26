@@ -8,8 +8,14 @@
                   http://www.springframework.org/schema/context    
                  http://www.springframework.org/schema/context/spring-context-3.1.xsd    
                     http://www.springframework.org/schema/mvc    
-                       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+                       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"> 
                        
+   <context:component-scan base-package="quick.start.study.spring" use-default-filters="false" >
+      <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+      <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+      <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+  </context:component-scan>
+  
  <!-- 引入配置文件 -->
  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
   <property name="location" value="classpath:jdbcConfig.properties" />
@@ -31,12 +37,6 @@
   <!-- 获取连接最大等待时间 -->
   <property name="maxWait" value="${maxWait}"></property>
  </bean>
-
- <context:component-scan base-package="quick.start.study.spring" use-default-filters="false" >
-      <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-      <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
-      <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-  </context:component-scan>
   
  <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -19,34 +19,34 @@
   <script type="text/javascript" src="resources/js/jquery.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function() {
-      // getComboListById();
+      window.location.href = '/learner-springmvc-mybatis/init';
   });
   
-  function getComboListById() {
+   function getComboListById() {
+       var params = {
+          "id":1,
+          "name":'Victr',
+          "salary":100.00,
+          "designation":'want to love for me'
+       };
       $.ajax({
-        type:"GET",
-        url: "/learner-springmvc-mybatis/init",
-        //dataType: "json",
-        //data:JSON.stringify(params),
-        //contentType: "application/json; charset=UTF-8",
-        success: function(json_data) {
-          /* if(json_data){
-              setupComboList(selector, json_data , defaultLabel );
-               if($.isFunction(jQuery.fn.selectLoad)){
-                   $('#'+selector).selectLoad();
-               }
-          } */
+        type:"POST",
+        url: "/learner-springmvc-mybatis/getAllEmployeeJson",
+        dataType: "json",
+        data:JSON.stringify(params),
+        contentType: "application/json; charset=UTF-8",
+        success: function(data) {
+          if(data){
+              console.log(data);
+          }
         },
         error: function(XMLHttpRequest, textStatus) {
             alert("通信ERROR。");
         }
       });
   }
-  
   </script>
 </head>
 <body>
-dfdfdf
-<a href="showEmpList?id=1">click welcome</a>
 </body>
 </html>
