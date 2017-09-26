@@ -29,20 +29,20 @@
 <title>Login Page</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" >
       <img class="login img-responsive " src="resources/img/login/bg1.gif">
       <img  src="resources/yarukey_favorite.png" class="liltle_bg">
-      <form class="form-horizontal">
+      <form:form class="form-horizontal" method="post" action="/learner-springmvc-mybatis/initLogin">
          <div class="form-group">
            <label for="inputEmail3" class="col-sm-2 control-label">UserName</label>
            <div class="col-sm-10">
-             <input type="text" class="form-control" id="inputEmail3" placeholder="Please input UserName">
+             <input type="text" class="form-control" id="userName" name="userName" placeholder="Please input UserName">
            </div>
          </div>
          <div class="form-group">
            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
            <div class="col-sm-10">
-             <input type="password" class="form-control" id="inputPassword3" placeholder="Please input PassWord">
+             <input type="password" class="form-control"  id="password" name="password"  placeholder="Please input PassWord">
            </div>
          </div>
          <div class="form-group">
@@ -60,7 +60,8 @@
              <button type="submit" class="btn btn-default">Sign in</button>
            </div>
          </div>
-      </form>
+     </form:form>
+     <h4 style="color:red;font-weight:bold;position: absolute;bottom: 80px;left: 420px;">${message }</h4>
   </div>
 </body>
 </html>
