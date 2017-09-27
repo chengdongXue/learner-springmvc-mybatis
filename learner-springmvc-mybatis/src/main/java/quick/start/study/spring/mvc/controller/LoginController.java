@@ -1,27 +1,19 @@
 package quick.start.study.spring.mvc.controller;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import quick.start.study.spring.business.entity.User;
+import quick.start.study.spring.business.service.IUserService;
 
 @Controller
 public class LoginController {
-
-    @RequestMapping("/login")
-    public ModelAndView login(HttpServletRequest request,HttpServletResponse response) {
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        if(userName.equals("admin") && password.equals("admin")){
-            String message= "Right now!!!   I need you join us team, Please quick now" + userName;
-            return new ModelAndView("hellopage","message",message);
-        }else{
-            return new ModelAndView("errorpage", "message","Sorry, username or password error");  
-        }
-    }
+    
+    @Resource
+    private IUserService userService;
     
     @RequestMapping(value = "/initLogin", method = RequestMethod.POST)
     public String initLogin(HttpServletRequest request,HttpServletResponse response,Model model) {
@@ -30,8 +22,9 @@ public class LoginController {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         if(! userName.isEmpty() && ! password.isEmpty()){
-            if(userName.equals("admin") && password.equals("admin")){
-                model.addAttribute("message", "Victor.Xue");
+            User user = this.userService.login(userName, password);
+            if(user!=null){
+                model.addAttribute("message", user.getRealName());
                 url = "main/main";
             }else{
                 message= "login error" + userName;
