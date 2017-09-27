@@ -55,7 +55,7 @@ public class WelcomeController {
         int userId = Integer.parseInt(request.getParameter("id"));
         List<Employee> user = this.empService.selectGetEmployeeList(userId);
         model.addAttribute("list", user);
-        return "viewemp";
+        return "main/drop";
     }
 
 }

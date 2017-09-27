@@ -17,11 +17,22 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="Pragma" content="no-cache">
   <script type="text/javascript" src="resources/js/jquery.min.js"></script>
-  <script type="text/javascript">
-  $(document).ready(function() {
-      window.location.href = '/learner-springmvc-mybatis/init';
-  });
+  <style type="text/css">
+      body {
+        padding: 20px;
+      }
+      
+      .list-group-item {
+        cursor: move;
+        cursor: -webkit-grabbing;
+      }
+  </style>
   
+  <script type="text/javascript">
+  /* $(document).ready(function() {
+      window.location.href = '/learner-springmvc-mybatis/init';
+  }); */
+    
    function getComboListById() {
        var params = {
           "id":1,
@@ -48,5 +59,6 @@
   </script>
 </head>
 <body>
+  <a href="/learner-springmvc-mybatis/showEmpList?id=1">click sotable.js</a>
 </body>
 </html>
