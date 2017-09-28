@@ -20,14 +20,18 @@
 <meta http-equiv="Pragma" content="no-cache">
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
- href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="resources/js/bootstrap.min.css" />
 <!-- Latest Sortable -->
-<script src="https://rawgit.com/rubaxa/Sortable/master/Sortable.js"></script>
+<script src="resources/js/Sortable.js"></script>
 
 <style type="text/css">
 body {
  padding: 20px;
+}
+
+ul {
+ list-style: none;
+ padding: 0;
 }
 
 .groupClass {
@@ -36,7 +40,7 @@ body {
  float: left;
  width: 100%;
  padding: 10px 15px;
-  font-size:18px;
+ font-size: 18px;
  margin-bottom: -1px;
  background-color: #fff;
  border: 1px solid #e5e5e5;
@@ -48,7 +52,7 @@ body {
  position: relative;
  display: block;
  float: left;
- text-align:center;
+ text-align: center;
  width: 33.33%;
  padding: 7px 15px;
  margin-bottom: -1px;
@@ -57,25 +61,32 @@ body {
  cursor: -webkit-grabbing;
 }
 
+.sortable-ghost {
+ opacity: .9;
+ background: #DCE6F2;
+}
 </style>
 </head>
 
 <body>
-<!--  <div class="groupClass" style="background-color: #e5e5e5;">
+ <!--  <div class="groupClass" style="background-color: #e5e5e5;">
   <span>studentName</span><span>studentClass</span><span>studentNo.</span>
  </div> -->
- <div id="items">
+ <ul id="items">
   <c:forEach var="emp" items="${list}">
-   <div class="groupClass">
-    <span >${emp.id}</span> <span >${emp.name}</span>
-    <span >${emp.designation}</span>
-   </div>
+   <li class="groupClass">
+    <span>${emp.name}</span>
+    <span>${emp.designation}</span>
+    <span>${emp.id}</span>
+   </li>
   </c:forEach>
- </div>
- 
- <button style="margin-top: 30px;height:50px;line-height:50px;width:200px;
- font-size:18px;background-color:#376092;color:white;left:50%;margin-left:90px;" onclick="aaa();">並び替え確定</button>
- 
+ </ul>
+
+<div style="width:100%;overflow:hidden;">
+ <button style="position:relative;margin-top: 30px; height: 50px; line-height: 50px;  width: 200px; font-size: 18px; 
+ background-color: #376092; color: white; left: 50%; margin-left: -100px;"
+  onclick="aaa();">並び替え確定</button></div>
+
  <script type="text/javascript">
         var el = document.getElementById('items');
         var sortable = new Sortable(el, {
@@ -85,7 +96,7 @@ body {
                 pull : "clone",
                 revertClone : true,
             },
-            sort : true,
+            sort : true,/* 
             onAdd : function(evt) {
                 var el = evt.item;
                 el.parentNode.removeChild(el);
@@ -111,14 +122,14 @@ body {
             },
             onEnd : function(evt) { //拖拽完毕之后发生该事件
                 console.log('onEnd.foo:', [ evt.item, evt.from ]);
-            }
+            } */
         });
 
         function aaa() {
-            var el = document.getElementById('items');
+            /* var el = document.getElementById('items');
             var sortable = new Sortable(el, {
                 sort : true
-            });
+            }); */
         }
     </script>
 </body>
