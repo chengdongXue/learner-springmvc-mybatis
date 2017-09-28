@@ -1,21 +1,33 @@
 package quick.start.study.spring.mvc.controller;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.mysql.jdbc.StringUtils;
+
+import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.entity.User;
+import quick.start.study.spring.business.service.IMenuService;
 import quick.start.study.spring.business.service.IUserService;
 import quick.start.study.spring.common.BCryptUtils;
+import quick.start.study.spring.mvc.entity.MenusResponse;
 
 @Controller
 public class LoginController {
 
     @Resource
     private IUserService userService;
+    
+    @Resource
+    private IMenuService menuService;
 
     @RequestMapping(value = "/initLogin", method = RequestMethod.POST)
     public String initLogin(HttpServletRequest request,
@@ -29,6 +41,7 @@ public class LoginController {
             if (user!=null && !StringUtils.isNullOrEmpty(user.getPassword())
                     && BCryptUtils.checkHashPwd(password, user.getPassword())) {
                 model.addAttribute("message", user.getRealName());
+                model.addAttribute("menuList", getAllMenuList());
                 url = "main/main";
             }else {
                 message = "login error  " + userName;
@@ -41,5 +54,30 @@ public class LoginController {
             url = "main/login";
         }
         return url;
+    }
+    
+    /**
+     * get user role's menu trees
+     * @return
+     */
+    private List<MenusResponse> getAllMenuList(){
+        List<MenusResponse> menuResponseList = new ArrayList<MenusResponse>();
+        try {
+            List<Menu> menuList = this.menuService.getAllParentMenuList();
+            if(!menuList.isEmpty()){
+                for (Menu menu : menuList) {
+                    MenusResponse response = new MenusResponse();
+                    response.setMenuId(menu.getMenuId());
+                    response.setMenuName(menu.getMenuName());
+                    response.setSiteUrl(menu.getSiteUrl());
+                    response.setParentId(menu.getParentId());
+                    response.setChildrenMenusList(this.menuService.getAllChildrenMenuList(menu.getMenuId()));
+                    menuResponseList.add(response);
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return menuResponseList;
     }
 }

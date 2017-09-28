@@ -31,18 +31,37 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Main  Navigation</li>
-        <li class="treeview active">
+      <li class="header">Main  Navigation</li>
+        
+     <c:forEach var="menu" items="${menuList}">
+          <li class="treeview active">
+              <a href="${menu.siteUrl }">
+                <i class="fa fa-table"></i>
+                <span>${menu.menuName}</span>
+                <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                 </span>
+              </a>
+              <ul class="treeview-menu">
+              <c:forEach var="menuChildren" items="${menu.childrenMenusList}">
+                <li class="active"><a href="${menuChildren.siteUrl}"><i class="fa fa-circle-o"></i> ${menuChildren.menuName}</a></li>
+              </c:forEach>
+              </ul>
+            </li>
+     </c:forEach>
+  
+        <!-- <li class="treeview active">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
+            <i class="fa fa-table"></i>
+            <span>Tables</span>
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
-                </span>
+             </span>
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </section>
     <!-- /.sidebar -->
