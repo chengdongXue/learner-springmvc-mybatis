@@ -6,5 +6,5 @@ import quick.start.study.spring.business.entity.User;
 @Repository
 public interface IUserDao {
     
-    User login(@Param("userName") String userName,@Param("password") String password);
+    User login(@Param("userName") String userName);
 }

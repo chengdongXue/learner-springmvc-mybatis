@@ -11,7 +11,7 @@ public class UserServiceImpl implements IUserService {
     @Resource  
     private IUserDao userDao;
 
-    public User login(String userName, String password) {
-        return userDao.login(userName, password);
+    public User login(String userName) {
+        return userDao.login(userName);
     }  
 }

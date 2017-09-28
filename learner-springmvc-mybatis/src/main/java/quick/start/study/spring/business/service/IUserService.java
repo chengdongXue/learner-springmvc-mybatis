@@ -3,6 +3,6 @@ import quick.start.study.spring.business.entity.User;
 
 public interface IUserService {
     
-    public User login(String userName, String password);
+    public User login(String userName);
     
 }

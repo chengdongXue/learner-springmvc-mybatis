@@ -3,7 +3,7 @@
 <mapper namespace="quick.start.study.spring.business.dao.IUserDao">
 
  <select id="login" resultType="quick.start.study.spring.business.entity.User">
-      select * from `user` where delFlag = 0 and userName = #{userName} and `password` = #{password}
+      select * from `user` where delFlag = 0 and userName = #{userName}
  </select>
  
 </mapper>

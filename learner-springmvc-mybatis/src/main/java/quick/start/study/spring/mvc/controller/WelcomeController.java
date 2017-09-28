@@ -32,7 +32,6 @@ public class WelcomeController {
     
     @RequestMapping(value = "/init", method = RequestMethod.GET)
     public String init(Model model) {
-        model.addAttribute("userName", "Victor.Xue");
         return "main/login";
     }
     
@@ -50,7 +49,7 @@ public class WelcomeController {
         return response;
     }
 
-    @RequestMapping("/showEmpList")
+    @RequestMapping("/showEmpDropSortList")
     public String showEmpList(HttpServletRequest request, Model model) {
         int userId = Integer.parseInt(request.getParameter("id"));
         List<Employee> user = this.empService.selectGetEmployeeList(userId);

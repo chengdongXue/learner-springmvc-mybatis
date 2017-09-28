@@ -6,33 +6,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.mysql.jdbc.StringUtils;
 import quick.start.study.spring.business.entity.User;
 import quick.start.study.spring.business.service.IUserService;
+import quick.start.study.spring.common.BCryptUtils;
 
 @Controller
 public class LoginController {
-    
+
     @Resource
     private IUserService userService;
-    
+
     @RequestMapping(value = "/initLogin", method = RequestMethod.POST)
-    public String initLogin(HttpServletRequest request,HttpServletResponse response,Model model) {
+    public String initLogin(HttpServletRequest request,
+            HttpServletResponse response, Model model) {
         String message = "";
         String url = "";
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        if(! userName.isEmpty() && ! password.isEmpty()){
-            User user = this.userService.login(userName, password);
-            if(user!=null){
+        if (!userName.isEmpty() && !password.isEmpty()) {
+            User user = this.userService.login(userName);
+            if (user!=null && !StringUtils.isNullOrEmpty(user.getPassword())
+                    && BCryptUtils.checkHashPwd(password, user.getPassword())) {
                 model.addAttribute("message", user.getRealName());
                 url = "main/main";
-            }else{
-                message= "login error" + userName;
+            }else {
+                message = "login error  " + userName;
                 model.addAttribute("message", message);
                 url = "main/login";
             }
         }else {
-            model.addAttribute("message", "user and password not input data");
+            model.addAttribute("message",
+                    "Please enter userName and password data");
             url = "main/login";
         }
         return url;
