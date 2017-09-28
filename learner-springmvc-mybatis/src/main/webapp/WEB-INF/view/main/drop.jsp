@@ -46,6 +46,7 @@ ul {
  border: 1px solid #e5e5e5;
  cursor: move;
  cursor: -webkit-grabbing;
+ z-index: 999;
 }
 
 .groupClass span {
@@ -59,9 +60,24 @@ ul {
  background-color: #fff;
  cursor: move;
  cursor: -webkit-grabbing;
+ z-index: 100;
 }
 
+. /* groupClass span:active {
+ opacity: .9;
+ background: #DCE6F2;
+} */
 .sortable-ghost {
+ opacity: .9;
+ background: #DCE6F2;
+}
+
+.sortable-chosen {
+ opacity: .9;
+ background: #DCE6F2;
+}
+
+.dragClass {
  opacity: .9;
  background: #DCE6F2;
 }
@@ -69,68 +85,53 @@ ul {
 </head>
 
 <body>
- <!--  <div class="groupClass" style="background-color: #e5e5e5;">
-  <span>studentName</span><span>studentClass</span><span>studentNo.</span>
- </div> -->
  <ul id="items">
   <c:forEach var="emp" items="${list}">
    <li class="groupClass">
-    <span>${emp.name}</span>
-    <span>${emp.designation}</span>
-    <span>${emp.id}</span>
-   </li>
+   <span>${emp.name}</span>
+   <span>${emp.designation}</span>
+    <span>${emp.id}</span></li>
   </c:forEach>
  </ul>
 
-<div style="width:100%;overflow:hidden;">
- <button style="position:relative;margin-top: 30px; height: 50px; line-height: 50px;  width: 200px; font-size: 18px; 
- background-color: #376092; color: white; left: 50%; margin-left: -100px;"
-  onclick="aaa();">並び替え確定</button></div>
+ <div style="width: 100%; overflow: hidden;">
+  <button
+   style="position: relative; margin-top: 30px; height: 50px; line-height: 50px; width: 200px; font-size: 18px; background-color: #376092; color: white; left: 50%; margin-left: -100px;"
+   onclick="fSortNoList();">並び替え確定</button>
+ </div>
 
  <script type="text/javascript">
-        var el = document.getElementById('items');
-        var sortable = new Sortable(el, {
-            animation : 200,
-            group : {
-                name : "shared",
-                pull : "clone",
-                revertClone : true,
-            },
-            sort : true,/* 
-            onAdd : function(evt) {
-                var el = evt.item;
-                el.parentNode.removeChild(el);
-                alert('Dropped: ' + el.textContent);
-            },
-            onSort : function(evt) {
-                alert(11);
-            },
-            onAdd : function(evt) { //拖拽时候添加有新的节点的时候发生该事件
-                console.log('onAdd.foo:', [ evt.item, evt.from ]);
-            },
-            onUpdate : function(evt) { //拖拽更新节点位置发生该事件
-                console.log('onUpdate.foo:', [ evt.item, evt.from ]);
-            },
-            onRemove : function(evt) { //删除拖拽节点的时候促发该事件
-                console.log('onRemove.foo:', [ evt.item, evt.from ]);
-            },
-            onStart : function(evt) { //开始拖拽出发该函数
-                console.log('onStart.foo:', [ evt.item, evt.from ]);
-            },
-            onSort : function(evt) { //发生排序发生该事件
-                console.log('onSort.foo:', [ evt.item, evt.from ]);
-            },
-            onEnd : function(evt) { //拖拽完毕之后发生该事件
-                console.log('onEnd.foo:', [ evt.item, evt.from ]);
-            } */
-        });
+ 
+var el = document.getElementById('items');
+var sortable = new Sortable(el, {
+    animation : 200,
+    group : {
+        name : "shared",
+        pull : "clone",
+        revertClone : true,
+    },
+    sort : true
+});
 
-        function aaa() {
-            /* var el = document.getElementById('items');
-            var sortable = new Sortable(el, {
-                sort : true
-            }); */
+function fSortNoList() {
+    var saveNoArray = new Array();
+    var items = $("#items > .groupClass");
+    if(items){
+        $.each(items,function(i,item){
+            saveNoArray.push($(item).children("span").eq(2).html());
+        });
+        saveNoArray.sort(sortNumber);
+        if(typeof(saveNoArray) === 'object' && saveNoArray.length > 0){
+            $.each(items,function(k,newitem){
+                $(newitem).children("span").eq(2).html(saveNoArray[k]);
+            });
         }
+    }
+}
+
+function sortNumber(a,b){
+  return a - b;
+}
     </script>
 </body>
 </html>
