@@ -26,8 +26,32 @@
  <link rel="stylesheet"  href="resources/css/login.css?20170925_01" media="all" />
   <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
   <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
-<title>Login Page</title>
+  <title>Login Page</title>
 </head>
+<script type="text/javascript">
+$(function(){
+    $("#userName").val(localStorage.getItem("loginName"));
+    $("#password").val(localStorage.getItem("loginPws"));
+    var rememberPws = localStorage.getItem("rememberPws");
+    $("input[type='checkbox']").attr("checked",rememberPws == null?false:true);
+    $("#rememberPws").bind('click',function(item){
+        var mark = $("input[type='checkbox']").is(':checked');
+        if(mark){
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            if(userName!="" && password!=""){
+                localStorage.setItem("loginName",userName);
+                localStorage.setItem("loginPws",password);
+                localStorage.setItem("rememberPws",'true');
+            }
+        }else{
+            localStorage.removeItem("loginName");
+            localStorage.removeItem("loginPws");
+            localStorage.removeItem("rememberPws");
+        }
+    });
+});
+</script>
 <body>
   <div class="container" >
       <img class="login img-responsive " src="resources/img/login/bg1.gif">
@@ -49,7 +73,7 @@
            <div class="col-sm-offset-2 col-sm-10">
              <div class="checkbox">
                <label>
-                 <input type="checkbox"> Remember me
+                 <input type="checkbox" id="rememberPws"> Remember me
                </label>
              </div>
            </div>

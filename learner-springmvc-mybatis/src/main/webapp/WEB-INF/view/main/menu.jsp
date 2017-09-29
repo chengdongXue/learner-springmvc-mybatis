@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
   <spring:url value="resources/dist" var="dist"/>
+  
 <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -32,10 +33,9 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
       <li class="header">Main  Navigation</li>
-        
      <c:forEach var="menu" items="${menuList}">
           <li class="treeview active">
-              <a href="${menu.siteUrl }">
+              <a href="${menu.siteUrl}">
                 <i class="fa fa-table"></i>
                 <span>${menu.menuName}</span>
                 <span class="pull-right-container">
@@ -49,19 +49,6 @@
               </ul>
             </li>
      </c:forEach>
-  
-        <!-- <li class="treeview active">
-          <a href="#">
-            <i class="fa fa-table"></i>
-            <span>Tables</span>
-            <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-             </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-          </ul>
-        </li> -->
       </ul>
     </section>
     <!-- /.sidebar -->
