@@ -132,6 +132,6 @@ function fSortNoList() {
 function sortNumber(a,b){
   return a - b;
 }
-    </script>
+</script>
 </body>
 </html>
