@@ -29,6 +29,11 @@ public class LoginController {
     @Resource
     private IMenuService menuService;
 
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    public String init(Model model) {
+        return "main/login";
+    }
+    
     @RequestMapping(value = "/initLogin", method = RequestMethod.POST)
     public String initLogin(HttpServletRequest request,
             HttpServletResponse response, Model model) {

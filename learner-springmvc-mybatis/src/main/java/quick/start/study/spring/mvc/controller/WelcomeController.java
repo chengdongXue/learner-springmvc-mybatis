@@ -30,11 +30,6 @@ public class WelcomeController {
     @Resource
     private IEmpService empService;
     
-    @RequestMapping(value = "/init", method = RequestMethod.GET)
-    public String init(Model model) {
-        return "main/login";
-    }
-    
     @RequestMapping(value = "/getAllEmployeeJson",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
