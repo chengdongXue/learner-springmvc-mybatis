@@ -35,6 +35,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="${dist }/skins/_all-skins.min.css">
   
+  <link rel="stylesheet" href="${bower_components }/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+  
 <title>DashBoard Controller</title>
 </head>
 
@@ -93,6 +95,9 @@
 
 <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
 <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${publicResourceJsRoot}/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${publicResourceJsRoot}/zTree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${publicResourceJsRoot}/zTree/js/jquery.ztree.exedit.js"></script>
 
 <!-- AdminLTE App -->
 <script src="${ dist}/adminlte.min.js"></script>
