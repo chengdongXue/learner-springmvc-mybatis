@@ -76,6 +76,7 @@ public class LoginController {
                     response.setMenuName(menu.getMenuName());
                     response.setSiteUrl(menu.getSiteUrl());
                     response.setParentId(menu.getParentId());
+                    response.setMenuIcon(menu.getMenuIcon());
                     response.setChildrenMenusList(this.menuService.getAllChildrenMenuList(menu.getMenuId()));
                     menuResponseList.add(response);
                 }

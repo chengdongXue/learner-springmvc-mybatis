@@ -8,8 +8,22 @@ public class MenusResponse {
     private String siteUrl;
     private int delFalg;
     private int parentId;
+    private String menuIcon;
     private List<Menu> menusList;
     private List<Menu> childrenMenusList;
+    
+    /**
+     * @return the menuIcon
+     */
+    public String getMenuIcon() {
+        return menuIcon;
+    }
+    /**
+     * @param menuIcon the menuIcon to set
+     */
+    public void setMenuIcon(String menuIcon) {
+        this.menuIcon = menuIcon;
+    }
     /**
      * @return the menusList
      */

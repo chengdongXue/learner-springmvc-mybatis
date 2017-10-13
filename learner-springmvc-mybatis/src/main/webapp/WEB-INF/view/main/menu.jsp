@@ -36,7 +36,7 @@
      <c:forEach var="menu" items="${menuList}">
           <li class="treeview active">
               <a href="${menu.siteUrl}">
-                <i class="fa fa-table"></i>
+                <i class="fa  ${menu.menuIcon}"></i>
                 <span>${menu.menuName}</span>
                 <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -44,7 +44,7 @@
               </a>
               <ul class="treeview-menu">
               <c:forEach var="menuChildren" items="${menu.childrenMenusList}">
-                <li class="active"><a href="${menuChildren.siteUrl}"><i class="fa fa-circle-o"></i> ${menuChildren.menuName}</a></li>
+                <li class="active"><a href="${menuChildren.siteUrl}"><i class="fa  ${menuChildren.menuIcon}"></i>${menuChildren.menuName}</a></li>
               </c:forEach>
               </ul>
             </li>
