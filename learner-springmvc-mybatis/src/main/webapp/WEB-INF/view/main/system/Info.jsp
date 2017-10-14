@@ -46,7 +46,16 @@
  href="${bower_components }/zTree/css/zTreeStyle/zTreeStyle.css"
  type="text/css">
 
-<title>DashBoard Controller</title>
+<style type="text/css">
+   .ztree li span.button.add {
+    margin-left: 2px;
+    margin-right: -1px;
+    background-position: -144px 0;
+    vertical-align: top;
+    *vertical-align: middle
+   }
+</style>
+<title>菜单管理</title>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -65,12 +74,12 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
     <h1>
-     Data Tables <small>advanced tables</small>
+    操作目录树 <small>信息</small>
     </h1>
     <ol class="breadcrumb">
-     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-     <li><a href="#">Tables</a></li>
-     <li class="active">Data tables</li>
+     <li><a href="#"><i class="fa fa-dashboard"></i>菜单管理</a></li>
+     <li><a href="#">菜单信息</a></li>
+     <li class="active">操作目录树</li>
     </ol>
    </section>
 
@@ -105,7 +114,6 @@
   <div class="control-sidebar-bg"></div>
  </div>
  <!-- ./wrapper -->
-
  <script type="text/javascript"
   src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
  <script type="text/javascript"
@@ -116,15 +124,11 @@
   src="${bower_components}/zTree/js/jquery.ztree.excheck.js"></script>
  <script type="text/javascript"
   src="${bower_components}/zTree/js/jquery.ztree.exedit.js"></script>
-
  <!-- AdminLTE App -->
  <script src="${ dist}/adminlte.min.js"></script>
-
  <!-- AdminLTE for demo purposes -->
  <script src="${ dist}/demo.js"></script>
-
-
- <SCRIPT type="text/javascript">
+ <script type="text/javascript">
         var setting = {
             view : {
                 addHoverDom : addHoverDom,
@@ -152,62 +156,11 @@
             }
         };
 
-        var zNodes = [ {
-            id : 1,
-            pId : 0,
-            name : "父节点 1",
-            open : true
-        }, {
-            id : 11,
-            pId : 1,
-            name : "叶子节点 1-1"
-        }, {
-            id : 12,
-            pId : 1,
-            name : "叶子节点 1-2"
-        }, {
-            id : 13,
-            pId : 1,
-            name : "叶子节点 1-3"
-        }, {
-            id : 2,
-            pId : 0,
-            name : "父节点 2",
-            open : true
-        }, {
-            id : 21,
-            pId : 2,
-            name : "叶子节点 2-1"
-        }, {
-            id : 22,
-            pId : 2,
-            name : "叶子节点 2-2"
-        }, {
-            id : 23,
-            pId : 2,
-            name : "叶子节点 2-3"
-        }, {
-            id : 3,
-            pId : 0,
-            name : "父节点 3",
-            open : true
-        }, {
-            id : 31,
-            pId : 3,
-            name : "叶子节点 3-1"
-        }, {
-            id : 32,
-            pId : 3,
-            name : "叶子节点 3-2"
-        }, {
-            id : 33,
-            pId : 3,
-            name : "叶子节点 3-3"
-        } ];
         var log, className = "dark";
         function beforeDrag(treeId, treeNodes) {
             return false;
         }
+        
         function beforeEditName(treeId, treeNode) {
             className = (className === "dark" ? "" : "dark");
             showLog("[ " + getTime()
@@ -224,6 +177,7 @@
             }, 0);
             return false;
         }
+        
         function beforeRemove(treeId, treeNode) {
             className = (className === "dark" ? "" : "dark");
             showLog("[ " + getTime()
@@ -233,10 +187,12 @@
             zTree.selectNode(treeNode);
             return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
         }
+        
         function onRemove(e, treeId, treeNode) {
             showLog("[ " + getTime() + " onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; "
                     + treeNode.name);
         }
+        
         function beforeRename(treeId, treeNode, newName, isCancel) {
             className = (className === "dark" ? "" : "dark");
             showLog((isCancel ? "<span style='color:red'>" : "") + "[ "
@@ -252,17 +208,41 @@
             }
             return true;
         }
+        
         function onRename(e, treeId, treeNode, isCancel) {
-            showLog((isCancel ? "<span style='color:red'>" : "") + "[ "
+            var params = {
+                    "id":treeNode.id,
+                    "name":treeNode.name
+            };
+            //JSON.stringify(params),
+            $.ajax({
+              type:"GET",
+              url: "/learner-springmvc-mybatis/systemInfo/byIdUpdateTrees",
+              dataType: "json",
+              data:params,
+              contentType: "application/json; charset=UTF-8",
+              success: function(data) {
+                if(data){
+                    console.log("modify has success");
+                }
+              },
+              error: function(XMLHttpRequest, textStatus) {
+                  alert("通信ERROR。");
+              }
+            });
+            /* showLog((isCancel ? "<span style='color:red'>" : "") + "[ "
                     + getTime() + " onRename ]&nbsp;&nbsp;&nbsp;&nbsp; "
-                    + treeNode.name + (isCancel ? "</span>" : ""));
+                    + treeNode.name + (isCancel ? "</span>" : "")); */
         }
+        
         function showRemoveBtn(treeId, treeNode) {
-            return !treeNode.isFirstNode;
+            return treeNode;//!treeNode.isFirstNode;
         }
+        
         function showRenameBtn(treeId, treeNode) {
-            return !treeNode.isLastNode;
+            return treeNode;//!treeNode.isLastNode;
         }
+        
         function showLog(str) {
             if (!log)
                 log = $("#log");
@@ -271,6 +251,7 @@
                 log.get(0).removeChild(log.children("li")[0]);
             }
         }
+        
         function getTime() {
             var now = new Date(), h = now.getHours(), m = now.getMinutes(), s = now
                     .getSeconds(), ms = now.getMilliseconds();
@@ -298,28 +279,40 @@
                     return false;
                 });
         };
+        
         function removeHoverDom(treeId, treeNode) {
             $("#addBtn_" + treeNode.tId).unbind().remove();
         };
+        
         function selectAll() {
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
             zTree.setting.edit.editNameSelectAll = $("#selectAll").attr(
                     "checked");
         }
+        
+        function getAllTreesNodes() {
+           var params = {};
+           $.ajax({
+             type:"GET",
+             url: "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
+             dataType: "json",
+             data:JSON.stringify(params),
+             contentType: "application/json; charset=UTF-8",
+             success: function(data) {
+               if(data){
+                   $.fn.zTree.init($("#treeDemo"), setting, data);
+                   $("#selectAll").bind("click", selectAll);
+               }
+             },
+             error: function(XMLHttpRequest, textStatus) {
+                 alert("通信ERROR。");
+             }
+           });
+       }
 
-        $(document).ready(function() {
-            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-            $("#selectAll").bind("click", selectAll);
-        });
-    </SCRIPT>
- <style type="text/css">
-.ztree li span.button.add {
- margin-left: 2px;
- margin-right: -1px;
- background-position: -144px 0;
- vertical-align: top;
- *vertical-align: middle
-}
-</style>
+       $(document).ready(function() {
+           getAllTreesNodes();
+       });
+    </script>
 </body>
 </html>

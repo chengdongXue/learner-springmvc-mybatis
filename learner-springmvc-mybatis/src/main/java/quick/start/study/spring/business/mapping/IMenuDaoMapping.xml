@@ -9,4 +9,15 @@
   <select id="getAllChildrenMenuList" resultType="quick.start.study.spring.business.entity.Menu">
        select * from `menu` where parentId = #{id} and delFlag = 0
  </select>
+ 
+ <update id="byIdUpdateTrees"
+      parameterType="map">
+      update `menu`
+      <set>
+       menuName = #{name, jdbcType=VARCHAR}
+      </set>
+      <where>
+      menuId = #{id, jdbcType=DECIMAL}
+      </where>
+</update>
 </mapper>

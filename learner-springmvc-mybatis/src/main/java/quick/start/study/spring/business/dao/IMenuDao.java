@@ -10,4 +10,6 @@ public interface IMenuDao {
     List<Menu> getAllParentMenuList();
     
     List<Menu> getAllChildrenMenuList(@Param("id") int id);
+    
+    int byIdUpdateTrees(@Param("id") int id,@Param("name") String name);
 }

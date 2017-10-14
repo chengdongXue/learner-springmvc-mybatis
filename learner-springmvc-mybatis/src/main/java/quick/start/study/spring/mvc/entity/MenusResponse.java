@@ -2,6 +2,7 @@ package quick.start.study.spring.mvc.entity;
 import java.util.List;
 
 import quick.start.study.spring.business.entity.Menu;
+import quick.start.study.spring.business.entity.TreeModel;
 public class MenusResponse {
     private int menuId;
     private String menuName;
@@ -11,7 +12,6 @@ public class MenusResponse {
     private String menuIcon;
     private List<Menu> menusList;
     private List<Menu> childrenMenusList;
-    
     /**
      * @return the menuIcon
      */

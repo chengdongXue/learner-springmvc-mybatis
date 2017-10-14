@@ -22,7 +22,7 @@ import quick.start.study.spring.common.BCryptUtils;
 import quick.start.study.spring.mvc.entity.MenusResponse;
 
 @Controller
-@SessionAttributes("menuList")
+@SessionAttributes({"menuList","message"})
 public class LoginController {
 
     @Resource

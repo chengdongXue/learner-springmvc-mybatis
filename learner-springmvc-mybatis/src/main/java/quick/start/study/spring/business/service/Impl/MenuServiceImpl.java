@@ -1,7 +1,10 @@
 package quick.start.study.spring.business.service.Impl;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import quick.start.study.spring.business.dao.IMenuDao;
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.service.IMenuService;
@@ -18,6 +21,10 @@ public class MenuServiceImpl implements IMenuService {
 
     public List<Menu> getAllChildrenMenuList(int id) {
         return menuDao.getAllChildrenMenuList(id);
+    }
+
+    public int byIdUpdateTrees(int id, String name) {
+        return menuDao.byIdUpdateTrees(id, name);
     }
 
 }
