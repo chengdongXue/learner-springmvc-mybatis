@@ -47,13 +47,13 @@
  type="text/css">
 
 <style type="text/css">
-   .ztree li span.button.add {
-    margin-left: 2px;
-    margin-right: -1px;
-    background-position: -144px 0;
-    vertical-align: top;
-    *vertical-align: middle
-   }
+.ztree li span.button.add {
+ margin-left: 2px;
+ margin-right: -1px;
+ background-position: -144px 0;
+ vertical-align: top;
+ *vertical-align: middle
+}
 </style>
 <title>菜单管理</title>
 </head>
@@ -74,7 +74,7 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
     <h1>
-    操作目录树 <small>信息</small>
+     操作目录树 <small>信息</small>
     </h1>
     <ol class="breadcrumb">
      <li><a href="#"><i class="fa fa-dashboard"></i>菜单管理</a></li>
@@ -85,18 +85,32 @@
 
    <!-- Main content -->
    <section class="content">
-    <div class="row">
-     <div class="col-xs-12">
-      <div class="box-body"
-       style="background-color: #fff; height: 100%; min-height: 850px;">
-       <div class="content_wrap">
-        <div class="zTreeDemoBackground left">
-         <ul id="treeDemo" class="ztree"></ul>
+
+    <div class="panel panel-default">
+     <div class="panel-heading">目录树操作区域</div>
+     <div class="panel-body">
+      <div class="row">
+       <div class="col-xs-12">
+        <div class="box-body"
+         style="background-color: #fff; height: auto; min-height: auto;">
+         <div class="content_wrap">
+          <div class="zTreeDemoBackground left">
+           <ul id="treeDemo" class="ztree"></ul>
+          </div>
+         </div>
         </div>
        </div>
       </div>
      </div>
     </div>
+
+    <div class="panel panel-default">
+     <div class="panel-heading">
+      <h3 class="panel-title">表格区域</h3>
+     </div>
+     <div class="panel-body">Panel content</div>
+    </div>
+
    </section>
    <!-- /.content -->
   </div>
@@ -160,7 +174,7 @@
         function beforeDrag(treeId, treeNodes) {
             return false;
         }
-        
+
         function beforeEditName(treeId, treeNode) {
             className = (className === "dark" ? "" : "dark");
             showLog("[ " + getTime()
@@ -177,7 +191,7 @@
             }, 0);
             return false;
         }
-        
+
         function beforeRemove(treeId, treeNode) {
             className = (className === "dark" ? "" : "dark");
             showLog("[ " + getTime()
@@ -187,28 +201,28 @@
             zTree.selectNode(treeNode);
             return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
         }
-        
+
         function onRemove(e, treeId, treeNode) {
             var params = {
-                    "id":treeNode.id
+                "id" : treeNode.id
             };
             $.ajax({
-              type:"GET",
-              url: "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
-              dataType: "json",
-              data:params,
-              contentType: "application/json; charset=UTF-8",
-              success: function(data) {
-                if(data){
-                    console.log("delete has success");
+                type : "GET",
+                url : "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
+                dataType : "json",
+                data : params,
+                contentType : "application/json; charset=UTF-8",
+                success : function(data) {
+                    if (data) {
+                        console.log("delete has success");
+                    }
+                },
+                error : function(XMLHttpRequest, textStatus) {
+                    alert("通信ERROR。");
                 }
-              },
-              error: function(XMLHttpRequest, textStatus) {
-                  alert("通信ERROR。");
-              }
             });
         }
-        
+
         function beforeRename(treeId, treeNode, newName, isCancel) {
             className = (className === "dark" ? "" : "dark");
             showLog((isCancel ? "<span style='color:red'>" : "") + "[ "
@@ -224,37 +238,40 @@
             }
             return true;
         }
-        
+
         function onRename(e, treeId, treeNode, isCancel) {
             var params = {
-                    "id":treeNode.id,
-                    "name":treeNode.name
+                "id" : treeNode.id,
+                "name" : treeNode.name
             };
             $.ajax({
-              type:"GET",
-              url: "/learner-springmvc-mybatis/systemInfo/byIdUpdateTrees",
-              dataType: "json",
-              data:params,
-              contentType: "application/json; charset=UTF-8",
-              success: function(data) {
-                if(data){
-                    console.log("modify has success");
+                type : "GET",
+                url : "/learner-springmvc-mybatis/systemInfo/byIdUpdateTrees",
+                dataType : "json",
+                data : params,
+                contentType : "application/json; charset=UTF-8",
+                success : function(data) {
+                    if (data) {
+                        console.log("modify has success");
+                    }
+                },
+                error : function(XMLHttpRequest, textStatus) {
+                    alert("通信ERROR。");
                 }
-              },
-              error: function(XMLHttpRequest, textStatus) {
-                  alert("通信ERROR。");
-              }
             });
         }
-        
+
         function showRemoveBtn(treeId, treeNode) {
+            if(treeNode.pId == null){
+              return false;  
+            }
             return treeNode;//!treeNode.isFirstNode;
         }
-        
+
         function showRenameBtn(treeId, treeNode) {
             return treeNode;//!treeNode.isLastNode;
         }
-        
+
         function showLog(str) {
             if (!log)
                 log = $("#log");
@@ -263,7 +280,7 @@
                 log.get(0).removeChild(log.children("li")[0]);
             }
         }
-        
+
         function getTime() {
             var now = new Date(), h = now.getHours(), m = now.getMinutes(), s = now
                     .getSeconds(), ms = now.getMilliseconds();
@@ -272,6 +289,9 @@
 
         var newCount = 1;
         function addHoverDom(treeId, treeNode) {
+            if(treeNode.pId != null){
+              return false;  
+            }
             var sObj = $("#" + treeNode.tId + "_span");
             if (treeNode.editNameFlag
                     || $("#addBtn_" + treeNode.tId).length > 0)
@@ -281,50 +301,70 @@
             sObj.after(addStr);
             var btn = $("#addBtn_" + treeNode.tId);
             if (btn)
-                btn.bind("click", function() {
+                btn.bind("click",function() {
                     var zTree = $.fn.zTree.getZTreeObj("treeDemo");
                     zTree.addNodes(treeNode, {
                         id : (100 + newCount),
                         pId : treeNode.id,
                         name : "new node" + (newCount++)
                     });
+                    var lastTreeNode = treeNode.children[treeNode.children.length - 1];
+                    var params = {
+                            "id":lastTreeNode.id,
+                            "name":lastTreeNode.name,
+                            "pId":lastTreeNode.pId,
+                            "open":lastTreeNode.open
+                    };
+                    $.ajax({
+                        type : "GET",
+                        url : "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
+                        dataType : "json",
+                        data : JSON.stringify(params),
+                        contentType : "application/json; charset=UTF-8",
+                        success : function(data) {
+                            if (data) {}
+                        },
+                        error : function(XMLHttpRequest, textStatus) {
+                            alert("通信ERROR。");
+                        }
+                    });
                     return false;
                 });
         };
-        
+
         function removeHoverDom(treeId, treeNode) {
             $("#addBtn_" + treeNode.tId).unbind().remove();
         };
-        
+
         function selectAll() {
             var zTree = $.fn.zTree.getZTreeObj("treeDemo");
             zTree.setting.edit.editNameSelectAll = $("#selectAll").attr(
                     "checked");
         }
-        
-        function getAllTreesNodes() {
-           var params = {};
-           $.ajax({
-             type:"GET",
-             url: "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
-             dataType: "json",
-             data:JSON.stringify(params),
-             contentType: "application/json; charset=UTF-8",
-             success: function(data) {
-               if(data){
-                   $.fn.zTree.init($("#treeDemo"), setting, data);
-                   $("#selectAll").bind("click", selectAll);
-               }
-             },
-             error: function(XMLHttpRequest, textStatus) {
-                 alert("通信ERROR。");
-             }
-           });
-       }
 
-       $(document).ready(function() {
-           getAllTreesNodes();
-       });
+        function getAllTreesNodes() {
+            var params = {};
+            $.ajax({
+                type : "GET",
+                url : "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
+                dataType : "json",
+                data : JSON.stringify(params),
+                contentType : "application/json; charset=UTF-8",
+                success : function(data) {
+                    if (data) {
+                        $.fn.zTree.init($("#treeDemo"), setting, data);
+                        $("#selectAll").bind("click", selectAll);
+                    }
+                },
+                error : function(XMLHttpRequest, textStatus) {
+                    alert("通信ERROR。");
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            getAllTreesNodes();
+        });
     </script>
 </body>
 </html>
