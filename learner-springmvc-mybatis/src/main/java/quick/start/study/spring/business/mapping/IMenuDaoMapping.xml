@@ -28,4 +28,12 @@
     </where>
 </delete>
 
+<sql id='menu'>menu</sql>
+<insert id="addTrees" parameterType="map">
+    <selectKey keyProperty="menuId" resultType="int" order="BEFORE">
+         SELECT LAST_INSERT_ID()
+     </selectKey>
+    insert into <include refid="menu" /> (menuName, siteUrl,delFlag,parentId,menuIcon) values(#{name},"",0,#{pId},"fa-bars");
+ </insert>
+
 </mapper>

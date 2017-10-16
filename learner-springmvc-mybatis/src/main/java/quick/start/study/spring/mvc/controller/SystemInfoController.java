@@ -112,4 +112,23 @@ public class SystemInfoController {
         }
         return mark;
     }
+    
+    @RequestMapping(value = "/systemInfo/addTrees",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean  addTrees(@RequestParam("id") Integer id,@RequestParam("name") String name,@RequestParam("pId") Integer pId,
+            @RequestParam("open") Boolean open) throws IOException{
+        boolean mark = false;
+        try {
+            if(id!=null){
+               int updateRow =  this.menuService.addTrees(pId,name);
+               if(updateRow > 0){
+                   mark = true;
+               }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mark;
+    }
 }

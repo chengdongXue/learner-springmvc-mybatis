@@ -310,19 +310,20 @@
                     });
                     var lastTreeNode = treeNode.children[treeNode.children.length - 1];
                     var params = {
-                            "id":lastTreeNode.id,
-                            "name":lastTreeNode.name,
-                            "pId":lastTreeNode.pId,
-                            "open":lastTreeNode.open
+                         "id":lastTreeNode.id,
+                         "name":lastTreeNode.name,
+                         "pId":lastTreeNode.pId,
+                         "open":lastTreeNode.open
                     };
                     $.ajax({
                         type : "GET",
-                        url : "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
+                        url : "/learner-springmvc-mybatis/systemInfo/addTrees",
                         dataType : "json",
-                        data : JSON.stringify(params),
+                        data : params,
                         contentType : "application/json; charset=UTF-8",
                         success : function(data) {
-                            if (data) {}
+                            if (data) {
+                            }
                         },
                         error : function(XMLHttpRequest, textStatus) {
                             alert("通信ERROR。");

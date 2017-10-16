@@ -11,4 +11,6 @@ public interface IMenuService {
     public int byIdUpdateTrees(int id,String name);
     
     public int byIdDeleteTrees(int id);
+    
+    public int addTrees(int pId,String name);
 }
