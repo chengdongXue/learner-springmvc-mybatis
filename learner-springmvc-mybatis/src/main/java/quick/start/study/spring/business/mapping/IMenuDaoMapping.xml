@@ -20,4 +20,12 @@
       menuId = #{id, jdbcType=DECIMAL}
       </where>
 </update>
+
+<delete id="byIdDeleteTrees" parameterType="map">
+    delete from `menu`
+    <where>
+    menuId = #{id, jdbcType=DECIMAL}
+    </where>
+</delete>
+
 </mapper>

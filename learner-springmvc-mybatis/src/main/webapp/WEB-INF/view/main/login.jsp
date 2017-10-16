@@ -84,7 +84,7 @@ $(function(){
            </div>
          </div>
      </form:form>
-     <h4 style="color:red;font-weight:bold;position: absolute;bottom: 80px;left: 420px;">${message }</h4>
+     <h4 style="color:red;font-weight:bold;position: absolute;bottom: 80px;left: 420px;">${errorMessage }</h4>
   </div>
 </body>
 </html>

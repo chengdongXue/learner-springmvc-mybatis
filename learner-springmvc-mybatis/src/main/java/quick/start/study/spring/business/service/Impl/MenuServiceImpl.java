@@ -27,4 +27,8 @@ public class MenuServiceImpl implements IMenuService {
         return menuDao.byIdUpdateTrees(id, name);
     }
 
+    public int byIdDeleteTrees(int id) {
+        return menuDao.byIdDeleteTrees(id);
+    }
+
 }

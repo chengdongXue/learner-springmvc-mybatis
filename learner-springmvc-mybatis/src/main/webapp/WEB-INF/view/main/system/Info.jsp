@@ -189,8 +189,24 @@
         }
         
         function onRemove(e, treeId, treeNode) {
-            showLog("[ " + getTime() + " onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; "
-                    + treeNode.name);
+            var params = {
+                    "id":treeNode.id
+            };
+            $.ajax({
+              type:"GET",
+              url: "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
+              dataType: "json",
+              data:params,
+              contentType: "application/json; charset=UTF-8",
+              success: function(data) {
+                if(data){
+                    console.log("delete has success");
+                }
+              },
+              error: function(XMLHttpRequest, textStatus) {
+                  alert("通信ERROR。");
+              }
+            });
         }
         
         function beforeRename(treeId, treeNode, newName, isCancel) {
@@ -214,7 +230,6 @@
                     "id":treeNode.id,
                     "name":treeNode.name
             };
-            //JSON.stringify(params),
             $.ajax({
               type:"GET",
               url: "/learner-springmvc-mybatis/systemInfo/byIdUpdateTrees",
@@ -230,9 +245,6 @@
                   alert("通信ERROR。");
               }
             });
-            /* showLog((isCancel ? "<span style='color:red'>" : "") + "[ "
-                    + getTime() + " onRename ]&nbsp;&nbsp;&nbsp;&nbsp; "
-                    + treeNode.name + (isCancel ? "</span>" : "")); */
         }
         
         function showRemoveBtn(treeId, treeNode) {

@@ -2,11 +2,8 @@ package quick.start.study.spring.mvc.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.entity.TreeModel;
 import quick.start.study.spring.business.service.IMenuService;
@@ -62,24 +58,6 @@ public class SystemInfoController {
         return treeResponseList;
     }
     
-    @RequestMapping(value = "/systemInfo/byIdUpdateTrees",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public boolean  byIdUpdateTreeName(@RequestParam("id") Integer id,@RequestParam("name") String name) throws IOException{
-        boolean mark = false;
-        try {
-            if(id!=null && !name.isEmpty()){
-               int updateRow =  this.menuService.byIdUpdateTrees(id, name);
-               if(updateRow > 0){
-                   mark = true;
-               }
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return mark;
-    }
-    
     private List<TreeModel> getAllchildrenTreesList(List<Menu> list){
         List<TreeModel> treeResponseList = new ArrayList<TreeModel>();
         try {
@@ -97,5 +75,41 @@ public class SystemInfoController {
             e.printStackTrace();
         }
         return treeResponseList;
+    }
+    
+    @RequestMapping(value = "/systemInfo/byIdUpdateTrees",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean  byIdUpdateTrees(@RequestParam("id") Integer id,@RequestParam("name") String name) throws IOException{
+        boolean mark = false;
+        try {
+            if(id!=null && !name.isEmpty()){
+               int updateRow =  this.menuService.byIdUpdateTrees(id, name);
+               if(updateRow > 0){
+                   mark = true;
+               }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mark;
+    }
+    
+    @RequestMapping(value = "/systemInfo/byIdDeleteTrees",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean  byIdDeleteTrees(@RequestParam("id") Integer id) throws IOException{
+        boolean mark = false;
+        try {
+            if(id!=null){
+               int updateRow =  this.menuService.byIdDeleteTrees(id);
+               if(updateRow > 0){
+                   mark = true;
+               }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mark;
     }
 }

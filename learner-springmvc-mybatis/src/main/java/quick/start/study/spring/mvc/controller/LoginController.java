@@ -1,5 +1,7 @@
 package quick.start.study.spring.mvc.controller;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -52,11 +54,11 @@ public class LoginController {
                 url = "main/main";
             }else {
                 message = "login error  " + userName;
-                model.addAttribute("message", message);
+                model.addAttribute("errorMessage", message);
                 url = "main/login";
             }
         }else {
-            model.addAttribute("message",
+            model.addAttribute("errorMessage",
                     "Please enter userName and password data");
             url = "main/login";
         }
@@ -88,4 +90,41 @@ public class LoginController {
         }
         return menuResponseList;
     }
+    
+    @RequestMapping(value="/logout",method=RequestMethod.GET)
+    public String logout(HttpServletRequest request,HttpServletResponse response,Model model)
+    {
+     @SuppressWarnings("unchecked")
+    Enumeration<String> em = request.getSession().getAttributeNames();
+     while(em.hasMoreElements()){
+         request.getSession().removeAttribute(em.nextElement().toString());
+     }
+     request.getSession().invalidate();
+     return  "main/login";
+     
+     /*
+      * //get project real path
+        String path = request.getContextPath();
+       //join forward page path
+        String basePath = request.getScheme() + "://"
+               + request.getServerName() + ":" + request.getServerPort()
+               + path + "/";
+       //刷新页面 
+     String str = "<script>top.location='"+basePath+"'</script>";
+     System.out.println(str);
+     responseTxt(response,str); */
+    }
+    
+  //return front end page ajax techlogy
+    protected void responseTxt(HttpServletResponse response,String str){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.write(str);
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 }

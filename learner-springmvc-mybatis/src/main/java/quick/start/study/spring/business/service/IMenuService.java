@@ -9,4 +9,6 @@ public interface IMenuService {
     public List<Menu> getAllChildrenMenuList(int id);
     
     public int byIdUpdateTrees(int id,String name);
+    
+    public int byIdDeleteTrees(int id);
 }
