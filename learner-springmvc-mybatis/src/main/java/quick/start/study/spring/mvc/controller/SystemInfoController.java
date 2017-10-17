@@ -1,9 +1,13 @@
 package quick.start.study.spring.mvc.controller;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.entity.TreeModel;
 import quick.start.study.spring.business.service.IMenuService;
+import quick.start.study.spring.mvc.entity.MenusDataTableModelResponse;
 import quick.start.study.spring.mvc.entity.MenusResponse;
 
 @Controller
 @SessionAttributes({"menuList","message"})
 public class SystemInfoController {
 
+    private static final String JSONKEY = "data";
+    
     @Resource
     private IMenuService menuService;
     
@@ -130,5 +138,30 @@ public class SystemInfoController {
             e.printStackTrace();
         }
         return mark;
+    }
+    
+    @RequestMapping(value = "/systemInfo/getAllMenuDataList",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Map<String, List<?>>  getAllMenuDataList(HttpServletResponse responseStatus) throws IOException{
+        Map<String, List<?>> dataMap = new HashMap<String,List<?>>();
+        List<MenusDataTableModelResponse> menuResponseList = new ArrayList<MenusDataTableModelResponse>();
+        try {
+            List<Menu> menuList = this.menuService.getAllParentMenuList();
+            if(!menuList.isEmpty()){
+                for (Menu menu : menuList) {
+                    MenusDataTableModelResponse response = new MenusDataTableModelResponse();
+                    response.setMenuId(menu.getMenuId());
+                    response.setMenuName(menu.getMenuName());
+                    response.setSiteUrl(menu.getSiteUrl());
+                    response.setMenuIcon(menu.getMenuIcon());
+                    menuResponseList.add(response);
+                }
+                dataMap.put(JSONKEY, menuResponseList);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dataMap;
     }
 }

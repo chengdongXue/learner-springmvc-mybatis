@@ -82,9 +82,7 @@
                          <th>菜单ID</th>
                          <th>菜单名称</th>
                          <th>访问路径</th>
-                         <th>上级目录</th>
                          <th>菜单图标</th>
-                         <th>操作</th>
                      </tr>
                  </thead>
               </table>
@@ -129,19 +127,26 @@
 <script type="text/javascript">
   $(function () {
     $('#example1').DataTable({
-     "processing": true,
-     "ajax": "/learner-springmvc-mybatis/resources/data.json",
-       /* ajax: {
-           url: "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
-           dataSrc: ""
-       },*/
-       'paging'      : true,
-       'lengthChange': true,
-       'searching'   : true,
-       'ordering'    : true,
-       'info'        : true,
-       'autoWidth'   : true 
-    })
+       "processing": true,
+       "ajax": "/learner-springmvc-mybatis/systemInfo/getAllMenuDataList",
+       "columns": [
+           { "data": "menuId" },
+           { "data": "menuName" },
+           { "data": "siteUrl" },
+           { "data": "menuIcon" }
+       ],
+       'autoWidth'   : true
+    });
+    /* var table = $('#example1').DataTable();
+    $('#example1 tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } ); */
   })
 </script>
 </body>
