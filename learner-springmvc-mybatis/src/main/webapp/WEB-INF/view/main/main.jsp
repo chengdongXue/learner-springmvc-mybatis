@@ -130,6 +130,10 @@
 
  <script type="text/javascript"
   src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
+  
+<script type="text/javascript"
+  src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
+  
  <script type="text/javascript"
   src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
  <!-- DataTables -->
@@ -161,7 +165,7 @@
                                 'autoWidth' : true
                             });
         });
-
+        
         $(document)
                 .ready(
                         function() {
@@ -191,9 +195,9 @@
                                                 table.rows
                                                         .add(
                                                                 [{
-                                                                    "menuName" : "<td><input name='row-"+counter+"-name' id='row-"+counter+"-name' type='text' value=''></td>",
-                                                                    "siteUrl" : "<td><input name='row-"+counter+"-url' id='row-"+counter+"-url'  type='text' value=''></td>",
-                                                                    "menuIcon" : ' <td><select name="row-'+counter+'-icon" id="row-'+counter+'-icon" size="1">'
+                                                                    "menuName" : "<td><input name='menuName' id='menuName' type='text' value=''></td>",
+                                                                    "siteUrl" : "<td><input name='siteUrl' id='siteUrl'  type='text' value=''></td>",
+                                                                    "menuIcon" : ' <td><select name="menuIcon" id="menuIcon" size="1">'
                                                                             + '<option value="fa-meh-o" selected="">fa-meh-o</option>'
                                                                             + '<option value="fa-odnoklassniki" selected="">fa-odnoklassniki</option>'
                                                                             + '<option value="fa-bars" selected="">fa-bars</option>'
@@ -203,16 +207,13 @@
                                                         .addClass('new');
                                                 counter++;
                                             });
-                            
-                            // Automatically add a first row of data
-                            //$('#AddButton').click();
-                            
-                            $('#SubmitButton').click( function() {
-                                var data = table.$('input, select').serialize();
+
+                            $('#SubmitButton').click( function(){
+                                var data = table.$('input, select').serializeJson();
                                 console.log(data);
                                 
                                 return false;
-                            } );
+                            });
                         });
     </script>
 </body>
