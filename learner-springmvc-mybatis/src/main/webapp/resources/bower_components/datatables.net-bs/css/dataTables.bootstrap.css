@@ -5,6 +5,9 @@ table.dataTable {
   max-width: none !important;
   border-collapse: separate !important;
 }
+table.dataTable tbody tr.selected {
+  background-color: #B0BED9;
+}
 table.dataTable td,
 table.dataTable th {
   -webkit-box-sizing: content-box;
