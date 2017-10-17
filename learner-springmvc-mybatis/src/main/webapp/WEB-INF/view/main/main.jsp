@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="${bower_components }/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="${bower_components }/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="${bower_components }/datatables.net-bs/css/jquery.dataTables.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="${dist }/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
@@ -87,6 +88,9 @@
                  </thead>
               </table>
             </div>
+            <button type="button" class="btn btn-primary" data-toggle="button" id="button">
+                 Delete selecd row
+            </button>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -137,17 +141,23 @@
        ],
        'autoWidth'   : true
     });
-    /* var table = $('#example1').DataTable();
-    $('#example1 tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    } ); */
-  })
+  });
+
+  $(document).ready(function() {
+      var table = $('#example1').DataTable();
+      $('#example1').on( 'click', 'tr', function () {
+          if ( $(this).hasClass('selected') ) {
+              $(this).removeClass('selected');
+          }
+          else {
+              table.$('tr.selected').removeClass('selected');
+              $(this).addClass('selected');
+          }
+      } );
+      $('#button').click( function () {
+          table.row('.selected').remove().draw( false );
+      } );
+  } );
 </script>
 </body>
 </html>
