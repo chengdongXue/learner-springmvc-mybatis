@@ -40,7 +40,6 @@
 <!-- DataTables -->
 <link rel="stylesheet"
  href="${bower_components }/datatables.net-bs/css/dataTables.bootstrap.css">
-<%-- <link rel="stylesheet" href="${bower_components }/datatables.net-bs/css/jquery.dataTables.css"> --%>
 <!-- Theme style -->
 <link rel="stylesheet" href="${dist }/AdminLTE.min.css">
 <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
@@ -88,9 +87,12 @@
        <button type="button" class="btn btn-primary"
         data-toggle="button" id="AddButton" style="margin-left: 10px;">
         Add new row</button>
-        <button type="button" class="btn btn-primary"
-        data-toggle="button" id="SubmitButton" style="margin-left: 10px;">
-        Submit add rows</button>
+       <button type="button" class="btn btn-primary"
+        data-toggle="button" id="SubmitButton"
+        style="margin-left: 10px;">Submit add rows</button>
+       <button type="button" class="btn btn-primary"
+        data-toggle="button" id="EditButton" style="margin-left: 10px;">
+        Edit rows</button>
        <!-- /.box-header -->
        <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -130,12 +132,15 @@
 
  <script type="text/javascript"
   src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
-  
-<script type="text/javascript"
+
+ <script type="text/javascript"
   src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
-  
+
  <script type="text/javascript"
   src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
+
+ <script src="${ bower_components}/bootbox.min.js"></script>
+
  <!-- DataTables -->
  <script
   src="${ bower_components}/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -165,7 +170,7 @@
                                 'autoWidth' : true
                             });
         });
-        
+
         $(document)
                 .ready(
                         function() {
@@ -187,34 +192,63 @@
                                 table.row('.selected').remove().draw(false);
                             });
 
-                            var counter = 1;
                             $('#AddButton')
                                     .on(
                                             'click',
-                                            function() {
+                                            function(event) {
+                                                showButtonClick();
                                                 table.rows
                                                         .add(
-                                                                [{
+                                                                [ {
                                                                     "menuName" : "<td><input name='menuName' id='menuName' type='text' value=''></td>",
                                                                     "siteUrl" : "<td><input name='siteUrl' id='siteUrl'  type='text' value=''></td>",
                                                                     "menuIcon" : ' <td><select name="menuIcon" id="menuIcon" size="1">'
                                                                             + '<option value="fa-meh-o" selected="">fa-meh-o</option>'
                                                                             + '<option value="fa-odnoklassniki" selected="">fa-odnoklassniki</option>'
                                                                             + '<option value="fa-bars" selected="">fa-bars</option>'
+                                                                            + '<option value="" selected="">---Please select---</option>'
                                                                             + '</select></td>'
                                                                 } ]).draw()
                                                         .nodes().to$()
                                                         .addClass('new');
-                                                counter++;
                                             });
 
-                            $('#SubmitButton').click( function(){
-                                var data = table.$('input, select').serializeJson();
-                                console.log(data);
-                                
-                                return false;
-                            });
+                            $('#EditButton')
+                                    .click(
+                                            function() {
+                                                console.log(table.rows('.selected').data()[0].menuIcon);
+                                                console.log(table.rows('.selected').data()[0].menuId);
+                                                console.log(table.rows('.selected').data()[0].menuName);
+                                                console.log(table.rows('.selected').data()[0].siteUrl);
+                                            });
                         });
+
+        function showButtonClick() {
+            $('#SubmitButton').removeClass('disabled').addClass('active');
+            $('#SubmitButton').on('click', function() {
+                var table = $('#example1').DataTable();
+                commonSubmitButton(table, event);
+            });
+        }
+
+        function commonSubmitButton(table, event) {
+            var data = table.$('input, select').serializeJson();
+            console.log(data);
+            if (data.to.length == 0 && data.menuName != null) {
+                $('#SubmitButton').addClass('disabled');
+                var tg = $(event.target);
+                $(tg).unbind('click');
+                return false;
+            } else {
+                bootbox.alert({
+                    size : "small",
+                    title : "warning",
+                    message : "submit之前一定要添加一行数据!",
+                    callback : function() {
+                    }
+                })
+            }
+        }
     </script>
 </body>
 </html>
