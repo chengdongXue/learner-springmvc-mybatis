@@ -18,10 +18,11 @@
   <meta http-equiv="Pragma" content="no-cache">
   <script type="text/javascript" src="resources/js/jquery.min.js"></script>
   <script type="text/javascript">
+  
   $(document).ready(function() {
       window.location.href = '/learner-springmvc-mybatis/init';
   });
-  
+    
    function getComboListById() {
        var params = {
           "id":1,
@@ -48,5 +49,6 @@
   </script>
 </head>
 <body>
+<!--   <a href="/learner-springmvc-mybatis/showEmpDropSortList?id=1">click sotable.js</a> -->
 </body>
 </html>
