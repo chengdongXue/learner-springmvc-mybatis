@@ -89,7 +89,7 @@
         Add new row</button>
        <button type="button" class="btn btn-primary"
         data-toggle="button" id="SubmitButton"
-        style="margin-left: 10px;">Submit add rows</button>
+        style="margin-left: 10px;">Submit</button>
        <button type="button" class="btn btn-primary"
         data-toggle="button" id="EditButton" style="margin-left: 10px;">
         Edit rows</button>
@@ -154,6 +154,9 @@
  <script src="${ dist}/demo.js"></script>
 
  <script type="text/javascript">
+ 
+ var hasClassIndex = 0;
+ 
         $(function() {
             $('#example1')
                     .DataTable(
@@ -196,7 +199,10 @@
                                     .on(
                                             'click',
                                             function(event) {
-                                                showButtonClick();
+                                                var boolJudit = commonFoundTableDomVal();
+                                                if(boolJudit == false){
+                                                    return false;
+                                                }
                                                 table.rows
                                                         .add(
                                                                 [ {
@@ -206,13 +212,13 @@
                                                                             + '<option value="fa-meh-o" selected="">fa-meh-o</option>'
                                                                             + '<option value="fa-odnoklassniki" selected="">fa-odnoklassniki</option>'
                                                                             + '<option value="fa-bars" selected="">fa-bars</option>'
-                                                                            + '<option value="" selected="">---Please select---</option>'
                                                                             + '</select></td>'
                                                                 } ]).draw()
                                                         .nodes().to$()
                                                         .addClass('new');
                                             });
-
+                            //The button id is SubmitButton,bind a onclick event of the it.
+                            showButtonClick();
                             $('#EditButton')
                                     .click(
                                             function() {
@@ -233,22 +239,80 @@
 
         function commonSubmitButton(table, event) {
             var data = table.$('input, select').serializeJson();
-            console.log(data);
-            if (data.to.length == 0 && data.menuName != null) {
-                $('#SubmitButton').addClass('disabled');
-                var tg = $(event.target);
-                $(tg).unbind('click');
-                return false;
-            } else {
-                bootbox.alert({
-                    size : "small",
-                    title : "warning",
-                    message : "submit之前一定要添加一行数据!",
-                    callback : function() {
+            if(data instanceof Object && JSON.stringify(data) !== '{}'){
+                if(typeof (data.menuName) == 'string' && typeof (data.siteUrl) == 'string'){
+                    if(data.menuName == "" && data.siteUrl == ""){
+                        commonBootboxDailog("请填下数据内容!");
+                        return false;
                     }
-                })
+                }else if(data.menuName instanceof Array  && data.siteUrl instanceof Array){
+                    for(var i = 0; i<data.menuName.length; i++){
+                        if(data.menuName[i] == "" || data.siteUrl[i] == ""){
+                            commonBootboxDailog("请填下数据内容!");
+                            return false;
+                        }else{
+                        }
+                    }
+                }
+                saveArrayData(data);
+            }else{
+                commonBootboxDailog("请点击按钮进行添加行!");
+                return false;
             }
+            /**
+            Important!!!
+            $('#SubmitButton').addClass('disabled');
+             var tg = $(event.target);
+             $(tg).unbind('click');
+             return false; 
+             */
         }
+        
+        function saveMenuArrayData(data) {
+            console.log(data);
+            var params = {
+               "siteUrl":data.siteUrl,
+               "menuName":data.menuName,
+               "menuIcon":data.menuIcon
+            };
+           $.ajax({
+             type:"POST",
+             url: "/learner-springmvc-mybatis/saveMenuArrayData",
+             dataType: "json",
+             data:JSON.stringify(params),
+             contentType: "application/json; charset=UTF-8",
+             success: function(data) {
+               if(data){
+                   console.log(data);
+               }
+             },
+             error: function(XMLHttpRequest, textStatus) {
+                 alert("通信ERROR。");
+             }
+           });
+       }
+        
+       function commonFoundTableDomVal(){
+           var mark  = false;
+           var classNewData = $("table > tbody > tr.new");
+           if(classNewData.length < 5){
+               mark = true;
+           }else{
+               commonBootboxDailog("一次性只能添加五行!");
+               mark =  false;
+           }
+           return mark;
+       }
+       
+       function commonBootboxDailog(message){
+           bootbox.alert({
+               size : "small",
+               title : "warning",
+               message : message,
+               callback : function() {
+               }
+           })
+       }
     </script>
 </body>
 </html>

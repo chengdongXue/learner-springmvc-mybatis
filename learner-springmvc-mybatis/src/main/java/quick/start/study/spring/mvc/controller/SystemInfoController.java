@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import quick.start.study.spring.business.entity.Employee;
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.entity.TreeModel;
 import quick.start.study.spring.business.service.IMenuService;
+import quick.start.study.spring.mvc.entity.EmployeeRequest;
+import quick.start.study.spring.mvc.entity.EmployeeResponse;
+import quick.start.study.spring.mvc.entity.MenuSaveArrayRequest;
 import quick.start.study.spring.mvc.entity.MenusDataTableModelResponse;
 import quick.start.study.spring.mvc.entity.MenusResponse;
 
@@ -140,6 +145,7 @@ public class SystemInfoController {
         return mark;
     }
     
+    /*******************************************dataTable operator*****************************************************/
     @RequestMapping(value = "/systemInfo/getAllMenuDataList",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -163,5 +169,17 @@ public class SystemInfoController {
             e.printStackTrace();
         }
         return dataMap;
+    }
+    
+    @RequestMapping(value = "/saveMenuArrayData",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean getAllEmployeeJson(@RequestBody MenuSaveArrayRequest request,HttpServletResponse responseStatus) throws IOException{
+        try {
+         
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
