@@ -13,4 +13,6 @@ public interface IMenuService {
     public int byIdDeleteTrees(int id);
     
     public int addTrees(int pId,String name);
+    
+    public int saveMenuArrayData(List<Menu> list);
 }

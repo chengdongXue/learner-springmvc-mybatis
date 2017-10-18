@@ -18,4 +18,6 @@ public interface IMenuDao {
     int byIdDeleteTrees(@Param("id") int id);
     
     int addTrees(@Param("pId") int pId, @Param("name") String name) ;
+    
+    int saveMenuArrayData(@Param("list") List<Menu> list);
 }

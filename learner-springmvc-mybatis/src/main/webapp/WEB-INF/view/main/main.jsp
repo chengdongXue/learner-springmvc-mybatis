@@ -254,7 +254,7 @@
                         }
                     }
                 }
-                saveArrayData(data);
+                saveMenuArrayData(data);
             }else{
                 commonBootboxDailog("请点击按钮进行添加行!");
                 return false;
@@ -277,13 +277,26 @@
             };
            $.ajax({
              type:"POST",
-             url: "/learner-springmvc-mybatis/saveMenuArrayData",
+             url: "/learner-springmvc-mybatis/systemInfo/saveMenuArrayData",
              dataType: "json",
              data:JSON.stringify(params),
              contentType: "application/json; charset=UTF-8",
              success: function(data) {
                if(data){
-                   console.log(data);
+                   $('#example1')
+                   .DataTable(
+                           {
+                               "processing" : true,
+                               "ajax" : "/learner-springmvc-mybatis/systemInfo/getAllMenuDataList",
+                               "columns" : [ {
+                                   "data" : "menuName"
+                               }, {
+                                   "data" : "siteUrl"
+                               }, {
+                                   "data" : "menuIcon"
+                               } ],
+                               'autoWidth' : true
+                           });
                }
              },
              error: function(XMLHttpRequest, textStatus) {

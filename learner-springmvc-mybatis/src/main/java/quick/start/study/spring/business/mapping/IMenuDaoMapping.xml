@@ -35,5 +35,24 @@
      </selectKey>
     insert into <include refid="menu" /> (menuName, siteUrl,delFlag,parentId,menuIcon) values(#{name},"",0,#{pId},"fa-bars");
  </insert>
+ 
+ <insert id ="saveMenuArrayData" parameterType="java.util.List" >
+        <selectKey resultType ="int" keyProperty= "menuId"
+             order= "BEFORE">
+            SELECT LAST_INSERT_ID()
+        </selectKey >
+       insert into `menu`
+       (menuName, siteUrl,delFlag,parentId,menuIcon)
+       values
+        <foreach collection ="list" item="item" index= "index" separator =",">
+            (
+             #{item.menuName},
+             #{item.siteUrl},
+             0,
+             NULL,
+             #{item.menuIcon}
+            )
+        </foreach >
+ </insert>
 
 </mapper>

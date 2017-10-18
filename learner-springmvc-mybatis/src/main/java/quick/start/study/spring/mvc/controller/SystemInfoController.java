@@ -171,15 +171,32 @@ public class SystemInfoController {
         return dataMap;
     }
     
-    @RequestMapping(value = "/saveMenuArrayData",method = RequestMethod.POST)
+    @RequestMapping(value = "/systemInfo/saveMenuArrayData",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public boolean getAllEmployeeJson(@RequestBody MenuSaveArrayRequest request,HttpServletResponse responseStatus) throws IOException{
+    public boolean saveMenuArrayData(@RequestBody MenuSaveArrayRequest request,HttpServletResponse responseStatus) throws IOException{
+        boolean mark = false;
+        List<Menu> menus = new ArrayList<Menu>();
         try {
-         
+            List<String> menuIconList = request.getMenuIcon();
+            List<String> menuNameList = request.getMenuName();
+            List<String> siteUrlList = request.getSiteUrl();
+            for (int i = 0; i < menuIconList.size(); i++) {
+                Menu menu = new Menu();
+                menu.setDelFalg(0);
+                menu.setParentId(0);
+                menu.setSiteUrl(siteUrlList.get(i));
+                menu.setMenuIcon(menuIconList.get(i));
+                menu.setMenuName(menuNameList.get(i));
+                menus.add(menu);
+            }
+            int rows = this.menuService.saveMenuArrayData(menus);
+            if(rows > 0){
+                mark = true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return mark;
     }
 }

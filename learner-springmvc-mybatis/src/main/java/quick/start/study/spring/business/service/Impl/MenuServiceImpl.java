@@ -35,4 +35,8 @@ public class MenuServiceImpl implements IMenuService {
         return menuDao.addTrees(pId, name);
     }
 
+    public int saveMenuArrayData(List<Menu> list) {
+        return menuDao.saveMenuArrayData(list);
+    }
+
 }
