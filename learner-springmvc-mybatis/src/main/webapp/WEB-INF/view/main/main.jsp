@@ -230,7 +230,11 @@
                             
                             $('#Delbutton').click(function(){
                                 if(table.rows('.selected').data().length > 0){
+                                    if(table.rows('.selected').data()[0].menuName.indexOf("<td>")!=-1){
+                                        table.rows('.selected').remove().draw(false);
+                                    }else{
                                         byIdDeleteTrees(table,table.rows('.selected').data()[0].menuId);
+                                    }
                                 }else{
                                     commonBootboxDailog("请选择删除项!");
                                     return false;
@@ -304,7 +308,7 @@
         function commonSubmitButton(table, event) {
             var data = table.$('input, select').serializeJson();
             if(data instanceof Object && JSON.stringify(data) !== '{}'){
-                if(typeof (data.menuName) == '' && typeof (data.siteUrl) == ''){
+                if(typeof (data.menuName) == 'string' && typeof (data.siteUrl) == 'string'){
                     if(data.menuName == "" && data.siteUrl == ""){
                         commonBootboxDailog("请填下数据内容!");
                         return false;
