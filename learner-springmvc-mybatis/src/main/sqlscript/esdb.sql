@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2017-09-28 19:19:23
+Date: 2017-10-19 17:36:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `emp` (
   `salary` float NOT NULL,
   `designation` varchar(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of emp
@@ -51,18 +51,21 @@ CREATE TABLE `menu` (
   `siteUrl` varchar(100) DEFAULT NULL COMMENT 'has rule to access url',
   `delFlag` int(1) NOT NULL COMMENT '1:true  0:false',
   `parentId` int(1) DEFAULT NULL,
+  `menuIcon` varchar(50) DEFAULT NULL COMMENT 'page show''s icon picture',
   PRIMARY KEY (`menuId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '用户管理', '/user', '0', null);
-INSERT INTO `menu` VALUES ('2', '查看用户', '/user/review', '0', '1');
-INSERT INTO `menu` VALUES ('3', '建议意见', '/user/command', '0', '1');
-INSERT INTO `menu` VALUES ('4', '儿童管理', '/children', '0', null);
-INSERT INTO `menu` VALUES ('5', '婴儿期', '/children/baby', '0', '4');
-INSERT INTO `menu` VALUES ('6', '儿童期', '/children/sone', '0', '4');
+INSERT INTO `menu` VALUES ('1', '用户管理', '/user', '0', null, 'fa-odnoklassniki');
+INSERT INTO `menu` VALUES ('2', '查看用户', '/user/review', '0', '1', 'fa-odnoklassniki-square');
+INSERT INTO `menu` VALUES ('3', '建议意见', '/user/command', '0', '1', 'fa-commenting');
+INSERT INTO `menu` VALUES ('4', '儿童管理', '/learner-springmvc-mybatis/children', '0', null, 'fa-meh-o');
+INSERT INTO `menu` VALUES ('5', '婴儿期', '/children/baby', '0', '4', 'fa-male');
+INSERT INTO `menu` VALUES ('6', '儿童期', '/children/sone', '0', '4', 'fa-magic');
+INSERT INTO `menu` VALUES ('7', '菜单管理', '/systemInfo', '0', null, 'fa-bars');
+INSERT INTO `menu` VALUES ('8', '菜单信息', '/learner-springmvc-mybatis/systemInfo/init', '0', '7', 'fa-bar-chart');
 
 -- ----------------------------
 -- Table structure for `user`
