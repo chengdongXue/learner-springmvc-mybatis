@@ -119,7 +119,6 @@
   <!-- /.content-wrapper -->
 
 <!-- Model -->
-
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -194,9 +193,6 @@
  <script src="${ dist}/demo.js"></script>
 
  <script type="text/javascript">
- 
- var hasClassIndex = 0;
- 
         $(function() {
             $('#example1')
                     .DataTable(
