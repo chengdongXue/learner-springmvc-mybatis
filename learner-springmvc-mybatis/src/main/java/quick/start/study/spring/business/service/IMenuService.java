@@ -1,7 +1,7 @@
 package quick.start.study.spring.business.service;
 import java.util.List;
 import quick.start.study.spring.business.entity.Menu;
-
+import quick.start.study.spring.mvc.entity.MenusResponse;
 public interface IMenuService {
    
     public List<Menu> getAllParentMenuList();
@@ -15,4 +15,7 @@ public interface IMenuService {
     public int addTrees(int pId,String name);
     
     public int saveMenuArrayData(List<Menu> list);
+    
+    public int byIdUpdateMenus(MenusResponse menu);
+    
 }

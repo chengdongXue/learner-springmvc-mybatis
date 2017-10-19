@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
-import quick.start.study.spring.business.entity.Employee;
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.entity.TreeModel;
 import quick.start.study.spring.business.service.IMenuService;
-import quick.start.study.spring.mvc.entity.EmployeeRequest;
-import quick.start.study.spring.mvc.entity.EmployeeResponse;
 import quick.start.study.spring.mvc.entity.MenuSaveArrayRequest;
 import quick.start.study.spring.mvc.entity.MenusDataTableModelResponse;
 import quick.start.study.spring.mvc.entity.MenusResponse;
@@ -191,6 +185,22 @@ public class SystemInfoController {
                 menus.add(menu);
             }
             int rows = this.menuService.saveMenuArrayData(menus);
+            if(rows > 0){
+                mark = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mark;
+    }
+    
+    @RequestMapping(value = "/systemInfo/byIdUpdateMenus",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean byIdUpdateMenus(@RequestBody MenusResponse request,HttpServletResponse responseStatus) throws IOException{
+        boolean mark = false;
+        try {
+            int rows = this.menuService.byIdUpdateMenus(request);
             if(rows > 0){
                 mark = true;
             }

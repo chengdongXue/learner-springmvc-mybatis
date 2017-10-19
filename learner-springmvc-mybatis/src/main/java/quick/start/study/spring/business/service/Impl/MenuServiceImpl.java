@@ -1,13 +1,11 @@
 package quick.start.study.spring.business.service.Impl;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import quick.start.study.spring.business.dao.IMenuDao;
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.service.IMenuService;
+import quick.start.study.spring.mvc.entity.MenusResponse;
 
 @Service("menuService")
 public class MenuServiceImpl implements IMenuService {
@@ -37,6 +35,10 @@ public class MenuServiceImpl implements IMenuService {
 
     public int saveMenuArrayData(List<Menu> list) {
         return menuDao.saveMenuArrayData(list);
+    }
+
+    public int byIdUpdateMenus(MenusResponse menu) {
+        return menuDao.byIdUpdateMenus(menu.getMenuId(),menu.getMenuName(),menu.getMenuIcon(),menu.getSiteUrl());
     }
 
 }

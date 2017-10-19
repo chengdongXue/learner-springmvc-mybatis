@@ -52,7 +52,20 @@
              NULL,
              #{item.menuIcon}
             )
-        </foreach >
+        </foreach>
  </insert>
+
+ <update id="byIdUpdateMenus"
+      parameterType="map">
+      update `menu`
+      <set>
+       menuName = #{menuName, jdbcType=VARCHAR},
+       siteUrl = #{siteUrl, jdbcType=VARCHAR},
+       menuIcon = #{menuIcon, jdbcType=VARCHAR}
+      </set>
+      <where>
+      menuId = #{menuId, jdbcType=DECIMAL}
+      </where>
+</update>
 
 </mapper>

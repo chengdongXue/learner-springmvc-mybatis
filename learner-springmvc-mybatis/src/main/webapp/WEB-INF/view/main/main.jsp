@@ -91,8 +91,9 @@
         data-toggle="button" id="SubmitButton"
         style="margin-left: 10px;">Submit</button>
        <button type="button" class="btn btn-primary"
-        data-toggle="button" id="EditButton" style="margin-left: 10px;">
-        Edit rows</button>
+        data-toggle="modal" data-target="#exampleModal" data-editMenuTitle="编辑菜单信息" 
+         id="EditButton" style="margin-left: 10px;">Edit rows</button>
+        
        <!-- /.box-header -->
        <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -116,6 +117,45 @@
    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<!-- Model -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input type="hidden" id="menuIdModel" name="menuIdModel">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">菜单名称:</label>
+            <input type="text" class="form-control" id="menuNameModel" name="menuNameModel">
+          </div>
+          <div class="form-group">
+           <label for="recipient-name" class="control-label">菜单图标:</label>
+            <select name="menuIconModel" id="menuIconModel">
+             <option value="fa-meh-o">fa-meh-o</option>
+             <option value="fa-odnoklassniki">fa-odnoklassniki</option>
+             <option value="fa-bars">fa-bars</option>
+           </select>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">访问路径:</label>
+            <input type="text" class="form-control" id="siteUriModel" name="siteUriModel">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="submitEdit">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Model -->
 
   <!-- Footer page -->
   <jsp:include page="footer.jsp"></jsp:include>
@@ -177,7 +217,7 @@
         $(document)
                 .ready(
                         function() {
-                            var table = $('#example1').DataTable();
+                           var table = $('#example1').DataTable();
                             $('#example1').on(
                                     'click',
                                     'tr',
@@ -187,12 +227,18 @@
                                         } else {
                                             table.$('tr.selected').removeClass(
                                                     'selected');
+                                            //$(this).toggleClass('selected');
                                             $(this).addClass('selected');
                                         }
                                     });
-
-                            $('#Delbutton').click(function() {
-                                table.row('.selected').remove().draw(false);
+                            
+                            $('#Delbutton').click(function(){
+                                if(table.rows('.selected').data().length > 0){
+                                        byIdDeleteTrees(table,table.rows('.selected').data()[0].menuId);
+                                }else{
+                                    commonBootboxDailog("请选择删除项!");
+                                    return false;
+                                }
                             });
 
                             $('#AddButton')
@@ -205,7 +251,7 @@
                                                 }
                                                 table.rows
                                                         .add(
-                                                                [ {
+                                                                [{
                                                                     "menuName" : "<td><input name='menuName' id='menuName' type='text' value=''></td>",
                                                                     "siteUrl" : "<td><input name='siteUrl' id='siteUrl'  type='text' value=''></td>",
                                                                     "menuIcon" : ' <td><select name="menuIcon" id="menuIcon" size="1">'
@@ -213,7 +259,7 @@
                                                                             + '<option value="fa-odnoklassniki" selected="">fa-odnoklassniki</option>'
                                                                             + '<option value="fa-bars" selected="">fa-bars</option>'
                                                                             + '</select></td>'
-                                                                } ]).draw()
+                                                                }]).draw()
                                                         .nodes().to$()
                                                         .addClass('new');
                                             });
@@ -222,11 +268,33 @@
                             $('#EditButton')
                                     .click(
                                             function() {
-                                                console.log(table.rows('.selected').data()[0].menuIcon);
-                                                console.log(table.rows('.selected').data()[0].menuId);
-                                                console.log(table.rows('.selected').data()[0].menuName);
-                                                console.log(table.rows('.selected').data()[0].siteUrl);
+                                                if(table.rows('.selected').data().length > 0){
+                                                    var selectedRows =  table.rows('.selected').data()[0];
+                                                    var menuId = selectedRows.menuId;
+                                                    var menuIcon = selectedRows.menuIcon;
+                                                    var menuName = selectedRows.menuName;
+                                                    var siteUrl = selectedRows.siteUrl;
+                                                    $('#exampleModal').on('show.bs.modal', function (event) {
+                                                        var modal = $(this);
+                                                        var button = $(event.relatedTarget);
+                                                        var editMenuTitle = button.data('editmenutitle');
+                                                        modal.find('.modal-title').text(editMenuTitle);
+                                                        modal.find('.modal-body input#menuIdModel').val(menuId);
+                                                        modal.find('.modal-body input#siteUriModel').val(siteUrl);
+                                                        modal.find('.modal-body input#menuNameModel').val(menuName);
+                                                        modal.find('.modal-body select#menuIconModel').val(menuIcon);
+                                                      });
+                                                }else{
+                                                    commonBootboxDailog("请选择编辑项!");
+                                                    return false;
+                                                }
                                             });
+                           
+                            $('#submitEdit').click(function(){
+                              //  var data = $('.modal-body input,select').serializeJson();
+                                //perform update operator
+                                byIdUpdateMenus();
+                            });
                         });
 
         function showButtonClick() {
@@ -240,7 +308,7 @@
         function commonSubmitButton(table, event) {
             var data = table.$('input, select').serializeJson();
             if(data instanceof Object && JSON.stringify(data) !== '{}'){
-                if(typeof (data.menuName) == 'string' && typeof (data.siteUrl) == 'string'){
+                if(typeof (data.menuName) == '' && typeof (data.siteUrl) == ''){
                     if(data.menuName == "" && data.siteUrl == ""){
                         commonBootboxDailog("请填下数据内容!");
                         return false;
@@ -268,13 +336,54 @@
              */
         }
         
-        function saveMenuArrayData(data) {
-            console.log(data);
+        function byIdUpdateMenus(){
             var params = {
-               "siteUrl":data.siteUrl,
-               "menuName":data.menuName,
-               "menuIcon":data.menuIcon
-            };
+                    "siteUrl":$("#siteUriModel").val(),
+                    "menuName":$("#menuNameModel").val(),
+                    "menuIcon":$("#menuIconModel").val(),
+                    "menuId":$("#menuIdModel").val()
+            }
+            $.ajax({
+                type:"POST",
+                url: "/learner-springmvc-mybatis/systemInfo/byIdUpdateMenus",
+                dataType: "json",
+                data:JSON.stringify(params),
+                contentType: "application/json; charset=UTF-8",
+                success: function(data) {
+                  if(data){
+                      $('#exampleModal').modal('hide');
+                      document.location.reload();
+                  }else{
+                      commonBootboxDailog("更新失败!");
+                  }
+                },
+                error: function(XMLHttpRequest, textStatus) {
+                    commonBootboxDailog("通信ERROR!");
+                }
+              });
+        }
+        
+        function saveMenuArrayData(data) {
+            var params = null;
+            var siteUrlArray = [];
+            var menuNameArray = [];
+            var menuIconArray = [];
+            if(typeof(data.siteUrl) === 'string' && typeof(data.menuName) === 'string' && typeof(data.menuIcon) === 'string'){
+                siteUrlArray[0]=data.siteUrl;
+                menuNameArray[0]=data.menuName;
+                menuIconArray[0] = data.menuIcon;
+                params = {
+                        "siteUrl":siteUrlArray,
+                        "menuName":menuNameArray,
+                        "menuIcon":menuIconArray
+                     };
+            }else{
+                params = {
+                        "siteUrl":data.siteUrl,
+                        "menuName":data.menuName,
+                        "menuIcon":data.menuIcon
+                     };
+            }
            $.ajax({
              type:"POST",
              url: "/learner-springmvc-mybatis/systemInfo/saveMenuArrayData",
@@ -283,27 +392,39 @@
              contentType: "application/json; charset=UTF-8",
              success: function(data) {
                if(data){
-                   $('#example1')
-                   .DataTable(
-                           {
-                               "processing" : true,
-                               "ajax" : "/learner-springmvc-mybatis/systemInfo/getAllMenuDataList",
-                               "columns" : [ {
-                                   "data" : "menuName"
-                               }, {
-                                   "data" : "siteUrl"
-                               }, {
-                                   "data" : "menuIcon"
-                               } ],
-                               'autoWidth' : true
-                           });
+                   document.location.reload();
+               }else{
+                   commonBootboxDailog("删除失败!");
                }
              },
              error: function(XMLHttpRequest, textStatus) {
-                 alert("通信ERROR。");
+                 commonBootboxDailog("通信ERROR!");
              }
            });
        }
+        
+        function byIdDeleteTrees(table,menuId){
+            var params = {
+                    "id" : menuId
+                };
+                $.ajax({
+                    type : "GET",
+                    url : "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
+                    dataType : "json",
+                    data : params,
+                    contentType : "application/json; charset=UTF-8",
+                    success : function(data) {
+                        if (data){
+                            table.rows('.selected').remove().draw(false);
+                        }else{
+                            commonBootboxDailog("删除失败!");
+                        }
+                    },
+                    error : function(XMLHttpRequest, textStatus) {
+                        commonBootboxDailog("通信ERROR!");
+                    }
+                });
+        }
         
        function commonFoundTableDomVal(){
            var mark  = false;
