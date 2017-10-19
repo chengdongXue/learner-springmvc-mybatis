@@ -1,0 +1,25 @@
+@CHARSET "utf-8";
+
+body {
+ background-color:#C6F7FF;
+}
+
+.container {
+ position:relative;
+ overflow:hidden;
+}
+
+.liltle_bg {
+ position:absolute;
+ top:270px;
+ left:530px;
+}
+
+.form-horizontal {
+ position:absolute;top:400px;left:330px;width:510px;
+}
+
+.login {
+ margin-left: 150px;
+ margin-top: 100px;
+}

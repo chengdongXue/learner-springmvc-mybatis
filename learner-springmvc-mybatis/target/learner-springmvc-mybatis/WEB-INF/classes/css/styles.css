@@ -1,0 +1,160 @@
+@charset "UTF-8";
+/* CSS Document */
+.studentSearch{
+	list-style: none;
+}
+.studentSearch li{
+	float:left;
+}
+/* table */
+.tableStyle1 {
+	width: 620px;
+	margin-bottom: 12px;
+}
+.studentName{
+	width: 270px;
+	padding-left: 20px;
+}
+.className {
+	width: 240px;
+	padding-left: 15px;
+}
+.num {
+	width: 70px;
+	text-align: right;
+	padding-right:40px;
+}
+.studentInfoBtnArea {
+	width: 640px;
+	list-style: none;
+}
+.studentInfoBtnArea li{
+	text-align:right;
+	padding-bottom: 12px;
+}
+/* apt720-------------------------start */
+/* table style2 */
+.tableStyle2 ul.studentIDWrapper {
+	float:left;
+	height: 32px;
+	width: 860px;
+}
+.tableStyle2 ul.studentIDWrapper li.formRabel {
+	line-height: 32px;	
+}
+.tableStyle2 ul.studentIDWrapper li.newStudent {
+  width: 317px;
+  text-align: right;
+	padding: 0 12px 0 12px;
+	color: #0f3e6a;
+	font-size: 14px;
+}
+.tableStyle2 .studentDetailTableWrapper {
+	padding: 15px;
+}
+.tableStyle2 td .studentDetailTable {
+	width: 842px;
+}
+.tableStyle2 td .studentDetailTable th {
+	border: 0;
+	background:#e3e3e3;
+  /* apt710指摘対応
+  font-size: 14px; */
+	color:#393939;
+	font-weight: normal;
+	padding: 0;
+	text-align:center;
+}
+.tableStyle2 td .studentDetailTable td	{
+	border: 0;
+	border-bottom: 2px solid #e3e3e3;
+	/* apt710指摘対応
+	font-size: 14px; */
+	color:#393939;
+	padding: 0;
+	text-align:center;
+}
+.tableStyle2 td .studentDetailTable th, .tableStyle2 td .studentDetailTable td{
+	height: 40px;
+}
+
+.tableStyle2 ul {
+	display:table;
+	list-style:none;
+}
+.tableStyle2 ul li{
+	float:left;
+	display:table-cell;
+	vertical-align: middle;
+}
+.tableStyle2 ul:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.tableStyle2 ul.formWrapper li.formRabel {
+	line-height: 32px;	
+}
+.tableStyle2 ul.studentNameWrapper li.studentNameLabel{
+	width:40px;
+	line-height: 32px;
+}
+.tableStyle2 .optionalClassWrapper .optionalClassPulldown{
+	padding: 0 12px 12px 0;
+}
+.tableStyle2 .optionalClassWrapper .errorText{
+	line-height: 32px;	
+}
+/* input */
+input.shortStudentID{
+	width: 5em;
+}
+input.studentID{
+	width: 10em;
+}
+input.pass{
+	width: 4em;	
+}
+input.number{
+	width: 159px;
+}
+input.shortNumber {
+	width: 3em;
+}
+textarea {
+	resize: vertical;
+	border:solid 2px #e3e3e3;
+	border-radius: none;
+	width:800px;
+}
+th.deleteBorderBottom, td.deleteBorderBottom{
+	border-bottom:0;
+}
+th.deleteBorderTop, td.deleteBorderTop {
+	border-top:0;
+}
+.submitButtonWrapper{
+	width:1052px;
+}
+.submitButton{
+	margin: 0 auto;
+	width: 320px;
+}
+.tableStyle2 th.gender {
+	height:30px;
+}
+.tableStyle2 td.defaultClassSelect{
+	width: 350px;
+}
+.tableStyle2 td.numInput{
+	width:
+}
+.tableStyle2 td.numInput li.errorText {
+	line-height:32px;
+}
+.tableStyle2 td .studentDetailTable th.className, .tableStyle2 td .studentDetailTable th.teacher {
+  text-align: left;
+}
+.tableStyle2 td .studentDetailTable td.className, .tableStyle2 td .studentDetailTable td.teacher {
+  text-align: left;
+}

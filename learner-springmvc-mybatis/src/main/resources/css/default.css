@@ -1,0 +1,250 @@
+@charset "utf-8";
+/*     
+edit history
+20150521 by AO ver 0.04 
+20150518 by AO ver 0.03 
+20150429 by AO ver 0.02 
+20150421 by AO ver 0.01 
+*/
+
+/********** contents **********************************/
+body {
+  background: url(../images/bg_left.gif) repeat-y;
+}
+#wrapperAll {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  float:left;
+}
+#allColumn {
+  width: 1260px;
+  height: 100%;
+}
+/********** leftMenu ******************************/
+nav {
+  width: 188px;
+  min-height: 100%;
+  background:#0f3e6a;
+  color:#FFFFFF;
+  float:left;
+}
+
+h1{
+  margin: 20px 20px 12px 20px;
+  width:148px;
+  height:38px;
+}
+.leftMenu {
+  width: 148px;
+  margin: 0 20px;
+}
+.leftMenu .leftMenuTitle {
+  height: 20px;
+  padding: 18px 0 15px 0;
+  font-weight:bold;
+  font-size: 16px;
+}
+.leftMenu dd {
+  height: 48px;
+  width: 148px;
+  font-size: 14px;  
+  margin-bottom: 12px;
+  line-height: 48px;
+}
+.leftMenu a{
+  height: 48px;
+  width: 88px;
+  padding-left: 60px;
+  display: inline-block;
+  text-decoration:none;
+}
+.leftMenu a:link { color:#ffffff;}
+.leftMenu a:visited { color:#ffffff;}
+.leftMenu a:hover { color:#ffffff;}
+.leftMenu a:active { color:#ffffff;}
+
+.leftMenu dd a {
+  background: url(../images/leftmenuIcon.png) no-repeat;
+  background-size:48px 384px;
+  -webkit-background-size:48px 384px;
+  -moz-background-size:48px 384px;
+}
+.leftMenu .twoRows{
+  line-height: 1.2em;
+  padding-top: 8px;
+  height: 40px;
+}
+.leftMenu .threeRows{
+  line-height: 1.2em;
+}
+.leftMenu .textbook{
+  background-position: left top;
+}
+.leftMenu .proficiency{
+  background-position: 0 -48px;
+}
+.leftMenu .dl{
+  background-position: 0 -96px;
+}
+.leftMenu .notablelist{
+  background-position: 0 -144px;
+}
+.leftMenu .classinfo{
+  background-position: 0 -192px;
+}
+.leftMenu .studentinfo{
+  background-position: 0 -240px;
+}
+.leftMenu .teacherinfo{
+  background-position: 0 -288px;
+}
+.leftMenu .upload{
+  background-position:  0 -336px;
+}
+.leftMenu dd.help {
+  height: 36px;
+  line-height: 36px;
+}
+.leftMenu dd a.help {
+  width: 108px;
+  height: 36px;
+  padding-left: 44px;
+  line-height: 36px;
+  background: url(../images/help_outline_white_36x36.png) no-repeat;
+  background-size:36px 36px;
+  -webkit-background-size:36px 36px;
+  -moz-background-size:36px 36px;
+}
+.leftMenu .textbook:active, .leftMenu .proficiency:active, .leftMenu .proficiency p:active, .leftMenu .dl:active, .leftMenu .notablelist:active, .leftMenu .classinfo:active, .leftMenu .studentinfo:active, .leftMenu .teacherinfo:active, .leftMenu .upload:active{
+  filter:alpha(opacity=70);
+  -moz-opacity: 0.7;
+    opacity: 0.7;
+}
+/********** right column ******************************/
+#rightColumn {
+  width: 1072px;
+  float:right;
+  background:#fff;
+}
+/********** header ******************************/
+header{
+  height: 48px;
+  width: 1072px;
+}
+header h2{
+  line-height:48px;
+  padding-left:20px;
+  font-size: 18px;
+  font-weight: bold;
+  color:#0f3e6a;
+  width: 520px;
+  float:left;
+}
+
+/********** header menu ******************************/
+.headerMenuWrapper{
+  width: 512px;
+  float:right;
+}
+.headerMenu ul {
+    list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.selectSchool {
+    float: left;
+}
+.personalInfo{
+  float: right;
+}
+.headerMenu .dropit-trigger { position: relative; }
+.headerMenu .dropit-submenu {
+    position: absolute;
+    top: 100%;
+    right: 0; /* dropdown left or right */
+    z-index: 1000;
+    display: none;
+    width: 256px;
+    list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.headerMenu .dropit-open .dropit-submenu { display: block; }
+
+.headerMenu ul { display: none; }  /*Hide before plugin loads */
+.headerMenu ul.dropit-submenu {
+    background-color: #ebebeb;
+}          
+.headerMenu ul.dropit-submenu a {
+    display: block;
+    font-size: 16px;
+    line-height: 48px;
+    color: #0f3e6a;
+    padding: 0 10px 0 12px;
+    text-decoration: none;
+}
+.headerMenu ul.dropit-submenu a:hover {
+    background: #dddddd;
+    color: #0f3e6a;
+    text-decoration: none;
+}
+.headerMenu {
+  display: inline-block;
+ }
+
+.headerMenu .dropit-open .btn {
+  color: #0f3e6a; }
+.headerMenu .dropit-open a.btn {
+    background-color: #ebebeb !important;
+}
+
+.headerMenu .dropit-trigger .btn {
+  display: inline-block;
+  *display: inline;
+  width: 216px;
+  height: 48px;
+  padding: 0px 30px 0 10px;
+  font-size: 16px;
+  line-height: 48px;
+  *line-height: 48px;
+  color: #0f3e6a;
+  text-align: right;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #fff;
+  text-decoration: none;
+}
+.btn:hover,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #0f3e6a;
+  background: #ebebeb;
+  text-decoration: none; 
+ }
+.btn:active,
+.btn.active {
+  background: #ebebeb; }
+.btn .btnTxt{
+  display: inline-block;
+  position: relative;
+}
+.btn:after {
+  content: "";
+  position:absolute;
+  top: 17px;
+  right: 10px;
+  border: 12px solid transparent;
+  border-top-color: #0f3e6a;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  line-height: 48px;
+}
+/********** main **********************************/
+main {
+  width:1052px;
+  margin: 20px;
+}
