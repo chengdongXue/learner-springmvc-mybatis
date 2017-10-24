@@ -28,12 +28,16 @@
 <!-- Bootstrap css -->
 <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap.min.css"
  rel="stylesheet">
-<link
- href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css"
- rel="stylesheet">
+<link href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 <!-- Font Awesome -->
 <link rel="stylesheet"
  href="${bower_components }/font-awesome/css/font-awesome.min.css">
+ <!-- bootstrap-datetimepicker -->
+<link rel="stylesheet"
+ href="${bower_components }/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+  <!-- bootstrap-datetimepicker -->
+<link rel="stylesheet"
+ href="${bower_components }/bootstrap-fileinput/css/fileinput.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet"
  href="${bower_components }/Ionicons/css/ionicons.min.css">
@@ -78,11 +82,50 @@
        </div>
        <!-- /.box-header -->
        <div class="box-body pad">
+       
+       <div class="panel panel-default">
+        <div class="panel-heading">Panel heading without title</div>
+        <div class="panel-body">
            <form>
-                 <textarea id="editor1" name="editor1" rows="10" cols="80">
+              <div class="form-group">
+              <label style="font-size:18px;">新闻标题</label><br>
+                <input type="text" class="form-control" id="newTitle" name="newTitle" maxLength="200"  placeholder="请输入新闻标题">
+              </div>
+              <div class="form-group">
+                <label style="font-size:18px;">新闻发布人</label>
+                <select id="pushPerson" name="pushPerson" class="form-control select2" style="width: 100%;">
+                  <option selected="selected" value="1">Admin</option>
+                </select>
+              </div>
+              <div class="form-group">
+               <label style="font-size:18px;">新闻是否置顶</label><br>
+                <label>
+                Yes
+                  <input type="radio" name="r2" class="minimal-red" id="flowUpTop" name="flowUpTop" checked>
+                </label>
+                <label>
+                No
+                  <input type="radio" name="r2"  id="flowUpTop" name="flowUpTop"  class="minimal-red">
+                </label>
+              </div>
+              <div class="form-group">
+                <label style="font-size:18px;">新闻发布时间</label><br>
+                <input size="16" type="text" id="pushTime" name="pushTime"  readonly class="form_datetime">
+              </div>
+              <div class="form-group">
+                <label style="font-size:18px;">发布缩列图</label><br>
+                <input id="file-Portrait" type="file">
+              </div>
+              <div class="form-group">
+                 <label style="font-size:18px;">新闻详情</label><br>
+                 <textarea id="newDetails" name="newDetails" rows="10" cols="80">
                      This is my textarea to be replaced with CKEditor.
                  </textarea>
+              </div>
+              <button type="button" id="submitBut" class="btn btn-default btn-lg btn-block" style="margin-top:20px;">提交</button>
            </form>
+        </div>
+      </div>
        </div>
        <!-- /.box-body -->
       </div>
@@ -117,7 +160,15 @@
 
  <script type="text/javascript"
   src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
-
+  
+  <!-- bootstrap-datetimepicker -->
+ <script src="${ bower_components}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+ 
+   <!-- bootstrap-fileinput-->
+ <script src="${ bower_components}/bootstrap-fileinput/js/fileinput.min.js"></script>
+  <script src="${ bower_components}/bootstrap-fileinput/js/locales/zh.js"></script>
+ 
+<!-- bootbox -->
  <script src="${ bower_components}/bootbox.min.js"></script>
 
 <!-- FastClick -->
@@ -134,10 +185,42 @@
 
  <script type="text/javascript">
    $(function() {
-       // Replace the <textarea id="editor1"> with a CKEditor
-       // instance, using default configuration.
-       CKEDITOR.replace('editor1');
+       CKEDITOR.replace('newDetails');
+       $(".form_datetime").datetimepicker({
+           format: 'yyyy-mm-dd hh:ii',
+           autoclose: true,
+           todayBtn: true,
+           minuteStep: 10,
+           pickerPosition: "bottom-left"
+       });
+       
+     //初始化fileinput控件（第一次初始化）
+       initFileInput("file-Portrait", "/User/EditPortrait");
+       
+       $("#submitBut").on('click',function(){
+           alert( $("#newDetails").val());
+           alert( $(".form_datetime").val());
+       });
    });
+   
+ //初始化fileinput控件（第一次初始化）
+   function initFileInput(ctrlName, uploadUrl) {
+       var control = $('#' + ctrlName); 
+       control.fileinput({
+           language: 'zh', //设置语言
+           uploadUrl: uploadUrl, //上传的地址
+           allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+           showUpload: true, //是否显示上传按钮
+           showCaption: false,//是否显示标题
+           browseClass: "btn btn-primary", //按钮样式             
+           enctype: 'multipart/form-data',
+           maxFileCount: 100,
+           previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+           msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
+       });
+   }
+
 </script>
+
 </body>
 </html>
