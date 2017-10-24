@@ -114,7 +114,11 @@
               </div>
               <div class="form-group">
                 <label style="font-size:18px;">发布缩列图</label><br>
-                <input id="file-Portrait" type="file">
+                <form enctype="multipart/form-data">
+                    <input id="file-0a" class="file" name="file" type="file" multiple data-min-file-count="1">
+                    <br>
+                </form>
+               <!--  <input id="file-Portrait" type="file"> -->
               </div>
               <div class="form-group">
                  <label style="font-size:18px;">新闻详情</label><br>
@@ -193,34 +197,57 @@
            minuteStep: 10,
            pickerPosition: "bottom-left"
        });
-       
-     //初始化fileinput控件（第一次初始化）
-       initFileInput("file-Portrait", "/User/EditPortrait");
-       
-       $("#submitBut").on('click',function(){
-           alert( $("#newDetails").val());
-           alert( $(".form_datetime").val());
-       });
+   
+     $('#file-0a').fileinput({
+        language: 'zh',
+        uploadUrl: 'uploadMultipleFile',
+        allowedPreviewTypes : ['image', 'html', 'text', 'video', 'audio', 'flash']
+    });
+    $('#file-0a').on('fileuploaderror', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+        console.log(data);
+        console.log('File upload error');
+    });
+    $('#file-0a').on('fileerror', function(event, data) {
+        console.log(data.id);
+        console.log(data.index);
+        console.log(data.file);
+        console.log(data.reader);
+        console.log(data.files);
+    });
+    $('#file-0a').on('fileuploaded', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+        console.log('File uploaded triggered');
+    });
+    $("#submitBut").on('click',function(){
+        alert( $("#newDetails").val());
+        alert( $(".form_datetime").val());
+    });
+    
+    //初始化fileinput控件（第一次初始化）
+    //  initFileInput("file-Portrait", "/User/EditPortrait");
+      
    });
    
  //初始化fileinput控件（第一次初始化）
-   function initFileInput(ctrlName, uploadUrl) {
+/*    function initFileInput(ctrlName, uploadUrl) {
        var control = $('#' + ctrlName); 
        control.fileinput({
            language: 'zh', //设置语言
            uploadUrl: uploadUrl, //上传的地址
            allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
            showUpload: true, //是否显示上传按钮
-           showCaption: false,//是否显示标题
+           showCaption: true,//是否显示标题
            browseClass: "btn btn-primary", //按钮样式             
            enctype: 'multipart/form-data',
            maxFileCount: 100,
            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+           maxFileCount: 1,
            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
        });
-   }
-
+   } */
 </script>
-
 </body>
 </html>
