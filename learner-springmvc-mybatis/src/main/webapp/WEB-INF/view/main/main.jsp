@@ -109,13 +109,17 @@
                 <label style="font-size:18px;">新闻发布时间</label><br>
                 <input size="16" type="text" id="pushTime" name="pushTime"  readonly class="form_datetime">
               </div>
-              <div class="form-group">
+              <div class="form-group" style="position:relative;">
                 <label style="font-size:18px;">发布缩列图</label><br>
-                  <!-- <input id="file-0a" type="file" class="file" data-preview-file-type="text"> -->
-                  <div id="result"></div>
-                  <img id="uploadImage" src="http://www.firefox.com.cn/favicon.ico">
-                  <input type="file" id="myBlogImage" name="myfiles"/>
-                  <input type="button" value="上传图片" onclick="ajaxFileUpload()"/>
+                   <div id="wait_loading" style="position:absolute;top:-70px;left:40%;display:none;  overflow:hidden;">
+                      <div style="width: 103px;margin: 0 auto;"><img src="resources/img/loading.gif"/></div>
+                      <div style="width: 103px;text-align: center;font-size: 16px;margin-right: 25px;margin-top:10px;"><span>请稍等...</span></div>
+                  </div>
+                  <div id="result" style="width:100px;display:none;">
+                      <img id="uploadImage" style="max-width:100%;width:100%;" src="">
+                  </div>
+                  <input type="file" id="myBlogImage" name="myfiles" class="btn btn-default" style="margin-bottom:10px;"/>
+                  <input type="button" value="上传图片" onclick="ajaxFileUpload()" class="btn btn-default" />
                 <br>
                <!--  <input id="file-Portrait" type="file"> -->
               </div>
@@ -159,13 +163,13 @@
   src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
 
  <script type="text/javascript"
-  src="${publicResourceJsRoot}/jquery.ajaxfileupload.js"></script>
-
- <script type="text/javascript"
   src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
 
  <script type="text/javascript"
   src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
+  
+   <script type="text/javascript"
+  src="${publicResourceJsRoot}/ajaxfileupload.js"></script>
   
   <!-- bootstrap-datetimepicker -->
  <script src="${ bower_components}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
@@ -198,31 +202,35 @@
    });
    
    function ajaxFileUpload(){
-       //开始上传文件时显示一个图片,文件上传完成将图片隐藏
-       //$("#loading").ajaxStart(function(){$(this).show();}).ajaxComplete(function(){$(this).hide();});
-       //执行上传文件操作的函数
-       $.ajaxFileUpload({
-         //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
-         url:'${pageContext.request.contextPath}/upload/fileUpload?uname=玄玉',
-         secureuri:false,                       //是否启用安全提交,默认为false 
-         fileElementId:'myBlogImage',           //文件选择框的id属性
-         dataType:'text',                       //服务器返回的格式,可以是json或xml等
-         success:function(data, status){        //服务器响应成功时的处理函数
-           data = data.replace("<PRE>", '');  //ajaxFileUpload会对服务器响应回来的text内容加上<pre>text</pre>前后缀
-           data = data.replace("</PRE>", '');
-           data = data.replace("<pre>", '');
-           data = data.replace("</pre>", ''); //本例中设定上传文件完毕后,服务端会返回给前台[0`filepath]
-           if(data.substring(0, 1) == 0){     //0表示上传成功(后跟上传后的文件路径),1表示失败(后跟失败描述)
-             $("img[id='uploadImage']").attr("src", data.substring(2));
-             $('#result').html("图片上传成功<br/>");
-           }else{
-             $('#result').html('图片上传失败，请重试！！');
-           }
-         },
-         error:function(data, status, e){ //服务器响应失败时的处理函数
-           $('#result').html('图片上传失败，请重试！！');
-         }
-       });
+       if ($("#myBlogImage").val().length > 0) {
+           $("#wait_loading").show();
+           $.ajaxFileUpload({
+               //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
+               url:'${pageContext.request.contextPath}/upload/fileUpload',
+               type: 'post',
+               secureuri:false,                       //是否启用安全提交,默认为false 
+               fileElementId:'myBlogImage',           //文件选择框的id属性
+               dataType:'text',                       //服务器返回的格式,可以是json或xml等
+               success:function(data, status){        //服务器响应成功时的处理函数
+                 var splitStr = '';
+                 if(data.indexOf("&amp;")!=-1){
+                     splitStr = data.substring(data.indexOf("&amp;")+5,data.length-11);
+                 }
+                 if(splitStr){
+                    $("#myBlogImage").css("margin-top","10px;");
+                    $("#result").show();
+                    $("#wait_loading").hide();
+                    $("img[id='uploadImage']").attr("src", splitStr);
+                 }else{
+                 }
+               },
+               error:function(data, status, e){//服务器响应失败时的处理函数
+               }
+             });
+       }
+       else {
+           alert("请选择图片");
+       }
      }
 </script>
 </body>

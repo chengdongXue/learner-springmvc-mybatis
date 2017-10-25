@@ -5,9 +5,12 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -16,10 +19,11 @@ public class FileUploadController {
      * 这里这里用的是MultipartFile[] myfiles参数,所以前台就要用<input type="file" name="myfiles"/>
      * 上传文件完毕后返回给前台[0`filepath],0表示上传成功(后跟上传后的文件路径),1表示失败(后跟失败描述)
      */
-    @RequestMapping(value="/upload/fileUpload")
-    public String addUser(@RequestParam("uname") String uname, @RequestParam MultipartFile[] myfiles, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    @RequestMapping(value="/upload/fileUpload",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public String fileUpload(@RequestParam MultipartFile[] myfiles,HttpServletRequest request, HttpServletResponse response) throws IOException{
         //可以在上传文件的同时接收其它参数
-        System.out.println("收到用户[" + uname + "]的文件上传请求");
+        //System.out.println("收到用户[" + uname + "]的文件上传请求");
         //如果用的是Tomcat服务器，则文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中
         //这里实现文件上传操作用的是commons.io.FileUtils类,它会自动判断/upload是否存在,不存在会自动创建
         String realPath = request.getSession().getServletContext().getRealPath("/upload");
@@ -34,7 +38,7 @@ public class FileUploadController {
         //上传多个文件时,前台表单中的所有<input type="file"/>的name都应该是myfiles,否则参数里的myfiles无法获取到所有上传的文件
         for(MultipartFile myfile : myfiles){
             if(myfile.isEmpty()){
-                out.print("1`请选择文件后上传");
+                out.print("请选择文件后上传");
                 out.flush();
                 return null;
             }else{
@@ -43,7 +47,6 @@ public class FileUploadController {
                 System.out.println("文件名称: " + myfile.getName());
                 System.out.println("文件长度: " + myfile.getSize());
                 System.out.println("文件类型: " + myfile.getContentType());
-                System.out.println("========================================");
                 try {
                     //这里不必处理IO流关闭的问题,因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉
                     //此处也可以使用Spring提供的MultipartFile.transferTo(File dest)方法实现文件的上传
@@ -58,12 +61,12 @@ public class FileUploadController {
             }
         }
         //此时在Windows下输出的是[D:\Develop\apache-tomcat-6.0.36\webapps\AjaxFileUpload\\upload\愤怒的小鸟.jpg]
-        //System.out.println(realPath + "\\" + originalFilename);
+        System.out.println(realPath + "\\" + originalFilename);
         //此时在Windows下输出的是[/AjaxFileUpload/upload/愤怒的小鸟.jpg]
-        //System.out.println(request.getContextPath() + "/upload/" + originalFilename);
+        System.out.println(request.getContextPath() + "/upload/" + originalFilename);
         //不推荐返回[realPath + "\\" + originalFilename]的值
         //因为在Windows下<img src="file:///D:/aa.jpg">能被firefox显示,而<img src="D:/aa.jpg">firefox是不认的
-        out.print("0`" + request.getContextPath() + "/upload/" + originalFilename);
+        out.print("&"+request.getContextPath() + "/upload/" + originalFilename+"&");
         out.flush();
         return null;
     }
