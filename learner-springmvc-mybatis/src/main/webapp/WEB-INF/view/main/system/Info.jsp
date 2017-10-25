@@ -423,12 +423,10 @@
         }
 
         function getAllTreesNodes() {
-            var params = {};
             $.ajax({
                 type : "GET",
                 url : "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
                 dataType : "json",
-                data : JSON.stringify(params),
                 contentType : "application/json; charset=UTF-8",
                 success : function(data) {
                     if (data) {
