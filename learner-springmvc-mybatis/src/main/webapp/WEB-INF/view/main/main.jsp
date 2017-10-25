@@ -159,17 +159,15 @@
  </div>
  <!-- ./wrapper -->
 
- <script type="text/javascript"
-  src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
+ <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
 
- <script type="text/javascript"
-  src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
+ <script type="text/javascript" src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
 
- <script type="text/javascript"
-  src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
   
-   <script type="text/javascript"
-  src="${publicResourceJsRoot}/ajaxfileupload.js"></script>
+ <script src="${bower_components}/bootbox.min.js"></script>
+  
+  <script type="text/javascript" src="${publicResourceJsRoot}/ajaxfileupload.js"></script>
   
   <!-- bootstrap-datetimepicker -->
  <script src="${ bower_components}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
@@ -229,9 +227,19 @@
              });
        }
        else {
-           alert("请选择图片");
+          return commonBootboxDailog("请选择图片");
        }
-     }
+   }
+   
+   function commonBootboxDailog(message){
+       bootbox.alert({
+           size : "small",
+           title : "warning",
+           message : message,
+           callback : function() {
+           }
+       })
+   }
 </script>
 </body>
 </html>
