@@ -423,12 +423,10 @@
         }
 
         function getAllTreesNodes() {
-            var params = {};
             $.ajax({
                 type : "GET",
                 url : "/learner-springmvc-mybatis/systemInfo/getAllTreesList",
                 dataType : "json",
-                data : JSON.stringify(params),
                 contentType : "application/json; charset=UTF-8",
                 success : function(data) {
                     if (data) {
@@ -523,21 +521,26 @@
                                     .click(
                                             function() {
                                                 if(table.rows('.selected').data().length > 0){
-                                                    var selectedRows =  table.rows('.selected').data()[0];
-                                                    var menuId = selectedRows.menuId;
-                                                    var menuIcon = selectedRows.menuIcon;
-                                                    var menuName = selectedRows.menuName;
-                                                    var siteUrl = selectedRows.siteUrl;
-                                                    $('#exampleModal').on('show.bs.modal', function (event) {
-                                                        var modal = $(this);
-                                                        var button = $(event.relatedTarget);
-                                                        var editMenuTitle = button.data('editmenutitle');
-                                                        modal.find('.modal-title').text(editMenuTitle);
-                                                        modal.find('.modal-body input#menuIdModel').val(menuId);
-                                                        modal.find('.modal-body input#siteUriModel').val(siteUrl);
-                                                        modal.find('.modal-body input#menuNameModel').val(menuName);
-                                                        modal.find('.modal-body select#menuIconModel').val(menuIcon);
-                                                      });
+                                                    if(table.rows('.selected').data()[0].menuIcon.indexOf('<td>')!=-1){
+                                                        commonBootboxDailog("新增数据必须提交保存!");
+                                                        return false;
+                                                    }else{
+                                                        var selectedRows =  table.rows('.selected').data()[0];
+                                                        var menuId = selectedRows.menuId;
+                                                        var menuIcon = selectedRows.menuIcon;
+                                                        var menuName = selectedRows.menuName;
+                                                        var siteUrl = selectedRows.siteUrl;
+                                                        $('#exampleModal').on('show.bs.modal', function (event) {
+                                                            var modal = $(this);
+                                                            var button = $(event.relatedTarget);
+                                                            var editMenuTitle = button.data('editmenutitle');
+                                                            modal.find('.modal-title').text(editMenuTitle);
+                                                            modal.find('.modal-body input#menuIdModel').val(menuId);
+                                                            modal.find('.modal-body input#siteUriModel').val(siteUrl);
+                                                            modal.find('.modal-body input#menuNameModel').val(menuName);
+                                                            modal.find('.modal-body select#menuIconModel').val(menuIcon);
+                                                          });
+                                                    }
                                                 }else{
                                                     commonBootboxDailog("请选择编辑项!");
                                                     return false;
