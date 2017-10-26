@@ -86,7 +86,7 @@
        <div class="panel panel-default">
         <div class="panel-heading">Panel heading without title</div>
         <div class="panel-body">
-           <form data-toggle="validator" role="form" id="submitform">
+           <form data-toggle="validator" role="form" id="submitform" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/new/addNew">
               <div class="form-group">
               <label style="font-size:18px;">新闻标题</label><br>
                 <input type="text" class="form-control" id="newTitle" name="newTitle" maxLength="200"  placeholder="请输入新闻标题" required>
@@ -101,11 +101,11 @@
                <label style="font-size:18px;">新闻是否置顶</label><br>
                 <label>
                 Yes
-                  <input type="radio" name="r2" class="minimal-red" id="flowUpTop" name="flowUpTop" checked>
+                  <input type="radio" class="minimal-red" id="flowUpTop" name="flowUpTop" value="1" checked>
                 </label>
                 <label>
                 No
-                  <input type="radio" name="r2"  id="flowUpTop" name="flowUpTop"  class="minimal-red">
+                  <input type="radio" id="flowUpTop" name="flowUpTop"  class="minimal-red" value="0">
                 </label>
               </div>
               <div class="form-group">
@@ -113,7 +113,8 @@
                 <input size="16" type="text" id="pushTime" name="pushTime" class="form_datetime" required>
               </div>
               <div class="form-group" style="position:relative;">
-                <label style="font-size:18px;">发布缩列图</label><br>
+                <label style="font-size:18px;">发布缩列图</label>
+                <span style="color:red;font-weight:bold;font-size:14px;">&nbsp;(* 请点击上传图片按钮进行图片上传操作)</span><br>
                    <div id="wait_loading" style="position:absolute;top:-70px;left:40%;display:none;  overflow:hidden;">
                       <div style="width: 103px;margin: 0 auto;"><img src="resources/img/loading.gif"/></div>
                       <div style="width: 103px;text-align: center;font-size: 16px;margin-right: 25px;margin-top:10px;"><span>请稍等...</span></div>
@@ -123,6 +124,7 @@
                   </div>
                   <input type="file" id="myBlogImage" name="myfiles" class="btn btn-default" style="margin-bottom:10px;" required/>
                   <input type="button" value="上传图片" onclick="ajaxFileUpload()" class="btn btn-default" />
+                  <input type="hidden" id="thumbnails" name="thumbnails"/>
                 <br>
                <!--  <input id="file-Portrait" type="file"> -->
               </div>
@@ -223,6 +225,7 @@
                      splitStr = data.substring(data.indexOf("&amp;")+5,data.length-11);
                  }
                  if(splitStr){
+                     $("#thumbnails").val(splitStr);
                     $("#myBlogImage").css("margin-top","10px;");
                     $("#result").show();
                     $("#wait_loading").hide();
@@ -230,7 +233,7 @@
                  }else{
                  }
                },
-               error:function(data, status, e){//服务器响应失败时的处理函数
+               error:function(data, status, e){
                }
              });
        }
