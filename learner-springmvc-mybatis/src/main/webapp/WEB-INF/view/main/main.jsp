@@ -29,6 +29,9 @@
 <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap.min.css"
  rel="stylesheet">
 <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+  <!-- bootstrap-validator.css -->
+<link rel="stylesheet"
+ href="${bower_components }/bootstrapValidator/css/bootstrapValidator.css">
 <!-- Font Awesome -->
 <link rel="stylesheet"
  href="${bower_components }/font-awesome/css/font-awesome.min.css">
@@ -83,14 +86,14 @@
        <div class="panel panel-default">
         <div class="panel-heading">Panel heading without title</div>
         <div class="panel-body">
-           <form>
+           <form data-toggle="validator" role="form" id="submitform">
               <div class="form-group">
               <label style="font-size:18px;">新闻标题</label><br>
-                <input type="text" class="form-control" id="newTitle" name="newTitle" maxLength="200"  placeholder="请输入新闻标题">
+                <input type="text" class="form-control" id="newTitle" name="newTitle" maxLength="200"  placeholder="请输入新闻标题" required>
               </div>
               <div class="form-group">
                 <label style="font-size:18px;">新闻发布人</label>
-                <select id="pushPerson" name="pushPerson" class="form-control select2" style="width: 100%;">
+                <select id="pushPerson" name="pushPerson" class="form-control select2" style="width: 100%;" required>
                   <option selected="selected" value="1">Admin</option>
                 </select>
               </div>
@@ -107,7 +110,7 @@
               </div>
               <div class="form-group">
                 <label style="font-size:18px;">新闻发布时间</label><br>
-                <input size="16" type="text" id="pushTime" name="pushTime"  readonly class="form_datetime">
+                <input size="16" type="text" id="pushTime" name="pushTime" class="form_datetime" required>
               </div>
               <div class="form-group" style="position:relative;">
                 <label style="font-size:18px;">发布缩列图</label><br>
@@ -118,18 +121,18 @@
                   <div id="result" style="width:100px;display:none;">
                       <img id="uploadImage" style="max-width:100%;width:100%;" src="">
                   </div>
-                  <input type="file" id="myBlogImage" name="myfiles" class="btn btn-default" style="margin-bottom:10px;"/>
+                  <input type="file" id="myBlogImage" name="myfiles" class="btn btn-default" style="margin-bottom:10px;" required/>
                   <input type="button" value="上传图片" onclick="ajaxFileUpload()" class="btn btn-default" />
                 <br>
                <!--  <input id="file-Portrait" type="file"> -->
               </div>
               <div class="form-group">
                  <label style="font-size:18px;">新闻详情</label><br>
-                 <textarea id="newDetails" name="newDetails" rows="10" cols="80">
+                 <textarea id="newDetails"  name="newDetails" rows="10" cols="80">
                      This is my textarea to be replaced with CKEditor.
                  </textarea>
               </div>
-              <button type="button" id="submitBut" class="btn btn-default btn-lg btn-block" style="margin-top:20px;">提交</button>
+              <button type="submit" id="submitBut" class="btn btn-default btn-lg btn-block" style="margin-top:20px;">提交</button>
            </form>
         </div>
       </div>
@@ -169,6 +172,10 @@
   
   <script type="text/javascript" src="${publicResourceJsRoot}/ajaxfileupload.js"></script>
   
+  <!-- bootstrapValidator -->
+ <script src="${ bower_components}/bootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="${ bower_components}/bootstrapValidator/js/zh_CN.js"></script>
+  
   <!-- bootstrap-datetimepicker -->
  <script src="${ bower_components}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
  
@@ -197,6 +204,7 @@
            minuteStep: 10,
            pickerPosition: "bottom-left"
        });
+       $('#submitform').bootstrapValidator();
    });
    
    function ajaxFileUpload(){
