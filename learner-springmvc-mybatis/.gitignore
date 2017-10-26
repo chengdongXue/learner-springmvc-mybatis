@@ -1,0 +1,7 @@
+/target/
+/log/
+/src/main/resources/jdbc/jdbc.properties
+/src/main/resources/jdbc/jdbc.local.properties
+/src/main/webapp/WEB-INF/lib/*.jar
+_*.bat
+/src/main/webapp/resources/private/*
