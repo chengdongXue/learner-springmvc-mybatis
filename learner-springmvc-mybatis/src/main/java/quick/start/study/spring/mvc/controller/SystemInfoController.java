@@ -155,6 +155,8 @@ public class SystemInfoController {
                     response.setMenuName(menu.getMenuName());
                     response.setSiteUrl(menu.getSiteUrl());
                     response.setMenuIcon(menu.getMenuIcon());
+                    List<Menu> menuList2 = this.menuService.getAllChildrenMenuList(menu.getMenuId());
+                    response.setChildrenMenuList(menuList2);
                     menuResponseList.add(response);
                 }
                 dataMap.put(JSONKEY, menuResponseList);

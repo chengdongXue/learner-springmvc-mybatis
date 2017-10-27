@@ -58,6 +58,13 @@
  vertical-align: top;
  *vertical-align: middle
 }
+td.details-control {
+    background: url('../resources/img/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../resources/img/details_close.png') no-repeat center center;
+}
 </style>
 <title>菜单管理</title>
 </head>
@@ -115,21 +122,22 @@
      <div class="panel-body">
          <button type="button" class="btn btn-primary"
         data-toggle="button" id="Delbutton" style="margin-left: 10px;">
-        Delete selecd row</button>
+        删除</button>
        <button type="button" class="btn btn-primary"
         data-toggle="button" id="AddButton" style="margin-left: 10px;">
-        Add new row</button>
+        添加</button>
        <button type="button" class="btn btn-primary"
         data-toggle="button" id="SubmitButton"
-        style="margin-left: 10px;">Submit</button>
+        style="margin-left: 10px;">提交</button>
        <button type="button" class="btn btn-primary"
         data-toggle="modal" data-target="#exampleModal" data-editMenuTitle="编辑菜单信息" 
-         id="EditButton" style="margin-left: 10px;">Edit rows</button>
+         id="EditButton" style="margin-left: 10px;">编辑</button>
         
         <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
          <thead>
           <tr>
+           <th></th>
            <th>菜单名称</th>
            <th>访问路径</th>
            <th>菜单图标</th>
@@ -158,7 +166,7 @@
           <input type="hidden" id="menuIdModel" name="menuIdModel">
           <div class="form-group">
             <label for="recipient-name" class="control-label">菜单名称:</label>
-            <input type="text" class="form-control" id="menuNameModel" name="menuNameModel">
+            <input type="text" class="form-control" id="menuNameModel" name="menuNameModel" maxLength="20">
           </div>
           <div class="form-group">
            <label for="recipient-name" class="control-label">菜单图标:</label>
@@ -170,7 +178,7 @@
           </div>
           <div class="form-group">
             <label for="message-text" class="control-label">访问路径:</label>
-            <input type="text" class="form-control" id="siteUriModel" name="siteUriModel">
+            <input type="text" class="form-control" id="siteUriModel" name="siteUriModel" maxLength="100">
           </div>
         </form>
       </div>
@@ -263,7 +271,7 @@
             zTree.selectNode(treeNode);
             setTimeout(function() {
                 if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
-                    setTimeout(function() {
+                    setTimeout(function(){
                         zTree.editName(treeNode);
                     }, 0);
                 }
@@ -294,6 +302,7 @@
                 success : function(data) {
                     if (data) {
                         console.log("delete has success");
+                        $('#example1').DataTable().ajax.reload();
                     }
                 },
                 error : function(XMLHttpRequest, textStatus) {
@@ -323,21 +332,24 @@
                 "id" : treeNode.id,
                 "name" : treeNode.name
             };
-            $.ajax({
-                type : "GET",
-                url : "/learner-springmvc-mybatis/systemInfo/byIdUpdateTrees",
-                dataType : "json",
-                data : params,
-                contentType : "application/json; charset=UTF-8",
-                success : function(data) {
-                    if (data) {
-                        console.log("modify has success");
+            setTimeout(function() {
+                $.ajax({
+                    type : "GET",
+                    url : "/learner-springmvc-mybatis/systemInfo/byIdUpdateTrees",
+                    dataType : "json",
+                    data : params,
+                    contentType : "application/json; charset=UTF-8",
+                    success : function(data) {
+                        if (data) {
+                            console.log("modify has success");
+                            $('#example1').DataTable().ajax.reload();
+                        }
+                    },
+                    error : function(XMLHttpRequest, textStatus) {
+                        alert("通信ERROR。");
                     }
-                },
-                error : function(XMLHttpRequest, textStatus) {
-                    alert("通信ERROR。");
-                }
-            });
+                });
+            }, 0);
         }
 
         function showRemoveBtn(treeId, treeNode) {
@@ -402,6 +414,8 @@
                         contentType : "application/json; charset=UTF-8",
                         success : function(data) {
                             if (data) {
+                                getAllTreesNodes();
+                                $('#example1').DataTable().ajax.reload();
                             }
                         },
                         error : function(XMLHttpRequest, textStatus) {
@@ -447,12 +461,19 @@
     
  <script type="text/javascript">
         $(function() {
-            $('#example1')
+            var table = $('#example1')
                     .DataTable(
                             {
                                 "processing" : true,
                                 "ajax" : "/learner-springmvc-mybatis/systemInfo/getAllMenuDataList",
-                                "columns" : [ {
+                                "columns" : [
+                                {
+                                    "className":      'details-control',
+                                    "orderable":      false,
+                                    "data":           null,
+                                    "defaultContent": ''
+                                },
+                                {
                                     "data" : "menuName"
                                 }, {
                                     "data" : "siteUrl"
@@ -461,8 +482,92 @@
                                 } ],
                                 'autoWidth' : true
                             });
+            
+            // Add event listener for opening and closing details
+               $('#example1').on('click', 'td.details-control', function () {
+                   var tr = $(this).closest('tr');
+                   var row = table.row( tr );
+                   if (row.child.isShown() ) {
+                       row.child.hide();
+                       tr.removeClass('shown');
+                   }
+                   else {
+                       if(JSON.stringify(row.data().childrenMenuList) === '[]'){
+                           commonBootboxDailog("没有详情信息!");
+                       }else{
+                           row.child(format(row.data())).show();
+                           tr.addClass('shown');
+                       }
+                   }
+               });
         });
-
+        
+        /*
+         Formatting function for row details - modify as you need
+        `d` is the original data object for the row
+        */
+        function format(d){
+            var str  =  '<table  border="1" style="width:100%;">';
+            if(d.childrenMenuList.length > 0){
+                $.each(d.childrenMenuList,function(i,item){
+                    str += '<tr style="height:30px;" id="detailId'+item.menuId+'">'+
+                    '<td style="width:25%;text-align:center;">'+item.menuName+'</td>'+
+                    '<td style="width:25%;text-align:center;">'+item.siteUrl+'</td>'+
+                    '<td style="width:25%;text-align:center;">'+item.menuIcon+'</td>'+
+                    '<td style="width:25%;text-align:center;">'+
+                      '<button type="button" class="btn btn-default" style="margin-right: 10px;" onclick="byChildrenIdDeleteMenu('+item.menuId+')">删除</button>'+
+                      '<button type="button"   data-toggle="modal" data-target="#exampleModal" data-editMenuTitle="编辑菜单信息"  class="btn btn-default" data-menuId="'+item.menuId+'" data-menuName="'+item.menuName+'"  data-menuIcon="'+item.menuIcon+'"   data-siteUrl="'+item.siteUrl+'"  onclick="byChildrenIdUpdateMenu(this)">编辑</button>'+
+                    '</td>'+
+                    '</tr>'
+                });
+                str += '</table>';
+                return str;
+            }
+        }
+        
+        function byChildrenIdUpdateMenu(menu){
+            var selectedRows =  menu.dataset;
+            var menuId = selectedRows.menuid;
+            var menuIcon = selectedRows.menuicon;
+            var menuName = selectedRows.menuname;
+            var siteUrl = selectedRows.siteurl;
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var modal = $(this);
+                var button = $(event.relatedTarget);
+                var editMenuTitle = button.data('editmenutitle');
+                modal.find('.modal-title').text(editMenuTitle);
+                modal.find('.modal-body input#menuIdModel').val(menuId);
+                modal.find('.modal-body input#siteUriModel').val(siteUrl);
+                modal.find('.modal-body input#menuNameModel').val(menuName);
+                modal.find('.modal-body select#menuIconModel').val(menuIcon);
+              });
+        }
+        
+        function byChildrenIdDeleteMenu(menuId){
+            var params = {
+                    "id" : menuId
+                };
+                $.ajax({
+                    type : "GET",
+                    url : "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
+                    dataType : "json",
+                    data : params,
+                    contentType : "application/json; charset=UTF-8",
+                    success : function(data) {
+                        if (data){
+                            //$('#example1').DataTable().ajax.reload();
+                            $("#detailId"+menuId).remove();
+                            getAllTreesNodes();
+                        }else{
+                            commonBootboxDailog("删除失败!");
+                        }
+                    },
+                    error : function(XMLHttpRequest, textStatus) {
+                        commonBootboxDailog("通信ERROR!");
+                    }
+                });
+        }
+        
         $(document)
                 .ready(
                         function() {
@@ -551,6 +656,7 @@
                                 //perform update operator
                                 byIdUpdateMenus();
                             });
+                            
                         });
 
         function showButtonClick() {
@@ -672,6 +778,7 @@
                     success : function(data) {
                         if (data){
                             table.rows('.selected').remove().draw(false);
+                            getAllTreesNodes();
                         }else{
                             commonBootboxDailog("删除失败!");
                         }

@@ -1,11 +1,29 @@
 package quick.start.study.spring.mvc.entity;
 
+import java.util.List;
+
+import quick.start.study.spring.business.entity.Menu;
+
 public class MenusDataTableModelResponse {
     private int menuId;
     private String menuName;
     private String siteUrl;
     private String menuIcon;
+    private List<Menu> childrenMenuList;
     
+    /**
+     * @return the childrenMenuList
+     */
+    public List<Menu> getChildrenMenuList() {
+        return childrenMenuList;
+    }
+    /**
+     * @param childrenMenuList the childrenMenuList to set
+     */
+    public void setChildrenMenuList(
+            List<Menu> childrenMenuList) {
+        this.childrenMenuList = childrenMenuList;
+    }
     /**
      * @return the menuId
      */
