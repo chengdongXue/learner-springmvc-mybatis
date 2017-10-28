@@ -4,24 +4,38 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import quick.start.study.spring.business.entity.New;
 import quick.start.study.spring.business.service.INewService;
+import quick.start.study.spring.mvc.entity.MenusResponse;
 import quick.start.study.spring.mvc.entity.NewRequest;
 
 @Controller
+@SessionAttributes({"menuList","message"})
 public class NewController {
 
    @Resource
    private INewService newService;
     
+   @RequestMapping(value = "/newletter/init", method = RequestMethod.GET)
+   public String init(@ModelAttribute("menuList") List<MenusResponse> list,@ModelAttribute("message") String message,Model model ) {
+       model.addAttribute("menuList", list);
+       model.addAttribute("message", message);
+       return "main/newLetter/newLetter";
+   }
+   
     @RequestMapping(value = "/new/addNew",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String saveMenuArrayData(NewRequest request,HttpServletResponse responseStatus,Model model) throws IOException{
