@@ -36,7 +36,14 @@ public class NewController {
        return "main/newLetter/newLetter";
    }
    
-    @RequestMapping(value = "/new/addNew",method = RequestMethod.POST)
+   @RequestMapping(value = "/newletter/jumpAdd", method = RequestMethod.GET)
+   public String jumpAdd(@ModelAttribute("menuList") List<MenusResponse> list,@ModelAttribute("message") String message,Model model ) {
+       model.addAttribute("menuList", list);
+       model.addAttribute("message", message);
+       return "main/newLetter/addNewLetter";
+   }
+   
+    @RequestMapping(value = "/newletter/addNew",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String saveMenuArrayData(NewRequest request,HttpServletResponse responseStatus,Model model) throws IOException{
         String errorMsg="";

@@ -28,29 +28,51 @@
 <!-- Bootstrap css -->
 <link href="${publicResourceJsRoot}/bootstrap/css/bootstrap.min.css"
  rel="stylesheet">
-<link href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-  <!-- bootstrap-validator.css -->
-<link rel="stylesheet"
- href="${bower_components }/bootstrapValidator/css/bootstrapValidator.css">
+<link
+ href="${publicResourceJsRoot}/bootstrap/css/bootstrap-theme.min.css"
+ rel="stylesheet">
 <!-- Font Awesome -->
 <link rel="stylesheet"
  href="${bower_components }/font-awesome/css/font-awesome.min.css">
- <!-- bootstrap-datetimepicker -->
-<link rel="stylesheet"
- href="${bower_components }/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet"
  href="${bower_components }/Ionicons/css/ionicons.min.css">
+
+<link rel="stylesheet"
+ href="${bower_components }/datatables.net-bs/css/dataTables.bootstrap.css">
+
 <!-- Theme style -->
 <link rel="stylesheet" href="${dist }/AdminLTE.min.css">
+
 <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="${dist }/skins/_all-skins.min.css">
 
-<title>DashBoard Controller</title>
+<style type="text/css">
+.ztree li span.button.add {
+ margin-left: 2px;
+ margin-right: -1px;
+ background-position: -144px 0;
+ vertical-align: top;
+ *vertical-align: middle
+}
+
+td.details-control {
+ background: url('../resources/img/details_open.png') no-repeat center
+  center;
+ cursor: pointer;
+}
+
+tr.shown td.details-control {
+ background: url('../resources/img/details_close.png') no-repeat center
+  center;
+}
+</style>
+<title>菜单管理</title>
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
  <div class="wrapper">
- 
+
   <!-- Header page -->
   <jsp:include page="../header.jsp"></jsp:include>
   <!-- Header page -->
@@ -64,88 +86,43 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
     <h1>
-    新闻管理 <small>新闻信息</small>
+     新闻管理 <small>新闻信息</small>
     </h1>
     <ol class="breadcrumb">
      <li><a href="#"><i class="fa fa-dashboard"></i> 新闻管理</a></li>
      <li><a href="#">新闻信息</a></li>
-     <li class="active">添加信息</li>
     </ol>
    </section>
 
    <!-- Main content -->
    <section class="content">
-    <div class="row">
-     <div class="col-xs-12">
-      <div class="box">
-       <div class="box-header">
-       </div>
-       <!-- /.box-header -->
-       <div class="box-body pad">
-       
-       <div class="panel panel-default">
-        <div class="panel-heading">Panel heading without title</div>
-        <div class="panel-body">
-           <form data-toggle="validator" role="form" id="submitform" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/new/addNew">
-              <div class="form-group">
-              <label style="font-size:18px;">新闻标题</label><br>
-                <input type="text" class="form-control" id="newTitle" name="newTitle" maxLength="200"  placeholder="请输入新闻标题" required>
-              </div>
-              <div class="form-group">
-                <label style="font-size:18px;">新闻发布人</label>
-                <select id="pushPerson" name="pushPerson" class="form-control select2" style="width: 100%;" required>
-                  <option selected="selected" value="1">Admin</option>
-                </select>
-              </div>
-              <div class="form-group">
-               <label style="font-size:18px;">新闻是否置顶</label><br>
-                <label>
-                Yes
-                  <input type="radio" class="minimal-red" id="flowUpTop" name="flowUpTop" value="1" checked>
-                </label>
-                <label>
-                No
-                  <input type="radio" id="flowUpTop" name="flowUpTop"  class="minimal-red" value="0">
-                </label>
-              </div>
-              <div class="form-group">
-                <label style="font-size:18px;">新闻发布时间</label><br>
-                <input size="16" type="text" id="pushTime" name="pushTime" class="form_datetime" required>
-              </div>
-              <div class="form-group" style="position:relative;">
-                <label style="font-size:18px;">发布缩列图</label>
-                <span style="color:red;font-weight:bold;font-size:14px;">&nbsp;(* 请点击上传图片按钮进行图片上传操作)</span><br>
-                   <div id="wait_loading" style="position:absolute;top:-70px;left:40%;display:none;  overflow:hidden;">
-                      <div style="width: 103px;margin: 0 auto;"><img src="../resources/img/loading.gif"/></div>
-                      <div style="width: 103px;text-align: center;font-size: 16px;margin-right: 25px;margin-top:10px;"><span>请稍等...</span></div>
-                  </div>
-                  <div id="result" style="width:100px;display:none;">
-                      <img id="uploadImage" style="max-width:100%;width:100%;" src="">
-                  </div>
-                  <input type="file" id="myBlogImage" name="myfiles" class="btn btn-default" style="margin-bottom:10px;" required/>
-                  <input type="button" value="上传图片" onclick="ajaxFileUpload()" class="btn btn-default" />
-                  <input type="hidden" id="thumbnails" name="thumbnails"/>
-                <br>
-               <!--  <input id="file-Portrait" type="file"> -->
-              </div>
-              <div class="form-group">
-                 <label style="font-size:18px;">新闻详情</label><br>
-                 <textarea id="newDetails"  name="newDetails" rows="10" cols="80">
-                     This is my textarea to be replaced with CKEditor.
-                 </textarea>
-              </div>
-              <button type="submit" id="submitBut" class="btn btn-default btn-lg btn-block" style="margin-top:20px;">提交</button>
-           </form>
-        </div>
-      </div>
-       </div>
-       <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
+    <div class="panel panel-default">
+     <div class="panel-heading">
+      <h3 class="panel-title">新闻信息</h3>
      </div>
-     <!-- /.col -->
+     <div class="panel-body">
+      <button type="button" class="btn btn-primary" data-toggle="button"
+       id="Delbutton" style="margin-left: 10px;">删除</button>
+      <button type="button" class="btn btn-primary" data-toggle="button"
+       id="AddButton" style="margin-left: 10px;">添加</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal"
+       data-target="#exampleModal" data-editMenuTitle="编辑菜单信息"
+       id="EditButton" style="margin-left: 10px;">编辑</button>
+
+      <div class="box-body">
+       <table id="example1" class="table table-bordered table-striped">
+        <thead>
+         <tr>
+          <th>菜单名称</th>
+          <th>访问路径</th>
+          <th>菜单图标</th>
+         </tr>
+        </thead>
+       </table>
+      </div>
+     </div>
     </div>
-    <!-- /.row -->
+
    </section>
    <!-- /.content -->
   </div>
@@ -163,33 +140,22 @@
   <div class="control-sidebar-bg"></div>
  </div>
  <!-- ./wrapper -->
+ <script type="text/javascript"
+  src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
 
- <script type="text/javascript" src="${publicResourceJsRoot}/jquery.min.js?20170925_01"></script>
+ <script type="text/javascript"
+  src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
 
- <script type="text/javascript" src="${publicResourceJsRoot}/jquery.serialize-json.js?20170925_01"></script>
-
- <script type="text/javascript" src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
-  
- <script src="${bower_components}/bootbox.min.js"></script>
-  
-  <script type="text/javascript" src="${publicResourceJsRoot}/ajaxfileupload.js"></script>
-  
-  <!-- bootstrapValidator -->
- <script src="${ bower_components}/bootstrapValidator/js/bootstrapValidator.js"></script>
-<script src="${ bower_components}/bootstrapValidator/js/zh_CN.js"></script>
-  
-  <!-- bootstrap-datetimepicker -->
- <script src="${ bower_components}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
- 
-<!-- bootbox -->
  <script src="${ bower_components}/bootbox.min.js"></script>
 
-<!-- FastClick -->
-<script src="${ bower_components}/fastclick/lib/fastclick.js"></script>
+ <!-- DataTables -->
+ <script
+  src="${ bower_components}/datatables.net/js/jquery.dataTables.min.js"></script>
+ <script
+  src="${ bower_components}/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-<!-- CK Editor -->
-<script src="${ bower_components}/ckeditor/ckeditor.js"></script>
-
+ <script type="text/javascript"
+  src="${publicResourceJsRoot}/bootstrap/js/bootstrap.min.js"></script>
  <!-- AdminLTE App -->
  <script src="${ dist}/adminlte.min.js"></script>
 
@@ -197,60 +163,138 @@
  <script src="${ dist}/demo.js"></script>
 
  <script type="text/javascript">
-   $(function() {
-       CKEDITOR.replace('newDetails');
-       $(".form_datetime").datetimepicker({
-           format: 'yyyy-mm-dd hh:ii',
-           autoclose: true,
-           todayBtn: true,
-           minuteStep: 10,
-           pickerPosition: "bottom-left"
-       });
-       $('#submitform').bootstrapValidator();
-   });
-   
-   function ajaxFileUpload(){
-       if ($("#myBlogImage").val().length > 0) {
-           $("#wait_loading").show();
-           $.ajaxFileUpload({
-               //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
-               url:'${pageContext.request.contextPath}/upload/fileUpload',
-               type: 'post',
-               secureuri:false,                       //是否启用安全提交,默认为false 
-               fileElementId:'myBlogImage',           //文件选择框的id属性
-               dataType:'text',                       //服务器返回的格式,可以是json或xml等
-               success:function(data, status){        //服务器响应成功时的处理函数
-                 var splitStr = '';
-                 if(data.indexOf("&amp;")!=-1){
-                     splitStr = data.substring(data.indexOf("&amp;")+5,data.length-11);
-                 }
-                 if(splitStr){
-                     $("#thumbnails").val(splitStr);
-                    $("#myBlogImage").css("margin-top","10px;");
-                    $("#result").show();
-                    $("#wait_loading").hide();
-                    $("img[id='uploadImage']").attr("src", splitStr);
-                 }else{
-                 }
-               },
-               error:function(data, status, e){
-               }
-             });
-       }
-       else {
-          return commonBootboxDailog("请选择图片");
-       }
-   }
-   
-   function commonBootboxDailog(message){
-       bootbox.alert({
-           size : "small",
-           title : "warning",
-           message : message,
-           callback : function() {
-           }
-       })
-   }
-</script>
+        $(function() {
+            var table = $('#example1')
+                    .DataTable(
+                            {
+                                "processing" : true,
+                                "ajax" : "/learner-springmvc-mybatis/systemInfo/getAllMenuDataList",
+                                "columns" : [{
+                                    "data" : "menuName"
+                                }, {
+                                    "data" : "siteUrl"
+                                }, {
+                                    "data" : "menuIcon"
+                                } ],
+                                'autoWidth' : true
+                            });
+        });
+
+        $(document)
+                .ready(
+                        function() {
+                            var table = $('#example1').DataTable();
+                            $('#example1').on(
+                                    'click',
+                                    'tr',
+                                    function() {
+                                        if ($(this).hasClass('selected')) {
+                                            $(this).removeClass('selected');
+                                        } else {
+                                            table.$('tr.selected').removeClass(
+                                                    'selected');
+                                            $(this).addClass('selected');
+                                        }
+                                    });
+
+                            $('#Delbutton')
+                                    .click(
+                                            function() {
+                                                if (table.rows('.selected')
+                                                        .data().length > 0) {
+                                                    if (table.rows('.selected')
+                                                            .data()[0].menuName
+                                                            .indexOf("<td>") != -1) {
+                                                        table.rows('.selected')
+                                                                .remove().draw(
+                                                                        false);
+                                                    } else {
+                                                        byIdDeleteTrees(
+                                                                table,
+                                                                table
+                                                                        .rows(
+                                                                                '.selected')
+                                                                        .data()[0].menuId);
+                                                    }
+                                                } else {
+                                                    commonBootboxDailog("请选择删除项!");
+                                                    return false;
+                                                }
+                                            });
+
+                            $('#AddButton').on('click', function(event) {
+                                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
+                            });
+                            
+                            $('#EditButton').click(function() {
+                                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
+                             });
+
+                            $('#submitEdit').click(function() {
+                                byIdUpdateMenus();
+                            });
+
+                        });
+
+        function byIdUpdateMenus() {
+            var params = {
+                "siteUrl" : $("#siteUriModel").val(),
+                "menuName" : $("#menuNameModel").val(),
+                "menuIcon" : $("#menuIconModel").val(),
+                "menuId" : $("#menuIdModel").val()
+            }
+            $.ajax({
+                type : "POST",
+                url : "/learner-springmvc-mybatis/systemInfo/byIdUpdateMenus",
+                dataType : "json",
+                data : JSON.stringify(params),
+                contentType : "application/json; charset=UTF-8",
+                success : function(data) {
+                    if (data) {
+                        $('#exampleModal').modal('hide');
+                        document.location.reload();
+                    } else {
+                        commonBootboxDailog("更新失败!");
+                    }
+                },
+                error : function(XMLHttpRequest, textStatus) {
+                    commonBootboxDailog("通信ERROR!");
+                }
+            });
+        }
+
+        function byIdDeleteTrees(table, menuId) {
+            var params = {
+                "id" : menuId
+            };
+            $.ajax({
+                type : "GET",
+                url : "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
+                dataType : "json",
+                data : params,
+                contentType : "application/json; charset=UTF-8",
+                success : function(data) {
+                    if (data) {
+                        table.rows('.selected').remove().draw(false);
+                    } else {
+                        commonBootboxDailog("删除失败!");
+                    }
+                },
+                error : function(XMLHttpRequest, textStatus) {
+                    commonBootboxDailog("通信ERROR!");
+                }
+            });
+        }
+
+        function commonBootboxDailog(message) {
+            bootbox.alert({
+                size : "small",
+                title : "warning",
+                message : message,
+                callback : function() {
+                }
+            })
+        }
+    </script>
 </body>
 </html>
