@@ -6,5 +6,25 @@
         insert into new (newId,newTitle,newDetails,pushTime,pushPerson,delFlag,flowUpTop,thumbnails)
         values(#{newId},#{newTitle},#{newDetails},#{pushTime},#{pushPerson},#{delFlag},#{flowUpTop},#{thumbnails})
     </insert>
+    
+    <select id="getAllNewLetterList" resultType="quick.start.study.spring.business.entity.New">
+      select n.newId as newId,
+      n.newTitle as newTitle,
+      n.newDetails as newDetails,
+      n.pushTime as pushTime,
+      u.userName as pushPerson,
+      n.thumbnails as thumbnails,
+      n.flowUpTop as flowUpTop from new as n
+      inner join `user` as u
+      on u.userId = n.pushPerson
+       where n.delFlag = 0 and u.delFlag = 0
+    </select>
+    
+    <delete id="byIdDeleteNew" parameterType="map">
+      delete from new
+      <where>
+          newId = #{newId, jdbcType=VARCHAR}
+      </where>
+    </delete>
 
 </mapper>

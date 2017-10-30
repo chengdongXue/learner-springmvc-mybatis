@@ -113,9 +113,10 @@ tr.shown td.details-control {
        <table id="example1" class="table table-bordered table-striped">
         <thead>
          <tr>
-          <th>菜单名称</th>
-          <th>访问路径</th>
-          <th>菜单图标</th>
+          <th>缩略图</th>
+          <th>新闻标题</th>
+          <th>发布时间</th>
+          <th>发布人</th>
          </tr>
         </thead>
        </table>
@@ -164,77 +165,92 @@ tr.shown td.details-control {
 
  <script type="text/javascript">
         $(function() {
-            var table = $('#example1')
-                    .DataTable(
-                            {
-                                "processing" : true,
-                                "ajax" : "/learner-springmvc-mybatis/systemInfo/getAllMenuDataList",
-                                "columns" : [{
-                                    "data" : "menuName"
-                                }, {
-                                    "data" : "siteUrl"
-                                }, {
-                                    "data" : "menuIcon"
-                                } ],
-                                'autoWidth' : true
-                            });
+            var table = $('#example1').DataTable({
+                  "processing" : true,
+                  "ajax" : "${pageContext.request.contextPath}/newletter/getAllNewLetterList",
+                  "columnDefs" : [
+                   {
+                       "targets": [0],
+                      "data" : function(row, type, val, meta){
+                          var str = '';
+                          if(type == 'display'){
+                              str = '<img style="width:50px;height:50px;" src="${pageContext.request.contextPath}'+row.thumbnails+'"></img>'
+                          }
+                          return str;
+                      }
+                  },
+                  {
+                      "targets": [1],
+                      "data" : function(row, type, val, meta){
+                          return row.newTitle;
+                      }
+                  },
+                  {
+                      "targets": [2],
+                      "data" : function(row, type, val, meta){
+                          var str = '';
+                          if(type == 'display'){
+                              str = getLocalFormatTime(row.pushTime);
+                          }
+                          return str;
+                      }
+                  },
+                  {
+                      "targets": [3],
+                      "data" : function(row, type, val, meta){
+                          return row.pushPerson;
+                      }
+                  }],
+                  'autoWidth' : true
+              });
         });
 
-        $(document)
-                .ready(
-                        function() {
-                            var table = $('#example1').DataTable();
-                            $('#example1').on(
-                                    'click',
-                                    'tr',
-                                    function() {
-                                        if ($(this).hasClass('selected')) {
-                                            $(this).removeClass('selected');
-                                        } else {
-                                            table.$('tr.selected').removeClass(
-                                                    'selected');
-                                            $(this).addClass('selected');
-                                        }
-                                    });
+        function getLocalFormatTime(nS){
+            var date = new Date(nS);
+            Y = date.getFullYear() + '-';
+            M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            D = date.getDate() + ' ';
+            h = date.getHours() + ':';
+            m = date.getMinutes() + ':';
+            s = date.getSeconds(); 
+            return Y+M+D+h+m+s;
+        }
+        
+        $(document).ready(function() {
+            var table = $('#example1').DataTable();
+            $('#example1').on( 'click','tr',
+             function() {
+                 if ($(this).hasClass('selected')) {
+                     $(this).removeClass('selected');
+                 } else {
+                     table.$('tr.selected').removeClass(
+                             'selected');
+                     $(this).addClass('selected');
+                 }
+             });
 
-                            $('#Delbutton')
-                                    .click(
-                                            function() {
-                                                if (table.rows('.selected')
-                                                        .data().length > 0) {
-                                                    if (table.rows('.selected')
-                                                            .data()[0].menuName
-                                                            .indexOf("<td>") != -1) {
-                                                        table.rows('.selected')
-                                                                .remove().draw(
-                                                                        false);
-                                                    } else {
-                                                        byIdDeleteTrees(
-                                                                table,
-                                                                table
-                                                                        .rows(
-                                                                                '.selected')
-                                                                        .data()[0].menuId);
-                                                    }
-                                                } else {
-                                                    commonBootboxDailog("请选择删除项!");
-                                                    return false;
-                                                }
-                                            });
-
-                            $('#AddButton').on('click', function(event) {
-                                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
-                            });
-                            
-                            $('#EditButton').click(function() {
-                                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
-                             });
-
-                            $('#submitEdit').click(function() {
-                                byIdUpdateMenus();
-                            });
-
-                        });
+            $('#Delbutton') .click(function() {
+                if (table.rows('.selected').data().length > 0) {
+                    if (table.rows('.selected').data()[0].newTitle.indexOf("<td>") != -1) {
+                        table.rows('.selected').remove().draw(false);
+                    } else {
+                        byIdDeleteTrees(table,table.rows( '.selected').data()[0].newId);
+                    }
+                } else {
+                    commonBootboxDailog("请选择删除项!");
+                    return false;
+                }
+            });
+            $('#AddButton').on('click', function(event) {
+                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
+            });
+            $('#EditButton').click(function() {
+                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
+             });
+            $('#submitEdit').click(function() {
+                byIdUpdateMenus();
+            });
+        });
 
         function byIdUpdateMenus() {
             var params = {
@@ -245,7 +261,7 @@ tr.shown td.details-control {
             }
             $.ajax({
                 type : "POST",
-                url : "/learner-springmvc-mybatis/systemInfo/byIdUpdateMenus",
+                url : "${pageContext.request.contextPath}/systemInfo/byIdUpdateMenus",
                 dataType : "json",
                 data : JSON.stringify(params),
                 contentType : "application/json; charset=UTF-8",
@@ -263,13 +279,13 @@ tr.shown td.details-control {
             });
         }
 
-        function byIdDeleteTrees(table, menuId) {
+        function byIdDeleteTrees(table, newId) {
             var params = {
-                "id" : menuId
+                "newId" : newId
             };
-            $.ajax({
+             $.ajax({
                 type : "GET",
-                url : "/learner-springmvc-mybatis/systemInfo/byIdDeleteTrees",
+                url : "${pageContext.request.contextPath}/newletter/byIdDeleteNew",
                 dataType : "json",
                 data : params,
                 contentType : "application/json; charset=UTF-8",

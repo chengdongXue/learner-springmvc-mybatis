@@ -130,9 +130,7 @@
               </div>
               <div class="form-group">
                  <label style="font-size:18px;">新闻详情</label><br>
-                 <textarea id="newDetails"  name="newDetails" rows="10" cols="80">
-                     This is my textarea to be replaced with CKEditor.
-                 </textarea>
+                 <textarea id="newDetails"  name="newDetails" rows="10" cols="80"></textarea>
               </div>
               <div class="form-group" style="text-align:center;">
                   <button type="submit" id="submitBut" class="btn btn-primary btn-lg" style="width:20%;" >提交</button>
@@ -203,7 +201,7 @@
    $(function() {
        CKEDITOR.replace('newDetails');
        $(".form_datetime").datetimepicker({
-           format: 'yyyy-mm-dd hh:ii',
+           format: 'yyyy-mm-dd hh:ii:ss',
            autoclose: true,
            todayBtn: true,
            minuteStep: 10,
@@ -226,12 +224,13 @@
                fileElementId:'myBlogImage',           //文件选择框的id属性
                dataType:'text',                       //服务器返回的格式,可以是json或xml等
                success:function(data, status){        //服务器响应成功时的处理函数
-                 var splitStr = '';
+                 var splitStr = '',saveStr = '';
                  if(data.indexOf("&amp;")!=-1){
                      splitStr = data.substring(data.indexOf("&amp;")+5,data.length-11);
+                     saveStr = splitStr.substring(26,splitStr.length);
                  }
                  if(splitStr){
-                     $("#thumbnails").val(splitStr);
+                     $("#thumbnails").val(saveStr);
                     $("#myBlogImage").css("margin-top","10px;");
                     $("#result").show();
                     $("#wait_loading").hide();
