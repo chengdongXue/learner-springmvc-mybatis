@@ -108,7 +108,7 @@ public class NewController {
     @RequestMapping(value = "/newletter/byIdDeleteNew",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public boolean  byIdDeleteTrees(@RequestParam("newId") String newId) throws IOException{
+    public boolean  byIdDeleteNew(@RequestParam("newId") String newId) throws IOException{
         boolean mark = false;
         try {
             if(newId!=null){
@@ -122,4 +122,19 @@ public class NewController {
         }
         return mark;
     }
+    
+    @RequestMapping(value = "/newletter/byIdQueryNew",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView  byIdQueryNew(@RequestParam("newId") String newId,Model model) throws IOException{
+        New newBean = new New();
+        try {
+            if(newId!=null){
+               newBean =  this.newService.byIdQueryNew(newId);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView("main/newLetter/editNewLetter","newBean",newBean);
+    }
+    
 }

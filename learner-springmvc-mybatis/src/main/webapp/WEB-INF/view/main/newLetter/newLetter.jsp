@@ -234,7 +234,7 @@ tr.shown td.details-control {
                     if (table.rows('.selected').data()[0].newTitle.indexOf("<td>") != -1) {
                         table.rows('.selected').remove().draw(false);
                     } else {
-                        byIdDeleteTrees(table,table.rows( '.selected').data()[0].newId);
+                        byIdDeleteNew(table,table.rows( '.selected').data()[0].newId);
                     }
                 } else {
                     commonBootboxDailog("请选择删除项!");
@@ -245,41 +245,20 @@ tr.shown td.details-control {
                 window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
             });
             $('#EditButton').click(function() {
-                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
+                if (table.rows('.selected').data().length > 0) {
+                    if (table.rows('.selected').data()[0].newTitle.indexOf("<td>") != -1) {
+                        table.rows('.selected').remove().draw(false);
+                    } else {
+                        location.href = '${pageContext.request.contextPath}/newletter/byIdQueryNew?newId='+table.rows( '.selected').data()[0].newId;
+                    }
+                } else {
+                    commonBootboxDailog("请选择删除项!");
+                    return false;
+                }
              });
-            $('#submitEdit').click(function() {
-                byIdUpdateMenus();
-            });
         });
 
-        function byIdUpdateMenus() {
-            var params = {
-                "siteUrl" : $("#siteUriModel").val(),
-                "menuName" : $("#menuNameModel").val(),
-                "menuIcon" : $("#menuIconModel").val(),
-                "menuId" : $("#menuIdModel").val()
-            }
-            $.ajax({
-                type : "POST",
-                url : "${pageContext.request.contextPath}/systemInfo/byIdUpdateMenus",
-                dataType : "json",
-                data : JSON.stringify(params),
-                contentType : "application/json; charset=UTF-8",
-                success : function(data) {
-                    if (data) {
-                        $('#exampleModal').modal('hide');
-                        document.location.reload();
-                    } else {
-                        commonBootboxDailog("更新失败!");
-                    }
-                },
-                error : function(XMLHttpRequest, textStatus) {
-                    commonBootboxDailog("通信ERROR!");
-                }
-            });
-        }
-
-        function byIdDeleteTrees(table, newId) {
+        function byIdDeleteNew(table, newId) {
             var params = {
                 "newId" : newId
             };

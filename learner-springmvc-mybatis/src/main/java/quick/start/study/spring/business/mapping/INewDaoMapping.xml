@@ -10,7 +10,6 @@
     <select id="getAllNewLetterList" resultType="quick.start.study.spring.business.entity.New">
       select n.newId as newId,
       n.newTitle as newTitle,
-      n.newDetails as newDetails,
       n.pushTime as pushTime,
       u.userName as pushPerson,
       n.thumbnails as thumbnails,
@@ -26,5 +25,9 @@
           newId = #{newId, jdbcType=VARCHAR}
       </where>
     </delete>
+    
+    <select id="byIdQueryNew" resultType="quick.start.study.spring.business.entity.New">
+      select * from new where delFlag = 0 and newId = #{newId, jdbcType=VARCHAR}
+    </select>
 
 </mapper>

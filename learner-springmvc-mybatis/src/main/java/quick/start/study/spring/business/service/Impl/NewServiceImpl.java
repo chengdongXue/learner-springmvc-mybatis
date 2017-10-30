@@ -26,4 +26,8 @@ public class NewServiceImpl implements INewService {
     public int byIdDeleteNew(String newId) {
         return newDao.byIdDeleteNew(newId);
     }
+
+    public New byIdQueryNew(String newId) {
+       return newDao.byIdQueryNew(newId);
+    }
 }

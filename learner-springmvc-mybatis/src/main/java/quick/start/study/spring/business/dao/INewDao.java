@@ -16,4 +16,6 @@ public interface INewDao {
     
     public int byIdDeleteNew(@Param("newId") String newId);
     
+    public New byIdQueryNew(@Param("newId") String newId);
+    
 }

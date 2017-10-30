@@ -9,4 +9,6 @@ public interface INewService {
     public List<New> getAllNewLetterList();
     
     public int byIdDeleteNew(String newId);
+    
+    public New byIdQueryNew(String newId);
 }
