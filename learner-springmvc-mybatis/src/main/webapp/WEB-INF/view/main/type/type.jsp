@@ -67,7 +67,7 @@ tr.shown td.details-control {
   center;
 }
 </style>
-<title>菜单管理</title>
+<title>系统配置</title>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -86,11 +86,11 @@ tr.shown td.details-control {
    <!-- Content Header (Page header) -->
    <section class="content-header">
     <h1>
-     新闻管理 <small>新闻信息</small>
+     系统配置 <small>配置分类</small>
     </h1>
     <ol class="breadcrumb">
-     <li><a href="#"><i class="fa fa-dashboard"></i> 新闻管理</a></li>
-     <li><a href="#">新闻信息</a></li>
+     <li><a href="#"><i class="fa fa-dashboard"></i> 系统配置</a></li>
+     <li><a href="#">配置分类</a></li>
     </ol>
    </section>
 
@@ -98,25 +98,26 @@ tr.shown td.details-control {
    <section class="content">
     <div class="panel panel-default">
      <div class="panel-heading">
-      <h3 class="panel-title">新闻信息</h3>
+      <h3 class="panel-title">配置分类</h3>
      </div>
      <div class="panel-body">
+     
       <button type="button" class="btn btn-primary" data-toggle="button"
        id="Delbutton" style="margin-left: 10px;">删除</button>
-      <button type="button" class="btn btn-primary" data-toggle="button"
-       id="AddButton" style="margin-left: 10px;">添加</button>
-      <button type="button" class="btn btn-primary" data-toggle="modal"
-       data-target="#exampleModal" data-editMenuTitle="编辑菜单信息"
-       id="EditButton" style="margin-left: 10px;">编辑</button>
-
+       
+       <button type="button" class="btn btn-primary"
+       data-toggle="modal" data-target="#exampleModal" data-editMenuTitle="添加信息" 
+        id="AddButton" style="margin-left: 10px;">添加</button>
+       
+       <button type="button" class="btn btn-primary"
+       data-toggle="modal" data-target="#exampleEditModal" data-editMenuTitle="编辑信息" 
+        id="EditButton" style="margin-left: 10px;">编辑</button>
+        
       <div class="box-body">
        <table id="example1" class="table table-bordered table-striped">
         <thead>
          <tr>
-          <th>缩略图</th>
-          <th>新闻标题</th>
-          <th>发布时间</th>
-          <th>发布人</th>
+          <th>类型名称</th>
          </tr>
         </thead>
        </table>
@@ -128,6 +129,57 @@ tr.shown td.details-control {
    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<!-- add Model -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">分类名称:</label>
+            <input type="text" class="form-control" id="typeName" name="typeName" maxLength="20">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="submitAdd">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add Model -->
+
+<!-- edit Model -->
+<div class="modal fade" id="exampleEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditLabel ">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalEditLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">分类名称:</label>
+            <input type="hidden" id="typeEditId" name="typeEditId">
+            <input type="text" class="form-control" id="typeEditName" name="typeEditName" maxLength="20">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="submitEdit">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--edit Model -->
 
   <!-- Footer page -->
   <jsp:include page="../footer.jsp"></jsp:include>
@@ -167,54 +219,13 @@ tr.shown td.details-control {
         $(function() {
             var table = $('#example1').DataTable({
                   "processing" : true,
-                  "ajax" : "${pageContext.request.contextPath}/newletter/getAllNewLetterList",
-                  "columnDefs" : [
-                   {
-                       "targets": [0],
-                      "data" : function(row, type, val, meta){
-                          var str = '';
-                          if(type == 'display'){
-                              str = '<img style="width:50px;height:50px;" src="${pageContext.request.contextPath}'+row.thumbnails+'"></img>'
-                          }
-                          return str;
-                      }
-                  },
-                  {
-                      "targets": [1],
-                      "data" : function(row, type, val, meta){
-                          return row.newTitle;
-                      }
-                  },
-                  {
-                      "targets": [2],
-                      "data" : function(row, type, val, meta){
-                          var str = '';
-                          if(type == 'display'){
-                              str = getLocalFormatTime(row.pushTime);
-                          }
-                          return str;
-                      }
-                  },
-                  {
-                      "targets": [3],
-                      "data" : function(row, type, val, meta){
-                          return row.pushPerson;
-                      }
-                  }],
+                  "ajax" : "${pageContext.request.contextPath}/type/getAllTypeList",
+                  "columns" : [{
+                      "data" : 'typeName'
+                   }],
                   'autoWidth' : true
               });
         });
-
-        function getLocalFormatTime(nS){
-            var date = new Date(nS);
-            Y = date.getFullYear() + '/';
-            M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
-            D = date.getDate() + ' ';
-            h = date.getHours() + ':';
-            m = date.getMinutes();
-            //s = date.getSeconds(); 
-            return Y+M+D+h+m;
-        }
         
         $(document).ready(function() {
             var table = $('#example1').DataTable();
@@ -231,46 +242,104 @@ tr.shown td.details-control {
 
             $('#Delbutton') .click(function() {
                 if (table.rows('.selected').data().length > 0) {
-                    if (table.rows('.selected').data()[0].newTitle.indexOf("<td>") != -1) {
-                        table.rows('.selected').remove().draw(false);
-                    } else {
-                        byIdDeleteNew(table,table.rows( '.selected').data()[0].newId);
-                    }
-                } else {
+                    byIdDeleteType(table,table.rows( '.selected').data()[0].typeId);
+                } else{
                     commonBootboxDailog("请选择删除项!");
                     return false;
                 }
             });
-            $('#AddButton').on('click', function(event) {
-                window.location.href = '${pageContext.request.contextPath}/newletter/jumpAdd';
-            });
+            
             $('#EditButton').click(function() {
-                if (table.rows('.selected').data().length > 0) {
-                    if (table.rows('.selected').data()[0].newTitle.indexOf("<td>") != -1) {
-                        table.rows('.selected').remove().draw(false);
-                    } else {
-                        location.href = '${pageContext.request.contextPath}/newletter/byIdQueryNew?newId='+table.rows( '.selected').data()[0].newId;
-                    }
-                } else {
-                    commonBootboxDailog("请选择删除项!");
-                    return false;
-                }
+                   if(table.rows('.selected').data().length > 0){
+                           var selectedRows =  table.rows('.selected').data()[0];
+                           var typeId = selectedRows.typeId;
+                           var typeName = selectedRows.typeName;
+                           $('#exampleEditModal').on('show.bs.modal', function (event) {
+                               var modal = $(this);
+                               var button = $(event.relatedTarget);
+                               var editMenuTitle = button.data('editmenutitle');
+                               modal.find('.modal-title').text(editMenuTitle);
+                               modal.find('.modal-body input#typeEditId').val(typeId);
+                               modal.find('.modal-body input#typeEditName').val(typeName);
+                             });
+                   }else{
+                       commonBootboxDailog("请选择编辑项!");
+                       return false;
+                   }
              });
+            
+            $('#submitAdd').click(function(){
+                if($("#typeName").val() == null || $("#typeName").val() ==""){
+                     commonBootboxDailog("请输入类型名称!");
+                     return false;
+                }
+                var params = {
+                        "typeName":$("#typeName").val()
+                }
+                $.ajax({
+                    type:"POST",
+                    url: "${pageContext.request.contextPath}/type/addType",
+                    dataType: "json",
+                    data:JSON.stringify(params),
+                    contentType: "application/json; charset=UTF-8",
+                    success: function(data) {
+                      if(data){
+                          $('#exampleModal').modal('hide');
+                          $('#example1').DataTable().ajax.reload();
+                      }else{
+                          commonBootboxDailog("更新失败!");
+                      }
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        commonBootboxDailog("通信ERROR!");
+                    }
+                  });
+            });
+            
+            $('#submitEdit').click(function(){
+                if($("#typeEditName").val() == null || $("#typeEditName").val() ==""){
+                     commonBootboxDailog("请输入类型名称!");
+                     return false;
+                }
+                var params = {
+                        "typeId":$("#typeEditId").val(),
+                        "typeName":$("#typeEditName").val()
+                }
+                $.ajax({
+                    type:"POST",
+                    url: "${pageContext.request.contextPath}/type/editType",
+                    dataType: "json",
+                    data:JSON.stringify(params),
+                    contentType: "application/json; charset=UTF-8",
+                    success: function(data) {
+                      if(data){
+                          $('#exampleEditModal').modal('hide');
+                          $('#example1').DataTable().ajax.reload();
+                      }else{
+                          commonBootboxDailog("更新失败!");
+                      }
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        commonBootboxDailog("通信ERROR!");
+                    }
+                  });
+            });
         });
 
-        function byIdDeleteNew(table, newId) {
+        function byIdDeleteType(table, typeId) {
             var params = {
-                "newId" : newId
+                "typeId" : typeId
             };
              $.ajax({
                 type : "GET",
-                url : "${pageContext.request.contextPath}/newletter/byIdDeleteNew",
+                url : "${pageContext.request.contextPath}/type/byIdDeleteType",
                 dataType : "json",
                 data : params,
                 contentType : "application/json; charset=UTF-8",
                 success : function(data) {
                     if (data) {
                         table.rows('.selected').remove().draw(false);
+                        $('#example1').DataTable().ajax.reload();
                     } else {
                         commonBootboxDailog("删除失败!");
                     }

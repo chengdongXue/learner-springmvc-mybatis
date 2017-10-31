@@ -1,6 +1,12 @@
 package quick.start.study.spring.business.entity;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3312020328474963750L;
     private int menuId;
     private String menuName;
     private String siteUrl;

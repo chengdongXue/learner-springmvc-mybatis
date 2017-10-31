@@ -1,7 +1,13 @@
 package quick.start.study.spring.business.entity;
 
-public class TreeModel {
+import java.io.Serializable;
 
+public class TreeModel implements Serializable{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7280918729707984451L;
     private int id;
     private int pId;
     private String name;

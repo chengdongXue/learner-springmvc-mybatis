@@ -1,12 +1,16 @@
 package quick.start.study.spring.business.entity;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class New {
+public class New implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4446137697852197527L;
     private String newId;
     private String newTitle;
     private String newDetails;
-    private Date pushTime;
+    private String pushTime;
     private String pushPerson;
     private String thumbnails;
     private int flowUpTop;
@@ -50,13 +54,13 @@ public class New {
     /**
      * @return the pushTime
      */
-    public Date getPushTime() {
+    public String getPushTime() {
         return pushTime;
     }
     /**
      * @param pushTime the pushTime to set
      */
-    public void setPushTime(Date pushTime) {
+    public void setPushTime(String pushTime) {
         this.pushTime = pushTime;
     }
     /**

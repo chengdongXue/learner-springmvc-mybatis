@@ -1,7 +1,13 @@
 package quick.start.study.spring.business.entity;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable{
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4724384163609424843L;
     private int id;  
     private String name;  
     private float salary;  

@@ -1,9 +1,12 @@
 package quick.start.study.spring.mvc.entity;
+import java.io.Serializable;
 
-import java.util.Date;
+public class NewRequest implements Serializable{
 
-public class NewRequest {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1530440705164533668L;
     private String newTitle;
     private String newDetails;
     private String pushTime;

@@ -1,8 +1,13 @@
 package quick.start.study.spring.mvc.entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-public class MenuSaveArrayRequest {
+public class MenuSaveArrayRequest implements Serializable{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4081582027054576024L;
     private List<String> siteUrl = new ArrayList<String>();
     private List<String> menuName = new ArrayList<String>();
     private List<String> menuIcon =  new ArrayList<String>();

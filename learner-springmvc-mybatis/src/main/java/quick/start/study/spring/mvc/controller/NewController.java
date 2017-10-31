@@ -57,7 +57,9 @@ public class NewController {
     public ModelAndView saveMenuArrayData(NewRequest request,HttpServletResponse responseStatus,Model model) throws IOException{
         @SuppressWarnings("unused")
         String errorMsg="";
-        Date dt1 = null;
+        New newBean = new New();
+        String uuid = java.util.UUID.randomUUID().toString();
+        /*Date dt1 = null;
         New newBean = new New();
         String uuid = java.util.UUID.randomUUID().toString();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -65,13 +67,13 @@ public class NewController {
             dt1 = df.parse(request.getPushTime());
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
         newBean.setNewId(uuid);
         newBean.setDelFlag(0);
         newBean.setNewTitle(request.getNewTitle());
         newBean.setNewDetails(request.getNewDetails());
         newBean.setPushPerson(request.getPushPerson()); 
-        newBean.setPushTime(dt1);
+        newBean.setPushTime(request.getPushTime());
         newBean.setThumbnails(request.getThumbnails());
         newBean.setFlowUpTop(request.getFlowUpTop());
         try {

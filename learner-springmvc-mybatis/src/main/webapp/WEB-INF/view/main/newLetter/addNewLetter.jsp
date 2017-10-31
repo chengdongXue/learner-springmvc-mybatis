@@ -204,7 +204,6 @@
            format: 'yyyy-mm-dd hh:ii:ss',
            autoclose: true,
            todayBtn: true,
-           minuteStep: 10,
            pickerPosition: "bottom-left"
        });
        $('#submitform').bootstrapValidator();
@@ -243,7 +242,7 @@
              });
        }
        else {
-          return commonBootboxDailog("请选择图片");
+          return commonBootboxDailog("请选择图片!!!");
        }
    }
    

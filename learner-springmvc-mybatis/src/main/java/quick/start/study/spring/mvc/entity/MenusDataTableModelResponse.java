@@ -1,10 +1,15 @@
 package quick.start.study.spring.mvc.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import quick.start.study.spring.business.entity.Menu;
 
-public class MenusDataTableModelResponse {
+public class MenusDataTableModelResponse implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6706842967717572224L;
     private int menuId;
     private String menuName;
     private String siteUrl;

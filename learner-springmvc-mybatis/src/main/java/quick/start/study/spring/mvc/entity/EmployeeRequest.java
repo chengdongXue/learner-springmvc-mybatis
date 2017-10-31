@@ -1,7 +1,13 @@
 package quick.start.study.spring.mvc.entity;
 
-public class EmployeeRequest {
+import java.io.Serializable;
+
+public class EmployeeRequest implements Serializable{
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7000617432424518611L;
     private int id;  
     private String name;  
     private float salary;  

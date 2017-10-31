@@ -1,9 +1,13 @@
 package quick.start.study.spring.mvc.entity;
+import java.io.Serializable;
 import java.util.List;
 
 import quick.start.study.spring.business.entity.Menu;
 import quick.start.study.spring.business.entity.TreeModel;
-public class MenusResponse {
+public class MenusResponse  implements Serializable{
+   
+    private static final long serialVersionUID = -6646213725397254375L;
+    
     private int menuId;
     private String menuName;
     private String siteUrl;
