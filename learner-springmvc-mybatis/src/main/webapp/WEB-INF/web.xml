@@ -55,11 +55,11 @@
  </servlet-mapping>
  
  <session-config>
-  <session-timeout>60</session-timeout>
+  <session-timeout>1</session-timeout>
  </session-config>
  <error-page>
   <error-code>404</error-code>
-  <location>/error.jsp</location>
+  <location>/index.jsp</location>
  </error-page>
  <error-page>
   <error-code>405</error-code>
@@ -69,9 +69,7 @@
   <error-code>500</error-code>
   <location>/index.jsp</location>
  </error-page>
- 
  <welcome-file-list>
   <welcome-file>/index.jsp</welcome-file>
  </welcome-file-list>
-
 </web-app>
