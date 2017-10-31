@@ -1,17 +1,11 @@
 package quick.start.study.spring.mvc.controller;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
 import quick.start.study.spring.business.entity.New;
+import quick.start.study.spring.business.entity.Type;
 import quick.start.study.spring.business.service.INewService;
+import quick.start.study.spring.business.service.ITypeService;
 import quick.start.study.spring.mvc.entity.MenusResponse;
 import quick.start.study.spring.mvc.entity.NewRequest;
 
@@ -37,6 +32,9 @@ public class NewController {
     
    @Resource
    private INewService newService;
+   
+   @Resource
+   private ITypeService typeService;
     
    @RequestMapping(value = "/newletter/init", method = RequestMethod.GET)
    public String init(@ModelAttribute("menuList") List<MenusResponse> list,@ModelAttribute("message") String message,Model model ) {
@@ -47,6 +45,16 @@ public class NewController {
    
    @RequestMapping(value = "/newletter/jumpAdd", method = RequestMethod.GET)
    public String jumpAdd(@ModelAttribute("menuList") List<MenusResponse> list,@ModelAttribute("message") String message,Model model ) {
+       try {
+           List<Type> typeList = this.typeService.getAllTypeList();
+           if(!typeList.isEmpty()){
+               model.addAttribute("typeList",typeList);
+           }else{
+               model.addAttribute("typeList", new ArrayList<String>());
+           }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
        model.addAttribute("menuList", list);
        model.addAttribute("message", message);
        return "main/newLetter/addNewLetter";
@@ -54,20 +62,11 @@ public class NewController {
    
     @RequestMapping(value = "/newletter/addNew",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public ModelAndView saveMenuArrayData(NewRequest request,HttpServletResponse responseStatus,Model model) throws IOException{
+    public ModelAndView addNew(NewRequest request,HttpServletResponse responseStatus,Model model) throws IOException{
         @SuppressWarnings("unused")
         String errorMsg="";
         New newBean = new New();
         String uuid = java.util.UUID.randomUUID().toString();
-        /*Date dt1 = null;
-        New newBean = new New();
-        String uuid = java.util.UUID.randomUUID().toString();
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        try {
-            dt1 = df.parse(request.getPushTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
         newBean.setNewId(uuid);
         newBean.setDelFlag(0);
         newBean.setNewTitle(request.getNewTitle());
@@ -76,6 +75,7 @@ public class NewController {
         newBean.setPushTime(request.getPushTime());
         newBean.setThumbnails(request.getThumbnails());
         newBean.setFlowUpTop(request.getFlowUpTop());
+        newBean.setTypeId(request.getTypeId());
         try {
             int count = this.newService.addNew(newBean);
             if(count > 0){
@@ -130,6 +130,12 @@ public class NewController {
     public ModelAndView  byIdQueryNew(@RequestParam("newId") String newId,Model model) throws IOException{
         New newBean = new New();
         try {
+            List<Type> typeList = this.typeService.getAllTypeList();
+            if(!typeList.isEmpty()){
+                model.addAttribute("typeList",typeList);
+            }else{
+                model.addAttribute("typeList", new ArrayList<String>());
+            }
             if(newId!=null){
                newBean =  this.newService.byIdQueryNew(newId);
             }
@@ -137,6 +143,32 @@ public class NewController {
             e.printStackTrace();
         }
         return new ModelAndView("main/newLetter/editNewLetter","newBean",newBean);
+    }
+    
+    @RequestMapping(value = "/newletter/editNew",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView editNew(NewRequest request,HttpServletResponse responseStatus,Model model) throws IOException{
+        @SuppressWarnings("unused")
+        String errorMsg="";
+        New newBean = new New();
+        newBean.setNewId(request.getNewId());
+        newBean.setNewTitle(request.getNewTitle());
+        newBean.setNewDetails(request.getNewDetails());
+        newBean.setPushTime(request.getPushTime());
+        newBean.setThumbnails(request.getThumbnails());
+        newBean.setFlowUpTop(request.getFlowUpTop());
+        newBean.setTypeId(request.getTypeId());
+        try {
+            int count = this.newService.editNew(newBean);
+            if(count > 0){
+                errorMsg = "insert success";
+            }else{
+                errorMsg = "insert error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView("redirect:/newletter/init");
     }
     
 }

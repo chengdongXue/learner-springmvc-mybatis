@@ -117,6 +117,7 @@ tr.shown td.details-control {
           <th>新闻标题</th>
           <th>发布时间</th>
           <th>发布人</th>
+          <th>发布类型</th>
          </tr>
         </thead>
        </table>
@@ -199,6 +200,12 @@ tr.shown td.details-control {
                       "targets": [3],
                       "data" : function(row, type, val, meta){
                           return row.pushPerson;
+                      }
+                  },
+                  {
+                      "targets": [4],
+                      "data" : function(row, type, val, meta){
+                          return row.typeName;
                       }
                   }],
                   'autoWidth' : true

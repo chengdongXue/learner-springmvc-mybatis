@@ -7,12 +7,52 @@ public class NewRequest implements Serializable{
      * 
      */
     private static final long serialVersionUID = -1530440705164533668L;
+    private String newId;
     private String newTitle;
     private String newDetails;
     private String pushTime;
     private String pushPerson;
     private String thumbnails;
     private int flowUpTop;
+    private String typeId;
+    private String typeName;
+    
+    /**
+     * @return the newId
+     */
+    public String getNewId() {
+        return newId;
+    }
+    /**
+     * @param newId the newId to set
+     */
+    public void setNewId(String newId) {
+        this.newId = newId;
+    }
+    /**
+     * @return the typeName
+     */
+    public String getTypeName() {
+        return typeName;
+    }
+    /**
+     * @param typeName the typeName to set
+     */
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+    /**
+     * @return the typeId
+     */
+    public String getTypeId() {
+        return typeId;
+    }
+    /**
+     * @param typeId the typeId to set
+     */
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
     /**
      * @return the newTitle
      */

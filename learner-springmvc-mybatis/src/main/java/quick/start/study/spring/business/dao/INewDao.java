@@ -18,4 +18,7 @@ public interface INewDao {
     
     public New byIdQueryNew(@Param("newId") String newId);
     
+    public int editNew(@Param("newId") String newId,@Param("newTitle") String newTitle,@Param("newDetails") String newDetails,@Param("pushTime")String pushTime
+            ,@Param("thumbnails")String thumbnails,@Param("typeId") String typeId,@Param("flowUpTop")int flowUpTop);
+    
 }

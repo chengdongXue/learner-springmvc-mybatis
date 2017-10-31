@@ -97,16 +97,20 @@
                   <option selected="selected" value="1">admin</option>
                 </select>
               </div>
+               <div class="form-group">
+                <label style="font-size:18px;">发布类型</label>
+                <select id="typeId" name="typeId" class="form-control select2" style="width: 100%;" required>
+                    <c:forEach items="${typeList}" var="type">
+                        <option value="${type.typeId}">${type.typeName}</option>
+                    </c:forEach>
+                </select>
+              </div>
               <div class="form-group">
-               <label style="font-size:18px;">新闻是否置顶</label><br>
-                <label>
-                Yes
-                  <input type="radio" class="minimal-red" id="flowUpTop" name="flowUpTop" value="1" checked>
-                </label>
-                <label>
-                No
-                  <input type="radio" id="flowUpTop" name="flowUpTop"  class="minimal-red" value="0">
-                </label>
+               <label style="font-size:18px;">是否置顶</label>
+               <select id="flowUpTop" name="flowUpTop" class="form-control select2" style="width: 100%;" required>
+                  <option selected="selected" value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
               </div>
               <div class="form-group">
                 <label style="font-size:18px;">新闻发布时间</label><br>

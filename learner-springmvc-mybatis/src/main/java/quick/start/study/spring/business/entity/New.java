@@ -15,6 +15,33 @@ public class New implements Serializable{
     private String thumbnails;
     private int flowUpTop;
     private int delFlag;
+    private String typeId;
+    private String typeName;
+    
+    /**
+     * @return the typeName
+     */
+    public String getTypeName() {
+        return typeName;
+    }
+    /**
+     * @param typeName the typeName to set
+     */
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+    /**
+     * @return the typeId
+     */
+    public String getTypeId() {
+        return typeId;
+    }
+    /**
+     * @param typeId the typeId to set
+     */
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
     /**
      * @return the newId
      */

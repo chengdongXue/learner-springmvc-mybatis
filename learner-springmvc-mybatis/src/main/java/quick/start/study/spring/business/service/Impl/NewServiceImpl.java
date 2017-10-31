@@ -30,4 +30,9 @@ public class NewServiceImpl implements INewService {
     public New byIdQueryNew(String newId) {
        return newDao.byIdQueryNew(newId);
     }
+
+    public int editNew(New newBean) {
+        return newDao.editNew(newBean.getNewId(),newBean.getNewTitle(),newBean.getNewDetails(),newBean.getPushTime()
+                ,newBean.getThumbnails(),newBean.getTypeId(),newBean.getFlowUpTop());
+    }
 }

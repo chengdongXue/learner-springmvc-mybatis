@@ -11,4 +11,6 @@ public interface INewService {
     public int byIdDeleteNew(String newId);
     
     public New byIdQueryNew(String newId);
+    
+    public int editNew(New newBean);
 }
