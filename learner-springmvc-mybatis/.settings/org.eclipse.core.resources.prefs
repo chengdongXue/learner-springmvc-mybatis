@@ -2,5 +2,3 @@ eclipse.preferences.version=1
 encoding//src/main/java/quick/start/study/spring/common/BCryptUtils.java=UTF-8
 encoding//src/main/java/quick/start/study/spring/mvc/controller/FileUploadController.java=UTF-8
 encoding//src/main/java/quick/start/study/spring/mvc/controller/LoginController.java=UTF-8
-encoding//src/main/sqlscript/esdb(1).sql=UTF-8
-encoding//src/main/sqlscript/esdb.sql=UTF-8
