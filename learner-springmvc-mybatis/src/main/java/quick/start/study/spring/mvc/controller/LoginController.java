@@ -39,16 +39,14 @@ public class LoginController {
     }
     
     @RequestMapping(value = "/initLogin", method = RequestMethod.POST)
-    public String initLogin(HttpServletRequest request,
-            HttpServletResponse response, Model model) {
+    public String initLogin(HttpServletRequest request,HttpServletResponse response, Model model) {
         String message = "";
         String url = "";
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         if (!userName.isEmpty() && !password.isEmpty()) {
             User user = this.userService.login(userName);
-            if (user!=null && !StringUtils.isNullOrEmpty(user.getPassword())
-                    && BCryptUtils.checkHashPwd(password, user.getPassword())) {
+            if (user!=null && !StringUtils.isNullOrEmpty(user.getPassword())&& BCryptUtils.checkHashPwd(password, user.getPassword())) {
                 model.addAttribute("message", user.getRealName());
                 model.addAttribute("menuList", getAllMenuList());
                 url = "main/main";

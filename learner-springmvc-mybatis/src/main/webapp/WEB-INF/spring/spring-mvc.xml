@@ -73,14 +73,10 @@
     <mvc:interceptor>
       <mvc:mapping path="/*/*" />
       <bean class="quick.start.study.spring.interceptor.SessionTimeoutInterceptor" >
-      
         <property name="excludedUrls">  
-              <list>  
-                <value>/upload/**</value>  
-                <value>/newletter/**</value>  
-                <value>/systemInfo/**</value>  
-                <value>/type/**</value>  
-              </list>  
+              <list>
+                <value>/initLogin</value>
+              </list>
           </property>
           
            <!--openingTime 属性指定上班时间-->  
@@ -93,10 +89,11 @@
                  <value>22</value>  
              </property>  
              
-             <!--outsideOfficeHoursPage属性指定提示页面的URL-->  
              <property name="outsideOfficeHoursPage">  
-                 <value>http://localhost:8080/learner-springmvc-mybatis/overwork.jsp
-                 </value>  
+                 <value>/init/timeOutAccess</value>  
+             </property>
+             <property name="notfoundpage">  
+                 <value>/init/noAccessUrl</value>  
              </property>
              
         </bean>
@@ -105,18 +102,6 @@
   <bean id="messageSource"  class="org.springframework.context.support.ResourceBundleMessageSource"  
        p:basename="message">  
    </bean>
-  
-  <!-- exception handler -->
-    <bean id="handlerExceptionResolver"
-      class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
-      <property name="exceptionMappings">
-        <props>
-          <prop key="quick.start.study.spring.interceptor.SessionTimeoutInterceptor">
-            http://localhost:8080/learner-springmvc-mybatis/overwork.jsp
-          </prop>
-        </props>
-      </property>
-    </bean>
         
  <import resource="spring-mybatis.xml"/>
     

@@ -38,8 +38,8 @@ public class NewController {
     
    @RequestMapping(value = "/newletter/init", method = RequestMethod.GET)
    public String init(@ModelAttribute("menuList") List<MenusResponse> list,@ModelAttribute("message") String message,Model model ) {
-       model.addAttribute("menuList", list);
-       model.addAttribute("message", message);
+       model.addAttribute("menuList", list == null?new ArrayList<MenusResponse>():list);
+       model.addAttribute("message", message == null?"":message);
        return "main/newLetter/newLetter";
    }
    

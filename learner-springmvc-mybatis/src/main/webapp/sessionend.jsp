@@ -18,7 +18,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 </head>
-<body>
-    <h2 style="text-align:center;color:red;">您不能迟到和早退哟！！！</h2>
+<body style="text-align:center;">
+    <h2 style="text-align:center;color:red;">未操作页面时间超过一分钟，请重新登录！！！</h2>
+    <a style="text-align:center;color:red;" href="${pageContext.request.contextPath}/init">login</a>
 </body>
 </html>
