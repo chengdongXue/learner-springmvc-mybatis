@@ -87,15 +87,7 @@
              <!--closingTime属性指定下班时间-->  
              <property name="closingTime">  
                  <value>22</value>  
-             </property>  
-             
-             <property name="outsideOfficeHoursPage">  
-                 <value>/init/timeOutAccess</value>  
              </property>
-             <property name="notfoundpage">  
-                 <value>/init/noAccessUrl</value>  
-             </property>
-             
         </bean>
     </mvc:interceptor>
   </mvc:interceptors>

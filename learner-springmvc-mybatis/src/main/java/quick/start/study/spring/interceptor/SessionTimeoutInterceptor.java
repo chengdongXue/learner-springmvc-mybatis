@@ -9,8 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class SessionTimeoutInterceptor implements HandlerInterceptor {
     private int openingTime;
     private int closingTime;
-    private String outsideOfficeHoursPage;
-    private String notfoundpage;
     private List<String> excludedUrls;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object handler) throws Exception {
@@ -75,37 +73,5 @@ public class SessionTimeoutInterceptor implements HandlerInterceptor {
      */
     public void setClosingTime(int closingTime) {
         this.closingTime = closingTime;
-    }
-
-    /**
-     * @return the outsideOfficeHoursPage
-     */
-    public String getOutsideOfficeHoursPage() {
-        return outsideOfficeHoursPage;
-    }
-
-    /**
-     * @param outsideOfficeHoursPage the outsideOfficeHoursPage to set
-     */
-    public void setOutsideOfficeHoursPage(String outsideOfficeHoursPage) {
-        this.outsideOfficeHoursPage = outsideOfficeHoursPage;
-    }
-    
-    public void setExcludedUrls(List<String> excludedUrls) {
-        this.excludedUrls = excludedUrls;
-    }
-
-    /**
-     * @return the notfoundpage
-     */
-    public String getNotfoundpage() {
-        return notfoundpage;
-    }
-
-    /**
-     * @param notfoundpage the notfoundpage to set
-     */
-    public void setNotfoundpage(String notfoundpage) {
-        this.notfoundpage = notfoundpage;
     }
 }
