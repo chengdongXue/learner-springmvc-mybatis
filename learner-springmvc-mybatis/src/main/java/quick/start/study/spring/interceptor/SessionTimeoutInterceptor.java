@@ -74,4 +74,19 @@ public class SessionTimeoutInterceptor implements HandlerInterceptor {
     public void setClosingTime(int closingTime) {
         this.closingTime = closingTime;
     }
+
+    /**
+     * @return the excludedUrls
+     */
+    public List<String> getExcludedUrls() {
+        return excludedUrls;
+    }
+
+    /**
+     * @param excludedUrls the excludedUrls to set
+     */
+    public void setExcludedUrls(List<String> excludedUrls) {
+        this.excludedUrls = excludedUrls;
+    }
+    
 }
