@@ -94,7 +94,7 @@
   <bean id="messageSource"  class="org.springframework.context.support.ResourceBundleMessageSource"  
        p:basename="message">  
    </bean>
-        
+   
  <import resource="spring-mybatis.xml"/>
     
 </beans> 

@@ -43,6 +43,21 @@ public class WelcomeController {
         }
         return response;
     }
+    
+    @RequestMapping(value = "/xuechengdong",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public EmployeeResponse xuechengdong(HttpServletRequest request,HttpServletResponse responseStatus) throws IOException{
+        EmployeeResponse response = new EmployeeResponse();
+        try {
+        	int userId = Integer.parseInt(request.getParameter("id"));
+            List<Employee>  employeeList = this.empService.selectGetEmployeeList(userId);
+            response.setEmployeeList(employeeList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
     @RequestMapping("/showEmpDropSortList")
     public String showEmpList(HttpServletRequest request, Model model) {
